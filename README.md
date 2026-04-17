@@ -28,11 +28,11 @@ All classes follow **encapsulation, inheritance, abstraction, and polymorphism**
 
 * `username` (String)
 * `password` (String, validated)
-* `dateOfBirth` (LocalDate / Date)
+* `dateOfBirth` (Date)
 * `balance` (double)
 * `address` (String)
 * `gender` (Enum: `MALE`, `FEMALE`)
-* `roomPreferences` (custom structure: preferred type, floor, etc.)
+* `roomPreferences` 
 
 ### Behaviors
 
@@ -177,26 +177,6 @@ ArrayList<Guest> guests;
 ArrayList<Room> rooms;
 ArrayList<Reservation> reservations;
 ArrayList<Invoice> invoices;
-```
-
-### Features
-
-* Stores all system data in memory
-* Pre-populated with dummy data for testing
-* Enables quick testing without external database setup
-
----
-
-## 🧪 Testing the System
-
-* The system runs directly after launch using preloaded data
-* You can simulate:
-
-  * Guest registration & login
-  * Room booking
-  * Reservation management
-  * Payment processing
-
 ---
 
 ## 🚀 Future Improvements
