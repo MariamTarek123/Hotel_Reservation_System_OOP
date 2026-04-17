@@ -60,8 +60,8 @@ public abstract class Person {
         if (password == null || password.isBlank()) {
             throw new IllegalArgumentException("Password cannot be blank.");
         }
-        if (password.length() < 8) {
-            throw new IllegalArgumentException("Password must be at least 8 characters long.");
+        if (password.length() < 7) {
+            throw new IllegalArgumentException("Password must be at least 7 characters long.");
         }
         if (!password.matches(".*[A-Za-z].*")) {
             throw new IllegalArgumentException("Password must include at least one letter.");

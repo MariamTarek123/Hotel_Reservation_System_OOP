@@ -1,9 +1,7 @@
 package database;
 
-import enums.Gender;
-import enums.PaymentMethod;
-import enums.ReservationStatus;
-import enums.Role;
+import enums.genders;
+import enums.paymentmethod;
 import models.*;
 
 import java.time.LocalDate;
@@ -63,35 +61,31 @@ public class HotelDatabase {
         rooms.add(r4);
 
         // Guests
-        Guest g1 = new Guest("alice", "pass123", LocalDate.of(1995, 3, 10), Gender.FEMALE, 500.0, "Cairo", "Double");
-        Guest g2 = new Guest("bob", "pass456", LocalDate.of(1990, 7, 22), Gender.MALE, 300.0, "Giza", "Single");
-        Guest g3 = new Guest("carol", "pass789", LocalDate.of(2000, 1, 15), Gender.FEMALE, 1000.0, "Alexandria", "Suite");
+        Guest g1 = new Guest("alice", "Alice123", LocalDate.of(1995, 3, 10), "Cairo", genders.FEMALE, 500.0, "Double");
+        Guest g2 = new Guest("bob", "Bobby123", LocalDate.of(1990, 7, 22), "Giza", genders.MALE, 300.0, "Single");
+        Guest g3 = new Guest("carol", "Carol123", LocalDate.of(2000, 1, 15), "Alexandria", genders.FEMALE, 1000.0, "Suite");
         guests.add(g1);
         guests.add(g2);
         guests.add(g3);
 
         // Staff
-        Admin admin = new Admin("admin", "admin123", LocalDate.of(1985, 1, 1), Gender.MALE, 40);
-        Receptionist rec = new Receptionist("rec1", "rec123", LocalDate.of(1992, 5, 15), Gender.FEMALE, 35);
+        Admin admin = new Admin("admin", "Admin123", LocalDate.of(1985, 1, 1), "Cairo", genders.MALE, 40);
+        Receptionist rec = new Receptionist("rec1", "Recep123", LocalDate.of(1992, 5, 15), "Giza", genders.FEMALE, 35);
         staff.add(admin);
         staff.add(rec);
 
         // Reservations
-        Reservation res1 = new Reservation(1, g1, r1, LocalDate.of(2026, 5, 1), LocalDate.of(2026, 5, 5));
-        res1.confirm();
+        Reservation res1 = new Reservation(g1, r1, LocalDate.of(2026, 5, 1), LocalDate.of(2026, 5, 5));
         r1.setAvailable(false);
         reservations.add(res1);
 
-        Reservation res2 = new Reservation(2, g2, r2, LocalDate.of(2026, 5, 10), LocalDate.of(2026, 5, 12));
+        Reservation res2 = new Reservation(g2, r2, LocalDate.of(2026, 5, 10), LocalDate.of(2026, 5, 12));
         reservations.add(res2);
 
         // Invoices
-        try {
-            Invoice inv1 = new Invoice(1, res1, PaymentMethod.CREDIT_CARD);
-            invoices.add(inv1);
-        } catch (Exception e) {
-            System.out.println("Invoice error: " + e.getMessage());
-        }
+        Invoice inv1 = Invoice.generate(res1, res1.getNumberOfNights() * r1.getPricePerNight());
+        inv1.markPaid(paymentmethod.CREDIT_CARD);
+        invoices.add(inv1);
     }
 
     public static Guest findGuestByUsername(String username) {
@@ -107,12 +101,5 @@ public class HotelDatabase {
             if (r.isAvailable())
                 available.add(r);
         return available;
-    }
-
-    public static Reservation findReservationById(int id) {
-        for (Reservation r : reservations)
-            if (r.getReservationId() == id)
-                return r;
-        return null;
     }
 }
