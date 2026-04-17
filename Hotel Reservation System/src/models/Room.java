@@ -59,6 +59,24 @@ public class Room {
         this.roomType = roomType;
     }
 
+    /**
+     * Determines whether this Room is exactly equal to another Object.
+     * In this system, two Rooms are considered the exact same if they
+     * share the exact same unique roomId. This allows lists to correctly
+     * find, update, or delete rooms based on this ID.
+
+     * @param o the object to compare against
+     * @return true if both objects are Rooms with matching roomIds
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Room room = (Room) o;
+            return roomId == room.roomId;
+    }
+
     @Override
     public String toString() {
         return "Room{id=" + roomId + ", number=" + roomNumber +

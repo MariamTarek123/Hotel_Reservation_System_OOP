@@ -42,6 +42,16 @@ public class Amenity {
     public void setDescription(String Description) {
         this.Description = Description;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Amenity amenity = (Amenity) o;
+            return AmenityId == amenity.AmenityId;
+    }
+
     @Override
     public String toString() {
         return "Amenity{id=" + AmenityId + ", name=" + name + ", description=" + Description + "}";
