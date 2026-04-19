@@ -16,7 +16,7 @@ public class Main {
     static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     public static void main(String[] args) {
-       // HotelDatabase.populate();
+        HotelDatabase.populate();
         System.out.println("╔══════════════════════════════════════╗");
         System.out.println("║   Welcome to Hotel Reservation System ║");
         System.out.println("╚══════════════════════════════════════╝");
@@ -228,16 +228,24 @@ public class Main {
 
     // ===== PAY INVOICE =====
     static void payInvoice(Guest guest) {
-        System.out.println("\n--- Pay Invoice ---");
-        System.out.println("Your current balance: $" + guest.getBalance());
-        System.out.print("Enter amount to pay: $");
-        double amount = 0;
-        try {
-            amount = Double.parseDouble(scanner.nextLine());
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid amount entered. Cannot process payment.");
+        // find active reservation for this guest
+        Reservation activeReservation = null;
+        for (Reservation r : HotelDatabase.reservations)
+            if (r.getGuest().getUsername().equals(guest.getUsername()) && r.isActive())
+                activeReservation = r;
+
+        if (activeReservation == null) {
+            System.out.println("Error: No reservation made yet. Please make a reservation first.");
             return;
         }
+
+        double amount = activeReservation.getNumberOfNights() * activeReservation.getRoom().getPricePerNight();
+
+        System.out.println("\n--- Pay Invoice ---");
+        System.out.println("Reservation: Room " + activeReservation.getRoom().getRoomNumber()
+                + " | " + activeReservation.getNumberOfNights() + " night(s)");
+        System.out.println("Amount due : $" + amount);
+        System.out.println("Your balance: $" + guest.getBalance());
 
         System.out.println("\nPayment Methods:");
         System.out.println("1. Cash");
@@ -263,6 +271,7 @@ public class Main {
 
         try {
             guest.pay(amount, method);
+            activeReservation.complete();
             System.out.println("Payment successful! Remaining balance: $" + guest.getBalance());
         } catch (InvalidPaymentException e) {
             System.out.println("Payment failed: " + e.getMessage());
@@ -270,7 +279,6 @@ public class Main {
             System.out.println("Error: " + e.getMessage());
         }
     }
-
     // ===== STAFF LOGIN =====
     static void staffLogin() {
         System.out.println("\n--- Staff Login ---");
@@ -413,7 +421,7 @@ public class Main {
         String prefs = scanner.nextLine();
 
         try {
-            Guest newGuest = new Guest(username, password, dob, address, gender, 0.0, prefs);
+            Guest newGuest = new Guest(username, password, dob, address, gender, 2000.0, prefs);
             HotelDatabase.guests.add(newGuest);
             System.out.println("\nRegistration successful! You can now login with username: " + username);
         } catch (IllegalArgumentException e) {

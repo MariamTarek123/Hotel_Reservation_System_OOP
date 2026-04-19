@@ -45,7 +45,7 @@ public class HotelDatabase {
         r2.addAmenity(tv);
         r2.addAmenity(ac);
 
-        Room r3 = new Room(3, "201", 2, 200.0, suite);
+        Room r3 = new Room(3, "505", 2, 200.0, suite);
         r3.addAmenity(wifi);
         r3.addAmenity(tv);
         r3.addAmenity(minibar);
@@ -61,16 +61,16 @@ public class HotelDatabase {
         rooms.add(r4);
 
         // Guests
-        Guest g1 = new Guest("alice", "Alice123", LocalDate.of(1995, 3, 10), "Cairo", genders.FEMALE, 500.0, "Double");
+        Guest g1 = new Guest("Farida", "ferry177", LocalDate.of(2007, 7, 17), "Cairo", genders.FEMALE, 1500.0, "Single");
         Guest g2 = new Guest("bob", "Bobby123", LocalDate.of(1990, 7, 22), "Giza", genders.MALE, 300.0, "Single");
-        Guest g3 = new Guest("carol", "Carol123", LocalDate.of(2000, 1, 15), "Alexandria", genders.FEMALE, 1000.0, "Suite");
+        Guest g3 = new Guest("carol", "kouki666", LocalDate.of(2000, 1, 15), "Alexandria", genders.FEMALE, 1000.0, "Suite");
         guests.add(g1);
         guests.add(g2);
         guests.add(g3);
 
         // Staff
-        Admin admin = new Admin("admin", "Admin123", LocalDate.of(1985, 1, 1), "Cairo", genders.MALE, 40);
-        Receptionist rec = new Receptionist("rec1", "Recep123", LocalDate.of(1992, 5, 15), "Giza", genders.FEMALE, 35);
+        Admin admin = new Admin("Bohsen", "Bohsen123", LocalDate.of(1985, 1, 1), "Cairo", genders.MALE, 40);
+        Receptionist rec = new Receptionist("shehebar", "shehebar123", LocalDate.of(1992, 5, 15), "Giza", genders.MALE, 35);
         staff.add(admin);
         staff.add(rec);
 
