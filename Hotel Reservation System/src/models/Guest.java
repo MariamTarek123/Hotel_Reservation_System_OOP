@@ -5,6 +5,7 @@ import enums.genders;
 import enums.paymentmethod;
 import exceptions.InvalidPaymentException;
 import exceptions.RoomNotAvailableException;
+import exceptions.InvalidDateRangeException;
 import interfaces.Payable;
 
 import java.time.LocalDate;
@@ -41,9 +42,14 @@ public class Guest extends Person implements Payable {
                 System.out.println("  " + r.getRoomNumber() + " - " + r.getRoomType().getTypeName() + " - $" + r.getPricePerNight() + "/night");
     }
 
-    public void makeReservation(Room room, LocalDate checkIn, LocalDate checkOut) throws RoomNotAvailableException {
+    public void makeReservation(Room room, LocalDate checkIn, LocalDate checkOut) throws RoomNotAvailableException, InvalidDateRangeException {
         if (!room.isAvailable())
             throw new RoomNotAvailableException("Room " + room.getRoomNumber() + " is not available.");
+        if (checkIn.isBefore(LocalDate.now()))
+            throw new InvalidDateRangeException("Check-in date cannot be in the past.");
+        if (!checkOut.isAfter(checkIn))
+            throw new InvalidDateRangeException("Check-out date must be after check-in date.");
+            
         Reservation reservation = new Reservation(this, room, checkIn, checkOut);
         room.setAvailable(false);
         HotelDatabase.reservations.add(reservation);

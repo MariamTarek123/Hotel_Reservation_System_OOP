@@ -2,18 +2,21 @@ import database.HotelDatabase;
 import enums.genders;
 import enums.paymentmethod;
 import exceptions.InvalidCredentialsException;
+import exceptions.InvalidDateRangeException;
 import exceptions.InvalidPaymentException;
 import exceptions.RoomNotAvailableException;
 import models.*;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Main {
     static Scanner scanner = new Scanner(System.in);
+    static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     public static void main(String[] args) {
-        HotelDatabase.populate();
+       // HotelDatabase.populate();
         System.out.println("╔══════════════════════════════════════╗");
         System.out.println("║   Welcome to Hotel Reservation System ║");
         System.out.println("╚══════════════════════════════════════╝");
@@ -26,8 +29,13 @@ public class Main {
             System.out.println("4. Exit");
             System.out.print("Your choice: ");
 
-            int choice = scanner.nextInt();
-            scanner.nextLine();
+            int choice = -1;
+            try {
+                choice = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a valid number.");
+                continue;
+            }
 
             switch (choice) {
                 case 1 -> guestLogin();
@@ -77,8 +85,13 @@ public class Main {
             System.out.println("7. Logout");
             System.out.print("Your choice: ");
 
-            int choice = scanner.nextInt();
-            scanner.nextLine();
+            int choice = -1;
+            try {
+                choice = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a valid number.");
+                continue;
+            }
 
             switch (choice) {
                 case 1 -> guest.viewAvailableRooms();
@@ -137,10 +150,25 @@ public class Main {
             return;
         }
 
-        System.out.print("Check-in date  (YYYY-MM-DD): ");
-        LocalDate checkIn = LocalDate.parse(scanner.nextLine());
-        System.out.print("Check-out date (YYYY-MM-DD): ");
-        LocalDate checkOut = LocalDate.parse(scanner.nextLine());
+        LocalDate checkIn = null;
+        LocalDate checkOut = null;
+        while (checkIn == null) {
+            System.out.print("Check-in date  (DD-MM-YYYY): ");
+            try {
+                checkIn = LocalDate.parse(scanner.nextLine(), dateFormatter);
+            } catch (java.time.format.DateTimeParseException e) {
+                System.out.println("Invalid date. Please check the year, month, and day and use DD-MM-YYYY format.");
+            }
+        }
+
+        while (checkOut == null) {
+            System.out.print("Check-out date (DD-MM-YYYY): ");
+            try {
+                checkOut = LocalDate.parse(scanner.nextLine(), dateFormatter);
+            } catch (java.time.format.DateTimeParseException e) {
+                System.out.println("Invalid date. Please check the year, month, and day and use DD-MM-YYYY format.");
+            }
+        }
 
         long nights = java.time.temporal.ChronoUnit.DAYS.between(checkIn, checkOut);
         double total = nights * selectedRoom.getPricePerNight();
@@ -154,7 +182,7 @@ public class Main {
         if (confirm.equalsIgnoreCase("yes")) {
             try {
                 guest.makeReservation(selectedRoom, checkIn, checkOut);
-            } catch (RoomNotAvailableException e) {
+            } catch (RoomNotAvailableException | InvalidDateRangeException e) {
                 System.out.println("Error: " + e.getMessage());
             }
         } else {
@@ -203,16 +231,25 @@ public class Main {
         System.out.println("\n--- Pay Invoice ---");
         System.out.println("Your current balance: $" + guest.getBalance());
         System.out.print("Enter amount to pay: $");
-        double amount = scanner.nextDouble();
-        scanner.nextLine();
+        double amount = 0;
+        try {
+            amount = Double.parseDouble(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid amount entered. Cannot process payment.");
+            return;
+        }
 
         System.out.println("\nPayment Methods:");
         System.out.println("1. Cash");
         System.out.println("2. Credit Card");
         System.out.println("3. Online");
         System.out.print("Choose payment method (1-3): ");
-        int methodChoice = scanner.nextInt();
-        scanner.nextLine();
+        int methodChoice = -1;
+        try {
+            methodChoice = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Defaulting to Cash.");
+        }
 
         paymentmethod method = switch (methodChoice) {
             case 1 -> paymentmethod.CASH;
@@ -269,8 +306,13 @@ public class Main {
             System.out.println("6. Logout");
             System.out.print("Your choice: ");
 
-            int choice = scanner.nextInt();
-            scanner.nextLine();
+            int choice = -1;
+            try {
+                choice = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a valid number.");
+                continue;
+            }
 
             switch (choice) {
                 case 1 -> {
@@ -341,16 +383,28 @@ public class Main {
         String password = scanner.nextLine();
         System.out.print("Address: ");
         String address = scanner.nextLine();
-        System.out.print("Date of birth (YYYY-MM-DD): ");
-        LocalDate dob = LocalDate.parse(scanner.nextLine());
+        
+        LocalDate dob = null;
+        while (dob == null) {
+            System.out.print("Date of birth (DD-MM-YYYY): ");
+            try {
+                dob = LocalDate.parse(scanner.nextLine(), dateFormatter);
+            } catch (java.time.format.DateTimeParseException e) {
+                System.out.println("Invalid date. Please check the year, month, and day and use DD-MM-YYYY format.");
+            }
+        }
 
         System.out.println("Gender options:");
         System.out.println("1. Male");
         System.out.println("2. Female");
         System.out.print("Choose (1-2): ");
-        int genderChoice = scanner.nextInt();
-        scanner.nextLine();
-        genders gender = genderChoice == 1 ? genders.MALE : genders.FEMALE;
+        int genderChoice = 1;
+        try {
+            genderChoice = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Defaulting to Male.");
+        }
+        genders gender = genderChoice == 2 ? genders.FEMALE : genders.MALE;
 
         System.out.println("\nRoom Type Preferences:");
         for (RoomType rt : HotelDatabase.roomTypes)
@@ -367,3 +421,4 @@ public class Main {
         }
     }
 }
+
