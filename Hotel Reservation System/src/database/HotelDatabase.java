@@ -61,8 +61,8 @@ public class HotelDatabase {
         rooms.add(r4);
 
         // Guests
-        Guest g1 = new Guest("Farida", "ferry177", LocalDate.of(2007, 7, 17), "Cairo", genders.FEMALE, 1500.0, "Single");
-        Guest g2 = new Guest("bob", "Bobby123", LocalDate.of(1990, 7, 22), "Giza", genders.MALE, 300.0, "Single");
+        Guest g1 = new Guest("Farida", "ferry177", LocalDate.of(2000, 4, 1), "Cairo", genders.FEMALE, 1500.0, "Single");
+        Guest g2 = new Guest("ibrahim", "Bebo123", LocalDate.of(1990, 7, 22), "Giza", genders.MALE, 300.0, "Single");
         Guest g3 = new Guest("carol", "kouki666", LocalDate.of(2000, 1, 15), "Alexandria", genders.FEMALE, 1000.0, "Suite");
         guests.add(g1);
         guests.add(g2);
