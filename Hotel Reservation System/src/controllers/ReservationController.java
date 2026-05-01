@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import main.SceneManager;
 import models.Amenity;
 import models.Guest;
+import models.Reservation;
 import models.Room;
 
 import java.net.URL;
@@ -85,9 +86,18 @@ public class ReservationController implements Initializable {
         }
 
         try {
-            guest.makeReservation(room, checkIn, checkOut);
-            showAlert(Alert.AlertType.INFORMATION, "Success", "Reservation confirmed!");
-            SceneManager.switchTo("dashboard.fxml");
+            Reservation newRes = guest.makeReservation(room, checkIn, checkOut);
+
+            // Calculate total price
+            long nights = ChronoUnit.DAYS.between(checkIn, checkOut);
+            double total = nights * room.getPricePerNight();
+
+            // Pass the details to checkout
+            SceneManager.setPendingReservation(newRes);
+            SceneManager.setPendingAmount(total);
+
+            showAlert(Alert.AlertType.INFORMATION, "Success", "Dates confirmed! Please proceed to payment.");
+            SceneManager.switchTo("Checkout.fxml");
         } catch (RoomNotAvailableException e) {
             errorLabel.setText("Error: " + e.getMessage());
         } catch (Exception e) {

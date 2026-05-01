@@ -16,7 +16,7 @@ public class Main {
     static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     public static void main(String[] args) {
-        HotelDatabase.populate();
+        //HotelDatabase.populate();
         System.out.println("╔══════════════════════════════════════╗");
         System.out.println("║   Welcome to Hotel Reservation System ║");
         System.out.println("╚══════════════════════════════════════╝");

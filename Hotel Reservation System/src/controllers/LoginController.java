@@ -53,7 +53,7 @@ public class LoginController {
             try {
                 s.login(username, password);
                 SceneManager.setCurrentStaff(s);
-                SceneManager.switchTo("dashboard.fxml");
+                SceneManager.switchTo("staff_dashboard.fxml");
                 return;
             } catch (InvalidCredentialsException e) {
                 // try next

@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import main.SceneManager;
 import models.Guest;
+import models.Invoice;
 import models.Reservation;
 
 import java.net.URL;
@@ -39,10 +40,21 @@ public class DashboardController implements Initializable {
         ObservableList<String> items = FXCollections.observableArrayList();
         for (Reservation r : HotelDatabase.reservations) {
             if (r.getGuest().getUsername().equals(guest.getUsername())) {
+                boolean isPaid = false;
+                for (Invoice inv : HotelDatabase.invoices) {
+                    if (inv.getReservation() == r && inv.isPaid()) {
+                        isPaid = true;
+                        break;
+                    }
+                }
+                
+                String paymentStatus = isPaid ? "Paid" : "Unpaid";
+                
                 items.add("Room " + r.getRoom().getRoomNumber()
                         + " | " + r.getCheckInDate()
                         + " → " + r.getCheckOutDate()
-                        + " | " + r.getStatus());
+                        + " | " + r.getStatus()
+                        + " | " + paymentStatus);
             }
         }
         if (items.isEmpty())
@@ -57,17 +69,41 @@ public class DashboardController implements Initializable {
 
     @FXML
     private void handleCheckout() {
-        // check if there's an active reservation first
-        boolean hasActive = false;
-        for (Reservation r : HotelDatabase.reservations)
-            if (r.getGuest().getUsername().equals(guest.getUsername()) && r.isActive())
-                hasActive = true;
+        // check if there's an active unpaid reservation first
+        Reservation activeRes = null;
+        for (Reservation r : HotelDatabase.reservations) {
+            if (r.getGuest().getUsername().equals(guest.getUsername()) && r.isActive()) {
+                // Check if it's already paid
+                boolean isPaid = false;
+                for (Invoice inv : HotelDatabase.invoices) {
+                    if (inv.getReservation() == r && inv.isPaid()) {
+                        isPaid = true;
+                        break;
+                    }
+                }
+                
+                if (!isPaid) {
+                    activeRes = r;
+                    break; // Found an unpaid one
+                }
+            }
+        }
 
-        if (!hasActive) {
-            messageLabel.setText("No active reservation found. Please make a reservation first.");
+        if (activeRes == null) {
+            messageLabel.setText("No active unpaid reservation found. You are all set!");
             return;
         }
-        SceneManager.switchTo("checkout.fxml");
+
+        // Calculate amount for the existing active unpaid reservation
+        long nights = java.time.temporal.ChronoUnit.DAYS.between(activeRes.getCheckInDate(), activeRes.getCheckOutDate());
+        if (nights == 0) nights = 1; // Minimum 1 night
+        double total = nights * activeRes.getRoom().getPricePerNight();
+
+        // Pass to SceneManager so CheckoutController knows what it's paying for
+        SceneManager.setPendingReservation(activeRes);
+        SceneManager.setPendingAmount(total);
+
+        SceneManager.switchTo("Checkout.fxml");
     }
 
     @FXML

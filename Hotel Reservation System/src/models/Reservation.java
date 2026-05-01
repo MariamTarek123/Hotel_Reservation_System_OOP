@@ -29,7 +29,7 @@ public class Reservation {
         setRoom(room);
         setCheckInDate(checkInDate);
         setCheckOutDate(checkOutDate);
-        this.status = reservationstatus.CONFIRMED;
+        this.status = reservationstatus.PENDING;
     }
 
     public Guest getGuest() {

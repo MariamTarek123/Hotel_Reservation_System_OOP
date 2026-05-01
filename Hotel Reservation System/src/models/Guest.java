@@ -42,9 +42,19 @@ public class Guest extends Person implements Payable {
                 System.out.println("  " + r.getRoomNumber() + " - " + r.getRoomType().getTypeName() + " - $" + r.getPricePerNight() + "/night");
     }
 
-    public void makeReservation(Room room, LocalDate checkIn, LocalDate checkOut) throws RoomNotAvailableException, InvalidDateRangeException {
+    public Reservation makeReservation(Room room, LocalDate checkIn, LocalDate checkOut) throws RoomNotAvailableException, InvalidDateRangeException {
         if (!room.isAvailable())
             throw new RoomNotAvailableException("Room " + room.getRoomNumber() + " is not available.");
+            
+        // Check the database to prevent overlapped dates for already booked rooms
+        for (Reservation r : HotelDatabase.reservations) {
+            if (r.getRoom().getRoomNumber().equals(room.getRoomNumber()) && r.isActive()) {
+                if (r.overlaps(checkIn, checkOut)) {
+                    throw new RoomNotAvailableException("Room " + room.getRoomNumber() + " is already booked for these overlapping dates.");
+                }
+            }
+        }
+
         if (checkIn.isBefore(LocalDate.now()))
             throw new InvalidDateRangeException("Check-in date cannot be in the past.");
         if (!checkOut.isAfter(checkIn))
@@ -54,6 +64,7 @@ public class Guest extends Person implements Payable {
         room.setAvailable(false);
         HotelDatabase.reservations.add(reservation);
         System.out.println("Reservation made successfully!");
+        return reservation;
     }
 
     public void viewReservations() {

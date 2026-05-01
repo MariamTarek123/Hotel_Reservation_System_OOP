@@ -16,7 +16,7 @@ public class HotelDatabase {
     public static ArrayList<Amenity> amenities = new ArrayList<>();
     public static ArrayList<Staff> staff = new ArrayList<>();
 
-    public static void populate() {
+    static  {
         // Room Types
         RoomType single = new RoomType(1, "Single", 50.0);
         RoomType double_ = new RoomType(2, "Double", 90.0);
@@ -61,8 +61,8 @@ public class HotelDatabase {
         rooms.add(r4);
 
         // Guests
-        Guest g1 = new Guest("Farah", "farooha123", LocalDate.of(2000, 4, 1), "Cairo", genders.FEMALE, 1500.0, "Single");
-        Guest g2 = new Guest("ibrahim", "Bebo123", LocalDate.of(1990, 7, 22), "Giza", genders.MALE, 300.0, "Single");
+        Guest g1 = new Guest("Mariam", "Mario123", LocalDate.of(2006, 10, 8), "Cairo", genders.FEMALE, 15000.0, "Suite");
+        Guest g2 = new Guest("Ibrahim", "Bebo123", LocalDate.of(1990, 7, 22), "Giza", genders.MALE, 700.0, "Single");
         Guest g3 = new Guest("carol", "kouki666", LocalDate.of(2000, 1, 15), "Alexandria", genders.FEMALE, 1000.0, "Suite");
         guests.add(g1);
         guests.add(g2);
@@ -70,7 +70,7 @@ public class HotelDatabase {
 
         // Staff
         Admin admin = new Admin("Bohsen", "Bohsen123", LocalDate.of(1985, 1, 1), "Cairo", genders.MALE, 40);
-        Receptionist rec = new Receptionist("shehebar", "shehebar123", LocalDate.of(1992, 5, 15), "Giza", genders.MALE, 35);
+        Receptionist rec = new Receptionist("shehebar", "shehebar123", LocalDate.of(1998, 5, 15), "Giza", genders.MALE, 35);
         staff.add(admin);
         staff.add(rec);
 

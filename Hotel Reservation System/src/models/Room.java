@@ -48,6 +48,17 @@ public class Room {
 
     // Setters
     public void setAvailable(boolean available) { isAvailable = available; }
+    
+    public void setRoomNumber(String roomNumber) {
+        if (roomNumber == null || roomNumber.isEmpty())
+            throw new IllegalArgumentException("Room number cannot be empty.");
+        this.roomNumber = roomNumber;
+    }
+    
+    public void setFloor(int floor) {
+        this.floor = floor;
+    }
+    
     public void setPricePerNight(double pricePerNight) {
         if (pricePerNight < 0)
             throw new IllegalArgumentException("Price cannot be negative.");
