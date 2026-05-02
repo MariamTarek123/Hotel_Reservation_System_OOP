@@ -12,7 +12,7 @@ public class App extends Application {
         SceneManager.setStage(stage);
         SceneManager.switchTo("login.fxml");
         stage.setTitle("Hotel Reservation System");
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.show();
     }
 
