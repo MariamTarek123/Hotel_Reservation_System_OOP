@@ -818,7 +818,7 @@
 .login-left-panel {
     /* We use a fallback dark grey/brown gradient resembling the image */
     -fx-background-color: linear-gradient(to bottom right, #4b5358, #182025);
-    -fx-background-image: url('C:\Users\Mariam\OneDrive\Desktop\background');
+    -fx-background-image: url("file:///C:/Users/Mariam/OneDrive/Desktop/background.jpg");
     -fx-background-size: cover;
 }
 
@@ -827,6 +827,7 @@
     -fx-font-family:    "Georgia", serif;
     -fx-font-size:      42px;
     -fx-fill:           #cc0000;
+    -fx-font-weight:    bold;
 }
 
 .transylvania-subbrand {

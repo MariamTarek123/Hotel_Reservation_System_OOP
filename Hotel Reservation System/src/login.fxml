@@ -15,18 +15,22 @@
       styleClass="login-root-bg">
 
     <!-- Left Side: Image / Brand -->
-    <VBox HBox.hgrow="ALWAYS" alignment="CENTER_LEFT" styleClass="login-left-panel">
-        <padding>
-            <Insets top="40" bottom="40" left="40" right="40"/>
-        </padding>
-        <Region VBox.vgrow="ALWAYS" />
-        <Text text="TRANSYLVANIA" styleClass="transylvania-brand"/>
-        <Text text="HOTEL &amp; RESORT" styleClass="transylvania-subbrand"/>
-        <Region prefHeight="20"/>
-        <Text text="Experience luxury in the heart of the Carpathian" styleClass="transylvania-desc"/>
-        <Text text="Mountains. Where legend meets comfort." styleClass="transylvania-desc"/>
-        <Region VBox.vgrow="ALWAYS" />
-    </VBox>
+    <StackPane HBox.hgrow="ALWAYS" styleClass="login-left-panel">
+        <!-- Dark transparent overlay -->
+        <Region style="-fx-background-color: rgba(0, 0, 0, 0.45);"/>
+        <VBox alignment="CENTER_LEFT">
+            <padding>
+                <Insets top="40" bottom="40" left="40" right="40"/>
+            </padding>
+            <Region VBox.vgrow="ALWAYS" />
+            <Text text="TRANSYLVANIA" styleClass="transylvania-brand"/>
+            <Text text="HOTEL &amp; RESORT" styleClass="transylvania-subbrand"/>
+            <Region prefHeight="20"/>
+            <Text text="Experience luxury in the heart of the Carpathian" styleClass="transylvania-desc"/>
+            <Text text="Mountains. Where legend meets comfort." styleClass="transylvania-desc"/>
+            <Region VBox.vgrow="ALWAYS" />
+        </VBox>
+    </StackPane>
 
     <!-- Right Side: Login Form -->
     <VBox alignment="CENTER" spacing="15" prefWidth="450" style="-fx-background-color: white;">
