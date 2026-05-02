@@ -807,3 +807,122 @@
     -fx-background-color: #1a1410;
     -fx-text-fill: -col-gold;
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   LOGIN SCREEN BRANDING AND LAYOUT
+   ═══════════════════════════════════════════════════════════════════ */
+.login-root-bg {
+    -fx-background-color: white;
+}
+
+.login-left-panel {
+    /* We use a fallback dark grey/brown gradient resembling the image */
+    -fx-background-color: linear-gradient(to bottom right, #4b5358, #182025);
+    /* In a real project, you would set a background image:
+    -fx-background-image: url('my-castle-image.png');
+    -fx-background-size: cover; */
+}
+
+/* Brand text on the left */
+.transylvania-brand {
+    -fx-font-family:    "Georgia", serif;
+    -fx-font-size:      42px;
+    -fx-fill:           #cc0000;
+}
+
+.transylvania-subbrand {
+    -fx-font-family:    "Segoe UI", sans-serif;
+    -fx-font-size:      14px;
+    -fx-fill:           #cc0000;
+    -fx-letter-spacing: 2px;
+}
+
+.transylvania-desc {
+    -fx-font-family:    "Segoe UI", sans-serif;
+    -fx-font-size:      16px;
+    -fx-fill:           white;
+}
+
+/* Welcome texts on the right */
+.welcome-text {
+    -fx-font-family:    "Segoe UI", sans-serif;
+    -fx-font-size:      32px;
+    -fx-fill:           #cc0000;
+}
+
+.sign-in-text {
+    -fx-font-family:    "Segoe UI", sans-serif;
+    -fx-font-size:      14px;
+    -fx-fill:           #666666;
+}
+
+.form-label {
+    -fx-font-family:    "Segoe UI", sans-serif;
+    -fx-font-size:      13px;
+    -fx-font-weight:    bold;
+    -fx-text-fill:      #333333;
+}
+
+.form-label-muted {
+    -fx-font-family:    "Segoe UI", sans-serif;
+    -fx-font-size:      13px;
+    -fx-text-fill:      #666666;
+}
+
+.login-input {
+    -fx-background-color: transparent;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 10 15;
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-text-fill: #333333;
+}
+
+.login-input:focused {
+    -fx-border-color: #cc0000;
+}
+
+/* Buttons */
+.btn-red-filled {
+    -fx-background-color: #e60000;
+    -fx-text-fill: white;
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 8;
+    -fx-padding: 12 20;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(230,0,0,0.4), 10, 0, 0, 4);
+    -fx-border-width: 0;
+}
+
+.btn-red-filled:hover {
+    -fx-background-color: #cc0000;
+}
+
+.btn-red-outline {
+    -fx-background-color: white;
+    -fx-text-fill: #cc0000;
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #cc0000;
+    -fx-border-width: 1;
+    -fx-padding: 11 20;
+    -fx-cursor: hand;
+}
+
+.btn-red-outline:hover {
+    -fx-background-color: #fff0f0;
+}
+
+.link-red {
+    -fx-text-fill: #cc0000;
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-border-color: transparent;
+}

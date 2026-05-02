@@ -62,6 +62,12 @@ public class SceneManager {
             if (cssUrl == null) cssUrl = SceneManager.class.getResource("/styles/style.css");
             if (cssUrl == null) cssUrl = SceneManager.class.getClassLoader().getResource("style.css");
             if (cssUrl == null) cssUrl = SceneManager.class.getClassLoader().getResource("styles/style.css");
+            if (cssUrl == null) {
+                java.io.File file = new java.io.File("src/style.css");
+                if (file.exists()) {
+                    cssUrl = file.toURI().toURL();
+                }
+            }
             if (cssUrl != null) {
                 scene.getStylesheets().add(cssUrl.toExternalForm());
             } else {
