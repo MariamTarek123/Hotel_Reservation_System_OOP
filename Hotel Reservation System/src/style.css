@@ -818,9 +818,8 @@
 .login-left-panel {
     /* We use a fallback dark grey/brown gradient resembling the image */
     -fx-background-color: linear-gradient(to bottom right, #4b5358, #182025);
-    /* In a real project, you would set a background image:
-    -fx-background-image: url('my-castle-image.png');
-    -fx-background-size: cover; */
+    -fx-background-image: url('C:\Users\Mariam\OneDrive\Desktop\background');
+    -fx-background-size: cover;
 }
 
 /* Brand text on the left */
