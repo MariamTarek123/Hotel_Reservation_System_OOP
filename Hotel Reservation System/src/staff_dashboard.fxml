@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controllers.StaffDashboardController"
+      spacing="10"
+      prefWidth="800"
+      prefHeight="600"
+      styleClass="root-container">
+
+    <padding>
+        <Insets top="20" bottom="20" left="20" right="20"/>
+    </padding>
+
+    <HBox alignment="CENTER_LEFT" spacing="20">
+        <Text fx:id="welcomeText" text="Staff Dashboard" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="Logout" onAction="#handleLogout" styleClass="secondary-button" />
+    </HBox>
+
+    <Label fx:id="roleLabel" text="Role: " style="-fx-font-size: 14;" />
+
+    <Label fx:id="messageLabel" text="" styleClass="error-label" wrapText="true" />
+
+    <TabPane fx:id="tabPane" VBox.vgrow="ALWAYS" tabClosingPolicy="UNAVAILABLE">
+        <!-- Guests Tab -->
+        <Tab text="Guests">
+            <VBox spacing="10">
+                <padding><Insets top="10"/></padding>
+                <ListView fx:id="guestsListView" VBox.vgrow="ALWAYS" />
+            </VBox>
+        </Tab>
+
+        <!-- Rooms Tab -->
+        <Tab text="Rooms">
+            <VBox spacing="10">
+                <padding><Insets top="10"/></padding>
+                <ListView fx:id="roomsListView" VBox.vgrow="ALWAYS" />
+                <HBox fx:id="adminRoomsBox" spacing="10" visible="false" managed="false">
+                    <Button text="Create Room" onAction="#handleCreateRoom" />
+                    <Button text="Update Selected Room" onAction="#handleUpdateRoom" />
+                    <Button text="Delete Selected Room" onAction="#handleDeleteRoom" />
+                </HBox>
+            </VBox>
+        </Tab>
+
+        <!-- Reservations Tab -->
+        <Tab text="Reservations">
+            <VBox spacing="10">
+                <padding><Insets top="10"/></padding>
+                <ListView fx:id="reservationsListView" VBox.vgrow="ALWAYS" />
+                <HBox fx:id="receptionistBox" spacing="10" visible="false" managed="false">
+                    <Button text="Check-In Selected" onAction="#handleCheckIn" />
+                    <Button text="Check-Out Selected" onAction="#handleCheckOut" />
+                </HBox>
+            </VBox>
+        </Tab>
+    </TabPane>
+
+</VBox>
+

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.Text?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controllers.DashboardController"
+      spacing="15"
+      prefWidth="500"
+      prefHeight="600"
+      styleClass="root-container">
+
+    <padding>
+        <Insets top="30" bottom="30" left="40" right="40"/>
+    </padding>
+
+    <Text text="Guest Dashboard" styleClass="title-text"/>
+
+    <!-- Guest Info -->
+    <VBox styleClass="info-box" spacing="6">
+        <Label fx:id="welcomeLabel"  text="Welcome, -"/>
+        <Label fx:id="balanceLabel"  text="Balance: -"/>
+        <Label fx:id="prefLabel"     text="Room Preference: -"/>
+    </VBox>
+
+    <!-- Reservations -->
+    <VBox spacing="8">
+        <Label text="Your Reservations" styleClass="subtitle-text"/>
+        <ListView fx:id="reservationsList" prefHeight="200"/>
+    </VBox>
+
+    <!-- Buttons -->
+    <Button text="Browse Rooms" onAction="#handleBrowseRooms"
+            styleClass="primary-button" maxWidth="Infinity"/>
+    <Button text="Checkout &amp; Pay" onAction="#handleCheckout"
+            styleClass="primary-button" maxWidth="Infinity"/>
+    <Button text="Cancel a Reservation" onAction="#handleCancel"
+            styleClass="secondary-button" maxWidth="Infinity"/>
+    <Button text="Logout" onAction="#handleLogout"
+            styleClass="secondary-button" maxWidth="Infinity"/>
+
+    <Label fx:id="messageLabel" text="" styleClass="error-label" wrapText="true"/>
+
+</VBox>
