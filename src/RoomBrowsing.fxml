@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controllers.RoomBrowsingController"
+      prefWidth="860" prefHeight="640"
+      style="-fx-background-color: #f5f5f5;">
+
+    <!-- Red Header -->
+    <HBox styleClass="app-header" alignment="CENTER_LEFT" spacing="16" minHeight="54">
+        <Label text="TRANSYLVANIA HOTEL &amp; RESORT" styleClass="app-header-brand"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label text="Room Browsing" styleClass="app-header-sub"/>
+        <Button text="Back" onAction="#goBack" styleClass="app-logout-btn"/>
+    </HBox>
+
+    <!-- Title Row -->
+    <HBox style="-fx-background-color: white; -fx-border-color: transparent transparent #e8e8e8 transparent; -fx-border-width: 0 0 1 0;"
+          alignment="CENTER_LEFT" minHeight="70">
+        <VBox spacing="3" HBox.hgrow="ALWAYS">
+            <padding><Insets top="16" bottom="16" left="36" right="36"/></padding>
+            <Label text="Available Rooms"
+                   style="-fx-font-family: 'Times New Roman'; -fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #1a1a1a;"/>
+            <Label text="Select a room to make a reservation"
+                   style="-fx-font-family: 'Times New Roman'; -fx-font-size: 13px; -fx-text-fill: #888888;"/>
+        </VBox>
+        <ProgressIndicator fx:id="loadingIndicator" visible="false" prefWidth="26" prefHeight="26"/>
+        <Region prefWidth="32"/>
+        <Region prefWidth="6" minHeight="70" maxHeight="70"
+                style="-fx-background-color: linear-gradient(to bottom, #e60000, #8b0000);"/>
+    </HBox>
+
+    <!-- Column headers -->
+    <HBox style="-fx-background-color: #f7f7f7; -fx-border-color: transparent transparent #e0e0e0 transparent;
+                 -fx-border-width: 0 0 1 0; -fx-padding: 10 36;">
+        <Label text="ROOM" style="-fx-font-family: 'Times New Roman'; -fx-font-size: 11px;
+               -fx-font-weight: bold; -fx-text-fill: #999999;" prefWidth="80"/>
+        <Label text="TYPE" style="-fx-font-family: 'Times New Roman'; -fx-font-size: 11px;
+               -fx-font-weight: bold; -fx-text-fill: #999999;" prefWidth="110"/>
+        <Label text="FLOOR" style="-fx-font-family: 'Times New Roman'; -fx-font-size: 11px;
+               -fx-font-weight: bold; -fx-text-fill: #999999;" prefWidth="110"/>
+        <Label text="PRICE / NIGHT" style="-fx-font-family: 'Times New Roman'; -fx-font-size: 11px;
+               -fx-font-weight: bold; -fx-text-fill: #999999;" prefWidth="130"/>
+        <Label text="STATUS" style="-fx-font-family: 'Times New Roman'; -fx-font-size: 11px;
+               -fx-font-weight: bold; -fx-text-fill: #999999;" HBox.hgrow="ALWAYS"/>
+    </HBox>
+
+    <!-- Room List -->
+    <ListView fx:id="roomsListView" VBox.vgrow="ALWAYS" styleClass="white-list"
+              style="-fx-border-radius: 0; -fx-background-radius: 0;"/>
+
+    <!-- Bottom Bar -->
+    <HBox style="-fx-background-color: white; -fx-border-color: #e0e0e0 transparent transparent transparent;
+                 -fx-border-width: 1 0 0 0;" alignment="CENTER_LEFT" spacing="16" minHeight="64">
+        <padding><Insets top="12" bottom="12" left="32" right="32"/></padding>
+        <Label fx:id="messageLabel" text="" styleClass="error-label" wrapText="true" HBox.hgrow="ALWAYS"/>
+        <Button text="Book Selected Room" onAction="#handleBookRoom"
+                styleClass="btn-red-filled" prefWidth="200"/>
+    </HBox>
+</VBox>

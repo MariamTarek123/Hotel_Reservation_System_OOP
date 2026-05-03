@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controllers.ReservationController"
+      prefWidth="820" prefHeight="640"
+      style="-fx-background-color: #f5f5f5;">
+
+    <!-- Red Header -->
+    <HBox styleClass="app-header" alignment="CENTER_LEFT" spacing="16" minHeight="54">
+        <Label text="TRANSYLVANIA HOTEL &amp; RESORT" styleClass="app-header-brand"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label text="Make a Reservation" styleClass="app-header-sub"/>
+        <Button text="Back" onAction="#handleBack" styleClass="app-logout-btn"/>
+    </HBox>
+
+    <!-- Title -->
+    <HBox style="-fx-background-color: white; -fx-border-color: transparent transparent #e8e8e8 transparent; -fx-border-width: 0 0 1 0;"
+          alignment="CENTER_LEFT" minHeight="70">
+        <VBox spacing="3" HBox.hgrow="ALWAYS">
+            <padding><Insets top="16" bottom="16" left="36" right="36"/></padding>
+            <Label text="Reservation Details"
+                   style="-fx-font-family: 'Times New Roman'; -fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #1a1a1a;"/>
+            <Label text="Review your room and choose your dates"
+                   style="-fx-font-family: 'Times New Roman'; -fx-font-size: 13px; -fx-text-fill: #888888;"/>
+        </VBox>
+        <Region prefWidth="6" minHeight="70" maxHeight="70"
+                style="-fx-background-color: linear-gradient(to bottom, #e60000, #8b0000);"/>
+    </HBox>
+
+    <!-- Content: 2-col -->
+    <HBox spacing="0" VBox.vgrow="ALWAYS" style="-fx-background-color: #f5f5f5;">
+
+        <!-- Left: Room Info -->
+        <VBox spacing="0" prefWidth="320"
+              style="-fx-background-color: white;
+                     -fx-border-color: transparent #e8e8e8 transparent transparent;
+                     -fx-border-width: 0 1 0 0;">
+            <padding><Insets top="24" bottom="24" left="32" right="24"/></padding>
+
+            <Label text="Selected Room" styleClass="section-heading"/>
+            <Region prefHeight="14"/>
+
+            <HBox spacing="10" alignment="CENTER_LEFT"
+                  style="-fx-padding: 10 0; -fx-border-color: transparent transparent #f0f0f0 transparent; -fx-border-width: 0 0 1 0;">
+                <Label text="Room No."
+                       style="-fx-font-family: 'Times New Roman'; -fx-font-size: 12px; -fx-text-fill: #999999;"
+                       prefWidth="90"/>
+                <Label fx:id="roomNumberLabel" text="—"
+                       style="-fx-font-family: 'Times New Roman'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #1a1a1a;"/>
+            </HBox>
+            <HBox spacing="10" alignment="CENTER_LEFT"
+                  style="-fx-padding: 10 0; -fx-border-color: transparent transparent #f0f0f0 transparent; -fx-border-width: 0 0 1 0;">
+                <Label text="Type"
+                       style="-fx-font-family: 'Times New Roman'; -fx-font-size: 12px; -fx-text-fill: #999999;"
+                       prefWidth="90"/>
+                <Label fx:id="roomTypeLabel" text="—"
+                       style="-fx-font-family: 'Times New Roman'; -fx-font-size: 14px; -fx-text-fill: #1a1a1a;"/>
+            </HBox>
+            <HBox spacing="10" alignment="CENTER_LEFT"
+                  style="-fx-padding: 10 0; -fx-border-color: transparent transparent #f0f0f0 transparent; -fx-border-width: 0 0 1 0;">
+                <Label text="Price / Night"
+                       style="-fx-font-family: 'Times New Roman'; -fx-font-size: 12px; -fx-text-fill: #999999;"
+                       prefWidth="90"/>
+                <Label fx:id="roomPriceLabel" text="—"
+                       style="-fx-font-family: 'Times New Roman'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #cc0000;"/>
+            </HBox>
+            <HBox spacing="10" alignment="CENTER_LEFT"
+                  style="-fx-padding: 10 0; -fx-border-color: transparent transparent #f0f0f0 transparent; -fx-border-width: 0 0 1 0;">
+                <Label text="Floor"
+                       style="-fx-font-family: 'Times New Roman'; -fx-font-size: 12px; -fx-text-fill: #999999;"
+                       prefWidth="90"/>
+                <Label fx:id="roomFloorLabel" text="—"
+                       style="-fx-font-family: 'Times New Roman'; -fx-font-size: 14px; -fx-text-fill: #1a1a1a;"/>
+            </HBox>
+            <HBox spacing="10" alignment="TOP_LEFT" style="-fx-padding: 10 0;">
+                <Label text="Amenities"
+                       style="-fx-font-family: 'Times New Roman'; -fx-font-size: 12px; -fx-text-fill: #999999;"
+                       prefWidth="90"/>
+                <Label fx:id="roomAmenitiesLabel" text="—" wrapText="true"
+                       style="-fx-font-family: 'Times New Roman'; -fx-font-size: 13px; -fx-text-fill: #444444;"
+                       HBox.hgrow="ALWAYS"/>
+            </HBox>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <Label fx:id="summaryLabel" text="" wrapText="true"
+                   style="-fx-background-color: #fff5f5; -fx-border-color: #ffcccc;
+                          -fx-border-width: 1; -fx-border-radius: 6; -fx-background-radius: 6;
+                          -fx-padding: 12; -fx-font-family: 'Times New Roman';
+                          -fx-font-size: 13px; -fx-text-fill: #cc0000;"
+                   maxWidth="Infinity"/>
+        </VBox>
+
+        <!-- Right: Date pickers + actions -->
+        <VBox spacing="20" HBox.hgrow="ALWAYS">
+            <padding><Insets top="28" bottom="28" left="36" right="36"/></padding>
+
+            <Label text="Choose Your Dates" styleClass="section-heading"/>
+
+            <VBox spacing="8">
+                <Label text="Check-in Date" styleClass="form-label"/>
+                <DatePicker fx:id="checkInPicker" maxWidth="Infinity"/>
+            </VBox>
+
+            <VBox spacing="8">
+                <Label text="Check-out Date" styleClass="form-label"/>
+                <DatePicker fx:id="checkOutPicker" maxWidth="Infinity"/>
+            </VBox>
+
+            <Label fx:id="errorLabel" text="" styleClass="error-label" wrapText="true"/>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <Button text="Calculate Total" onAction="#handleCalculate"
+                    styleClass="btn-red-outline" maxWidth="Infinity"/>
+            <Button text="Confirm Reservation" onAction="#handleConfirm"
+                    styleClass="btn-red-filled" maxWidth="Infinity"/>
+        </VBox>
+    </HBox>
+</VBox>

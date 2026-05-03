@@ -1,0 +1,1586 @@
+
+/* ═══════════════════════════════════════════════════════════════════
+   MAJESTIC HOTEL — JavaFX Stylesheet
+   Luxury dark theme with full light-mode override
+   Toggle light mode: add/remove "light-mode" style class on scene root
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ─── DARK THEME (default) ───────────────────────────────────────── */
+.root {
+    /* Backgrounds */
+   -col-bg:           #0b0c14;
+    -col-surface:      #13141f;
+    -col-surface-alt:  #1a1b2a;
+    -col-surface-2:    #22233a;
+    -col-overlay:      rgba(0, 0, 0, 0.55);
+
+    /* Brand */
+    -col-primary:      #1c3a5e;
+    -col-primary-dk:   #122840;
+    -col-gold:         #c9a84c;
+    -col-gold-lt:      #f0c860;
+    -col-gold-dk:      #9a7a2a;
+
+    /* Semantic */
+    -col-success:      #2ecc71;
+    -col-danger:       #e74c3c;
+    -col-warning:      #f39c12;
+    -col-info:         #3498db;
+
+    /* Text */
+    -col-text:         #e8e2d4;
+    -col-text-sub:     #a89880;
+    -col-text-faint:   #5c5044;
+    -col-text-inv:     #0b0c14;
+
+    /* Border / Divider */
+    -col-border:       #2a2b3d;
+    -col-border-lt:    #3a3b55;
+
+    /* Base */
+    -fx-font-family:   "Times New Roman";
+    -fx-font-size:     13px;
+    -fx-background-color: -col-bg;
+}
+
+/* ─── LIGHT THEME OVERRIDE ───────────────────────────────────────── */
+.root.light-mode {
+    -col-bg:           #f5f0e8;
+    -col-surface:      #ffffff;
+    -col-surface-alt:  #f9f6f0;
+    -col-surface-2:    #ede8de;
+    -col-overlay:      rgba(255,255,255,0.70);
+
+    -col-primary:      #1a3c5e;
+    -col-primary-dk:   #0e2640;
+    -col-gold:         #b8922a;
+    -col-gold-lt:      #d4a940;
+    -col-gold-dk:      #8a6a10;
+
+    -col-success:      #219150;
+    -col-danger:       #c0392b;
+    -col-warning:      #d68910;
+    -col-info:         #2471a3;
+
+    -col-text:         #1a1410;
+    -col-text-sub:     #5a5040;
+    -col-text-faint:   #a0948a;
+    -col-text-inv:     #ffffff;
+
+    -col-border:       #ddd6c8;
+    -col-border-lt:    #ece5d8;
+
+    -fx-background-color: -col-bg;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   ROOT CONTAINER  (fills each screen)
+   ═══════════════════════════════════════════════════════════════════ */
+.root-container {
+    -fx-background-color:
+            linear-gradient(to bottom right,
+            derive(-col-bg, -8%),
+            -col-bg,
+            derive(-col-primary, -60%)
+            );
+    -fx-padding: 0;
+}
+
+.root.light-mode .root-container {
+    -fx-background-color:
+            linear-gradient(to bottom right,
+            #ede8de,
+            #f5f0e8,
+            derive(-col-primary, 80%)
+            );
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   TYPOGRAPHY
+   ═══════════════════════════════════════════════════════════════════ */
+.title-text {
+    -fx-font-family:    "Times New Roman", serif;
+    -fx-font-size:      28px;
+    -fx-font-weight:    bold;
+    -fx-fill:           -col-gold;
+    -fx-effect: dropshadow(gaussian, derive(-col-gold, -40%), 18, 0.3, 0, 3);
+}
+
+.subtitle-text {
+    -fx-font-family:    "Times New Roman", serif;
+    -fx-font-size:      15px;
+    -fx-font-weight:    bold;
+    -fx-fill:           -col-text;
+    -fx-text-fill:      -col-text;
+}
+
+/* Labels throughout */
+.label {
+    -fx-text-fill: -col-text;
+    -fx-font-size: 13px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   INPUT FIELDS
+   ═══════════════════════════════════════════════════════════════════ */
+.input-field,
+.text-field,
+.password-field,
+.text-area {
+    -fx-background-color: -col-surface-2;
+    -fx-border-color: -col-border;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 10 14;
+    -fx-font-size: 13px;
+    -fx-text-fill: -col-text;
+    -fx-prompt-text-fill: -col-text-faint;
+    -fx-font-family: "Times New Roman", serif;
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.30), 4, 0, 0, 2);
+}
+
+.input-field:focused,
+.text-field:focused,
+.password-field:focused,
+.text-area:focused {
+    -fx-border-color: -col-gold;
+    -fx-background-color: -col-surface;
+    -fx-effect:
+            dropshadow(gaussian, derive(-col-gold, -30%), 8, 0.2, 0, 0),
+            innershadow(gaussian, rgba(0,0,0,0.20), 4, 0, 0, 1);
+}
+
+/* ComboBox */
+.combo-box {
+    -fx-background-color: -col-surface-2;
+    -fx-border-color: -col-border;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-text-fill: -col-text;
+    -fx-font-size: 13px;
+}
+
+.combo-box .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: -col-text;
+    -fx-padding: 8 12;
+}
+
+.combo-box:focused {
+    -fx-border-color: -col-gold;
+    -fx-effect: dropshadow(gaussian, derive(-col-gold, -30%), 8, 0.2, 0, 0);
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: -col-surface;
+    -fx-border-color: -col-gold;
+    -fx-border-width: 1;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.50), 16, 0, 0, 6);
+}
+
+.combo-box-popup .list-view .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: -col-text;
+    -fx-padding: 9 14;
+}
+
+.combo-box-popup .list-view .list-cell:hover {
+    -fx-background-color: derive(-col-gold, -60%);
+    -fx-text-fill: -col-gold-lt;
+}
+
+.combo-box-popup .list-view .list-cell:selected {
+    -fx-background-color: derive(-col-gold, -50%);
+    -fx-text-fill: -col-gold;
+}
+
+/* DatePicker */
+/* DatePicker — dark theme (used on dark-background pages) */
+.date-picker {
+    -fx-background-color: -col-surface-2;
+    -fx-border-color: -col-border;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+}
+
+.date-picker .text-field {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-text-fill: -col-text;
+    -fx-font-family: "Times New Roman", serif;
+}
+
+.date-picker:focused {
+    -fx-border-color: -col-gold;
+}
+
+.date-picker .arrow-button {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+}
+
+.date-picker .arrow-button:hover {
+    -fx-background-color: derive(-col-gold, -65%);
+}
+
+.date-picker .arrow-button .arrow {
+    -fx-background-color: -col-gold;
+}
+
+/* ─── DatePicker — white-form variant (Register page) ─────────────
+   Applied via styleClass="register-picker" in Register.fxml
+   ──────────────────────────────────────────────────────────────── */
+.register-picker {
+    -fx-background-color: white;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-font-family: "Times New Roman", serif;
+}
+
+.register-picker .text-field {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-text-fill: #333333;
+    -fx-font-family: "Times New Roman", serif;
+    -fx-prompt-text-fill: #aaaaaa;
+}
+
+.register-picker:focused {
+    -fx-border-color: #cc0000;
+}
+
+.register-picker .arrow-button {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+}
+
+.register-picker .arrow-button:hover {
+    -fx-background-color: #fff0f0;
+}
+
+.register-picker .arrow-button .arrow {
+    -fx-background-color: #cc0000;
+}
+
+/* ─── ComboBox — white-form variant (Register page) ───────────────
+   Applied via styleClass="register-combo" in Register.fxml
+   ──────────────────────────────────────────────────────────────── */
+.register-combo {
+    -fx-background-color: white;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-font-family: "Times New Roman", serif;
+    -fx-font-size: 13px;
+}
+
+.register-combo .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #333333;
+    -fx-font-family: "Times New Roman", serif;
+    -fx-padding: 6 10;
+}
+
+.register-combo:focused {
+    -fx-border-color: #cc0000;
+    -fx-effect: dropshadow(gaussian, rgba(204,0,0,0.20), 6, 0.15, 0, 0);
+}
+
+.register-combo .arrow-button {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+}
+
+.register-combo .arrow-button .arrow {
+    -fx-background-color: #cc0000;
+}
+
+/* ═══════════════════════════════════════════════════════
+   FIX: REMOVE DARK BACKGROUND COMPLETELY (Calendar)
+   ═══════════════════════════════════════════════════════ */
+
+/* Main popup container */
+.date-picker-popup {
+    -fx-background-color: white;
+    /* Forces the outer shell to white instead of dark theme */
+}
+
+/* The actual calendar grid container (THIS is usually the dark one) */
+.date-picker-popup .calendar-grid {
+    -fx-background-color: white;
+    /* This overrides the default dark grid background */
+}
+
+/* The entire content area inside popup */
+.date-picker-popup > * {
+    -fx-background-color: white;
+    /* Ensures no nested container keeps dark color */
+}
+
+/* Month + year header bar */
+.date-picker-popup .month-year-pane {
+    -fx-background-color: white;
+    /* Removes dark header strip */
+}
+
+/* Weekday header row (Sun Mon Tue...) */
+.date-picker-popup .day-name-cell {
+    -fx-background-color: white;
+    /* Prevents gray/dark strip behind day names */
+}
+
+/* Individual date cells container */
+.date-picker-popup .day-cell {
+    -fx-background-color: transparent;
+    /* Keeps cells clean so only hover/selection shows */
+}
+
+/* VERY IMPORTANT: JavaFX sometimes uses this container */
+.date-picker-popup .virtual-flow {
+    -fx-background-color: white;
+    /* Fixes hidden dark scrolling layer */
+}
+
+/* Another internal layer used by JavaFX skin */
+.date-picker-popup .clipped-container {
+    -fx-background-color: white;
+    /* Removes dark clipping background */
+}
+
+/* Final fallback (catch ANY remaining dark nodes) */
+.date-picker-popup .pane {
+    -fx-background-color: white;
+    /* Safety override for any remaining containers */
+}
+/* ═══════════════════════════════════════════════════════════════════
+   BUTTONS
+   ═══════════════════════════════════════════════════════════════════ */
+.primary-button {
+    -fx-background-color:
+            linear-gradient(to bottom, derive(-col-gold, 5%), -col-gold);
+    -fx-text-fill: #0e0c08;
+    -fx-font-family: "Times New Roman", serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-letter-spacing: 1;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-border-color: derive(-col-gold, 15%);
+    -fx-border-width: 1;
+    -fx-padding: 11 28;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(201,168,76,0.45), 10, 0.2, 0, 3);
+}
+
+.primary-button:hover {
+    -fx-background-color:
+            linear-gradient(to bottom, -col-gold-lt, derive(-col-gold, 10%));
+    -fx-effect: dropshadow(gaussian, rgba(201,168,76,0.65), 16, 0.3, 0, 4);
+    -fx-translate-y: -1;
+}
+
+.primary-button:pressed {
+    -fx-background-color: -col-gold-dk;
+    -fx-effect: none;
+    -fx-translate-y: 1;
+}
+
+.secondary-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: -col-text-sub;
+    -fx-font-family: "Times New Roman", serif;
+    -fx-font-size: 13px;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-border-color: -col-border-lt;
+    -fx-border-width: 1.5;
+    -fx-padding: 10 26;
+    -fx-cursor: hand;
+}
+
+.secondary-button:hover {
+    -fx-background-color: -col-surface-2;
+    -fx-text-fill: -col-text;
+    -fx-border-color: -col-gold-dk;
+    -fx-translate-y: -1;
+}
+
+.secondary-button:pressed {
+    -fx-background-color: -col-surface-alt;
+    -fx-translate-y: 1;
+}
+
+/* General button fallback */
+.button {
+    -fx-background-color: -col-surface-2;
+    -fx-text-fill: -col-text;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-border-color: -col-border-lt;
+    -fx-border-width: 1;
+    -fx-padding: 9 18;
+    -fx-cursor: hand;
+    -fx-font-size: 12px;
+}
+
+.button:hover {
+    -fx-background-color: -col-surface;
+    -fx-border-color: -col-gold-dk;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   INFO BOX (card/panel)
+   ═══════════════════════════════════════════════════════════════════ */
+.info-box {
+    -fx-background-color: -col-surface;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: -col-border;
+    -fx-border-width: 1;
+    -fx-padding: 18 22;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.45), 14, 0, 0, 4);
+}
+
+/* Gold accent line on left of info box */
+.info-box .label {
+    -fx-text-fill: -col-text-sub;
+    -fx-font-size: 13px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   LABELS — STATUS, ERRORS, SUMMARY
+   ═══════════════════════════════════════════════════════════════════ */
+.error-label {
+    -fx-text-fill: derive(-col-danger, 20%);
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 4 0;
+}
+
+.summary-label {
+    -fx-text-fill: -col-gold;
+    -fx-font-family: "Times New Roman", serif;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-color: derive(-col-gold, -70%);
+    -fx-background-radius: 6;
+    -fx-padding: 10 14;
+    -fx-border-color: derive(-col-gold, -50%);
+    -fx-border-width: 1;
+    -fx-border-radius: 6;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   LIST VIEW
+   ═══════════════════════════════════════════════════════════════════ */
+.list-view {
+    -fx-background-color: -col-surface;
+    -fx-border-color: -col-border;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 0;
+}
+
+.list-view .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: -col-text;
+    -fx-padding: 12 16;
+    -fx-font-size: 13px;
+    -fx-border-color: transparent transparent -col-border transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.list-view .list-cell:odd {
+    -fx-background-color: derive(-col-surface-alt, -5%);
+}
+
+.list-view .list-cell:hover {
+    -fx-background-color: derive(-col-gold, -70%);
+    -fx-text-fill: -col-gold-lt;
+}
+
+.list-view .list-cell:selected {
+    -fx-background-color: derive(-col-gold, -60%);
+    -fx-text-fill: -col-gold;
+    -fx-border-color: transparent transparent transparent -col-gold;
+    -fx-border-width: 0 0 0 3;
+}
+
+.list-view .placeholder .label {
+    -fx-text-fill: -col-text-faint;
+    -fx-font-size: 13px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SCROLL PANE / SCROLL BARS
+   ═══════════════════════════════════════════════════════════════════ */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-background-color: -col-surface;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: -col-gold-dk;
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: -col-gold;
+}
+
+.scroll-bar .track {
+    -fx-background-color: -col-surface-alt;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-background-color: -col-text-faint;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   TAB PANE (Staff Dashboard)
+   ═══════════════════════════════════════════════════════════════════ */
+.tab-pane {
+    -fx-border-color: transparent;
+}
+
+.tab-pane > .tab-header-area {
+    -fx-background-color: -col-surface-alt;
+    -fx-border-color: transparent transparent -col-border transparent;
+    -fx-border-width: 0 0 2 0;
+    -fx-padding: 0 0 0 8;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 6 6 0 0;
+    -fx-padding: 10 22;
+    -fx-cursor: hand;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab:hover {
+    -fx-background-color: derive(-col-gold, -70%);
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab:selected {
+    -fx-background-color: -col-surface;
+    -fx-border-color: -col-gold -col-border transparent -col-border;
+    -fx-border-width: 2 1 0 1;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab .tab-label {
+    -fx-text-fill: -col-text-sub;
+    -fx-font-family: "Times New Roman", serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab:selected .tab-label {
+    -fx-text-fill: -col-gold;
+}
+
+.tab-pane .tab-content-area {
+    -fx-background-color: -col-surface;
+    -fx-padding: 4;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   HYPERLINK
+   ═══════════════════════════════════════════════════════════════════ */
+.hyperlink {
+    -fx-text-fill: -col-gold;
+    -fx-border-color: transparent;
+    -fx-underline: false;
+    -fx-cursor: hand;
+    -fx-font-size: 13px;
+    -fx-font-family: "Times New Roman", serif;
+}
+
+.hyperlink:hover {
+    -fx-text-fill: -col-gold-lt;
+    -fx-underline: true;
+}
+
+.hyperlink:visited {
+    -fx-text-fill: -col-gold-dk;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   DIALOGS (TextInputDialog, Alert)
+   ═══════════════════════════════════════════════════════════════════ */
+.dialog-pane {
+    -fx-background-color: -col-surface;
+    -fx-border-color: -col-border;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.60), 30, 0, 0, 10);
+}
+
+.dialog-pane .header-panel {
+    -fx-background-color:
+            linear-gradient(to right, -col-primary, derive(-col-primary, 20%));
+    -fx-background-radius: 12 12 0 0;
+    -fx-padding: 18 24;
+}
+
+.dialog-pane .header-panel .label {
+    -fx-text-fill: -col-gold;
+    -fx-font-family: "Times New Roman", serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+}
+
+.dialog-pane .content.label {
+    -fx-text-fill: -col-text;
+    -fx-font-size: 13px;
+    -fx-padding: 12 0;
+}
+
+.dialog-pane .text-field {
+    -fx-background-color: -col-surface-2;
+    -fx-border-color: -col-border;
+    -fx-text-fill: -col-text;
+}
+
+.dialog-pane .button-bar {
+    -fx-background-color: -col-surface-alt;
+    -fx-padding: 12 20;
+}
+
+.dialog-pane .button-bar .button {
+    -fx-background-color: -col-surface-2;
+    -fx-text-fill: -col-text;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-border-color: -col-border-lt;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-padding: 8 20;
+}
+
+.dialog-pane .button-bar .button:hover {
+    -fx-background-color: derive(-col-gold, -60%);
+    -fx-text-fill: -col-gold;
+    -fx-border-color: -col-gold-dk;
+}
+
+.dialog-pane .button-bar .button:default {
+    -fx-background-color:
+            linear-gradient(to bottom, derive(-col-gold, 5%), -col-gold);
+    -fx-text-fill: #0e0c08;
+    -fx-border-color: -col-gold-lt;
+    -fx-font-weight: bold;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   TOOLTIP
+   ═══════════════════════════════════════════════════════════════════ */
+.tooltip {
+    -fx-background-color: #0d0f1a;
+    -fx-text-fill: -col-gold;
+    -fx-background-radius: 6;
+    -fx-padding: 7 13;
+    -fx-font-size: 12px;
+    -fx-border-color: -col-gold-dk;
+    -fx-border-width: 1;
+    -fx-border-radius: 6;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.60), 12, 0, 0, 4);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   CHECK BOX
+   ═══════════════════════════════════════════════════════════════════ */
+.check-box .box {
+    -fx-background-color: -col-surface-2;
+    -fx-border-color: -col-border-lt;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+}
+
+.check-box:hover .box {
+    -fx-border-color: -col-gold-dk;
+}
+
+.check-box:selected .box {
+    -fx-background-color: -col-gold;
+    -fx-border-color: -col-gold;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: -col-text-inv;
+}
+
+.check-box .label {
+    -fx-text-fill: -col-text;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SEPARATOR
+   ═══════════════════════════════════════════════════════════════════ */
+.separator *.line {
+    -fx-background-color: -col-border;
+    -fx-border-color: -col-border;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   CONTEXT MENU
+   ═══════════════════════════════════════════════════════════════════ */
+.context-menu {
+    -fx-background-color: -col-surface;
+    -fx-border-color: -col-gold-dk;
+    -fx-border-width: 1;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.55), 16, 0, 0, 6);
+}
+
+.menu-item {
+    -fx-padding: 9 18;
+}
+
+.menu-item:hover {
+    -fx-background-color: derive(-col-gold, -65%);
+}
+
+.menu-item .label {
+    -fx-text-fill: -col-text;
+    -fx-font-size: 13px;
+}
+
+.menu-item:hover .label {
+    -fx-text-fill: -col-gold;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   PROGRESS BAR
+   ═══════════════════════════════════════════════════════════════════ */
+.progress-bar .track {
+    -fx-background-color: -col-surface-2;
+    -fx-background-radius: 4;
+}
+
+.progress-bar .bar {
+    -fx-background-color:
+            linear-gradient(to right, -col-gold-dk, -col-gold);
+    -fx-background-radius: 4;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SPINNER
+   ═══════════════════════════════════════════════════════════════════ */
+.spinner {
+    -fx-background-color: -col-surface-2;
+    -fx-border-color: -col-border;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+}
+
+.spinner .text-field {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
+.spinner .increment-arrow-button,
+.spinner .decrement-arrow-button {
+    -fx-background-color: -col-surface-alt;
+    -fx-border-color: -col-border;
+    -fx-cursor: hand;
+}
+
+.spinner .increment-arrow-button:hover,
+.spinner .decrement-arrow-button:hover {
+    -fx-background-color: derive(-col-gold, -60%);
+}
+
+.spinner .increment-arrow,
+.spinner .decrement-arrow {
+    -fx-background-color: -col-text-sub;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   ALERT TYPE ACCENTS
+   ═══════════════════════════════════════════════════════════════════ */
+.alert.error .header-panel   { -fx-background-color: #6b1a1a; }
+.alert.warning .header-panel { -fx-background-color: #5a3800; }
+.alert.information .header-panel { -fx-background-color: -col-primary; }
+.alert.confirmation .header-panel { -fx-background-color: #1a4a2a; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   LIGHT MODE — OVERRIDES FOR SPECIFIC WIDGETS
+   ═══════════════════════════════════════════════════════════════════ */
+.root.light-mode .root-container {
+    -fx-background-color:
+            linear-gradient(to bottom right, #ece5d8, #f5f0e8, #e8ecf2);
+}
+
+.root.light-mode .info-box {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #ddd6c8;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 10, 0, 0, 3);
+}
+
+.root.light-mode .list-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #ddd6c8;
+}
+
+.root.light-mode .list-view .list-cell {
+    -fx-text-fill: #1a1410;
+    -fx-border-color: transparent transparent #e8e2d8 transparent;
+}
+
+.root.light-mode .list-view .list-cell:odd {
+    -fx-background-color: #faf7f3;
+}
+
+.root.light-mode .list-view .list-cell:hover {
+    -fx-background-color: #fdf4e3;
+    -fx-text-fill: #8a6a10;
+}
+
+.root.light-mode .list-view .list-cell:selected {
+    -fx-background-color: #fdf0d0;
+    -fx-text-fill: #7a5c08;
+}
+
+.root.light-mode .tab-pane > .tab-header-area {
+    -fx-background-color: #ede8de;
+}
+
+.root.light-mode .tab-pane .tab-content-area {
+    -fx-background-color: #ffffff;
+}
+
+.root.light-mode .tab-pane > .tab-header-area > .headers-region > .tab:selected {
+    -fx-background-color: #ffffff;
+}
+
+.root.light-mode .dialog-pane {
+    -fx-background-color: #ffffff;
+}
+
+.root.light-mode .dialog-pane .button-bar {
+    -fx-background-color: #f5f0e8;
+}
+
+.root.light-mode .combo-box-popup .list-view {
+    -fx-background-color: #ffffff;
+}
+
+.root.light-mode .combo-box-popup .list-view .list-cell {
+    -fx-text-fill: #1a1410;
+}
+
+.root.light-mode .combo-box-popup .list-view .list-cell:hover {
+    -fx-background-color: #fdf4e3;
+    -fx-text-fill: #8a6a10;
+}
+
+.root.light-mode .summary-label {
+    -fx-background-color: #fdf4e3;
+    -fx-border-color: #d4a940;
+    -fx-text-fill: #7a5c08;
+}
+
+.root.light-mode .tooltip {
+    -fx-background-color: #1a1410;
+    -fx-text-fill: -col-gold;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   LOGIN SCREEN BRANDING AND LAYOUT
+   ═══════════════════════════════════════════════════════════════════ */
+.login-root-bg {
+    -fx-background-color: white;
+}
+
+.login-left-panel {
+    /* We use a fallback dark grey/brown gradient resembling the image */
+    -fx-background-color: linear-gradient(to bottom right, #4b5358, #182025);
+    -fx-background-image: url("file:///C:/Users/Mariam/OneDrive/Desktop/back1.jpg");
+    -fx-background-size: cover;
+}
+
+/* Brand text on the left */
+.transylvania-brand {
+    -fx-font-family:    "Times New Roman", serif;
+    -fx-font-size:      42px;
+    -fx-fill:           white;
+    -fx-font-weight:    bold;
+}
+
+.transylvania-subbrand {
+    -fx-font-family:    "Times New Roman", serif;
+    -fx-font-size:      14px;
+    -fx-fill:           white;
+    -fx-letter-spacing: 2px;
+}
+
+.transylvania-desc {
+    -fx-font-family:    "Times New Roman", serif;
+    -fx-font-size:      16px;
+    -fx-fill:           white;
+}
+
+/* Welcome texts on the right */
+.welcome-text {
+    -fx-font-family:    "Times New Roman", serif;
+    -fx-font-size:      32px;
+    -fx-fill:           #cc0000;
+}
+
+.sign-in-text {
+    -fx-font-family:    "Times New Roman", serif;
+    -fx-font-size:      14px;
+    -fx-fill:           #666666;
+}
+
+.form-label {
+    -fx-font-family:    "Times New Roman", serif;
+    -fx-font-size:      13px;
+    -fx-font-weight:    bold;
+    -fx-text-fill:      #333333;
+}
+
+.form-label-muted {
+    -fx-font-family:    "Times New Roman", serif;
+    -fx-font-size:      13px;
+    -fx-text-fill:      #666666;
+}
+
+.login-input {
+    -fx-background-color: white;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 10 15;
+    -fx-font-family: "Times New Roman", serif;
+    -fx-text-fill: #333333;
+}
+
+.login-input:focused {
+    -fx-background-color: white;
+    -fx-border-color: #cc0000;
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+}
+
+.login-input .content {
+    -fx-background-color: white;
+}
+
+.login-input:focused .content {
+    -fx-background-color: white;
+}
+
+
+/* Buttons */
+.btn-red-filled {
+    -fx-background-color: #e60000;
+    -fx-text-fill: white;
+    -fx-font-family: "Times New Roman", serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 8;
+    -fx-padding: 12 20;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(230,0,0,0.4), 10, 0, 0, 4);
+    -fx-border-width: 0;
+}
+
+.btn-red-filled:hover {
+    -fx-background-color: #cc0000;
+}
+
+.btn-red-outline {
+    -fx-background-color: white;
+    -fx-text-fill: #cc0000;
+    -fx-font-family: "Times New Roman", serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #cc0000;
+    -fx-border-width: 1;
+    -fx-padding: 11 20;
+    -fx-cursor: hand;
+}
+
+.btn-red-outline:hover {
+    -fx-background-color: #fff0f0;
+}
+
+.link-red {
+    -fx-text-fill: #cc0000;
+    -fx-font-family: "Times New Roman", serif;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-border-color: transparent;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   PAGE BACKGROUND SYSTEM  (Dashboard, Rooms, Reservation, etc.)
+   ═══════════════════════════════════════════════════════════════════
+
+   HOW TO ADD YOUR IMAGES
+   ─────────────────────
+   Find the 5 rules below (.dashboard-bg, .reservation-bg, .rooms-bg,
+   .checkout-bg, .staff-bg) and paste your local file URL inside the
+   url("") for each one.
+   Format:  url("file:///C:/Users/YourName/images/filename.jpg")
+
+   ═══════════════════════════════════════════════════════════════════ */
+
+.dashboard-bg {
+    /* ★ PASTE YOUR GUEST DASHBOARD BACKGROUND IMAGE URL BELOW ★ */
+    -fx-background-image: url("file:///C:/Users/Mariam/OneDrive/Desktop/back1.jpg"); /* <── ADD YOUR IMAGE PATH HERE */
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-background-color: #0b0d1a;      /* fallback colour if no image */
+}
+
+.reservation-bg {
+    /* ★ PASTE YOUR RESERVATION PAGE BACKGROUND IMAGE URL BELOW ★ */
+    -fx-background-image: url("file:///C:/Users/Mariam/OneDrive/Desktop/back1.jpg"); /* <── ADD YOUR IMAGE PATH HERE */
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-background-color: #0b0d1a;
+}
+
+.rooms-bg {
+    /* ★ PASTE YOUR ROOM BROWSING PAGE BACKGROUND IMAGE URL BELOW ★ */
+    -fx-background-image: url("file:///C:/Users/Mariam/OneDrive/Desktop/back1.jpg"); /* <── ADD YOUR IMAGE PATH HERE */
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-background-color: #0b0d1a;
+}
+
+.checkout-bg {
+    /* ★ PASTE YOUR CHECKOUT PAGE BACKGROUND IMAGE URL BELOW ★ */
+    -fx-background-image: url("file:///C:/Users/Mariam/OneDrive/Desktop/back1.jpg"); /* <── ADD YOUR IMAGE PATH HERE */
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-background-color: #0b0d1a;
+}
+
+.staff-bg {
+    /* ★ PASTE YOUR STAFF DASHBOARD BACKGROUND IMAGE URL BELOW ★ */
+    -fx-background-image: url("file:///C:/Users/Mariam/OneDrive/Desktop/back1.jpg"); /* <── ADD YOUR IMAGE PATH HERE */
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-background-color: #0b0d1a;
+}
+
+/* Dark overlay that sits above the background image for readability */
+.page-overlay {
+    -fx-background-color: rgba(8, 10, 22, 0.82);
+}
+
+/* Slightly lighter overlay for wide/data-heavy pages (staff dashboard) */
+.page-overlay-medium {
+    -fx-background-color: rgba(8, 10, 22, 0.70);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   HEADER BAR  (top bar on every interior page)
+   ═══════════════════════════════════════════════════════════════════ */
+.page-header {
+    -fx-background-color: rgba(10, 12, 30, 0.96);
+    -fx-border-color: transparent transparent -col-gold transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 14 32;
+}
+
+.page-header-brand {
+    -fx-font-family: "Times New Roman", serif;
+    -fx-font-size: 11px;
+    -fx-text-fill: -col-gold;
+    -fx-opacity: 0.85;
+}
+
+.page-header-sub {
+    -fx-font-family: "Times New Roman", serif;
+    -fx-font-size: 12px;
+    -fx-text-fill: -col-text-sub;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   CARDS
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* General semi-transparent dark card */
+.page-card {
+    -fx-background-color: rgba(13, 14, 26, 0.90);
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: rgba(201, 168, 76, 0.28);
+    -fx-border-width: 1;
+    -fx-padding: 22 26;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.70), 24, 0, 0, 8);
+}
+
+/* Info card with 3px gold left accent stripe */
+.info-card {
+    -fx-background-color: rgba(13, 14, 26, 0.88);
+    -fx-background-radius: 0 10 10 0;
+    -fx-border-color: -col-gold transparent transparent transparent;
+    -fx-border-width: 0 0 0 3;
+    -fx-padding: 16 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.55), 14, 0, 0, 5);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   TYPOGRAPHY — interior pages
+   ═══════════════════════════════════════════════════════════════════ */
+.page-title {
+    -fx-font-family: "Times New Roman", serif;
+    -fx-font-size: 26px;
+    -fx-text-fill: -col-gold;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(201,168,76,0.25), 10, 0, 0, 2);
+}
+
+.page-subtitle {
+    -fx-font-family: "Times New Roman", serif;
+    -fx-font-size: 15px;
+    -fx-text-fill: -col-gold;
+    -fx-font-weight: bold;
+}
+
+.page-body-label {
+    -fx-font-family: "Times New Roman", serif;
+    -fx-font-size: 13px;
+    -fx-text-fill: -col-text-sub;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   AMOUNT DISPLAY  (Checkout page)
+   ═══════════════════════════════════════════════════════════════════ */
+.amount-display {
+    -fx-font-family: "Times New Roman", serif;
+    -fx-font-size: 46px;
+    -fx-text-fill: -col-gold;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(201,168,76,0.30), 14, 0, 0, 0);
+}
+
+.amount-hint-label {
+    -fx-font-family: "Times New Roman", serif;
+    -fx-font-size: 11px;
+    -fx-text-fill: -col-text-faint;
+    -fx-font-weight: bold;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   GOLD DIVIDER
+   ═══════════════════════════════════════════════════════════════════ */
+.gold-divider {
+    -fx-background-color:
+            linear-gradient(to right, transparent, -col-gold, transparent);
+    -fx-pref-height: 1;
+    -fx-max-height: 1;
+    -fx-opacity: 0.30;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   RED & WHITE INTERIOR THEME  — v2 additions
+   Extends the login/register red+white palette to all interior pages.
+   ─────────────────────────────────────────────────────────────────
+   COLOUR TOKENS
+   #cc0000   primary red
+   #e60000   red hover/active
+   #8b0000   deep red (header gradient start)
+   #fff0f0   red-tinted light bg
+   #ffecec   selected item bg
+   #333333   body text
+   #666666   muted text
+   #e0e0e0   border
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ─── App Header Bar  (used on all interior pages) ───────────────── */
+.app-header {
+    -fx-background-color: linear-gradient(to right, #8b0000, #cc0000);
+    -fx-padding: 14 32;
+    -fx-min-height: 52;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 8, 0, 0, 3);
+}
+
+.app-header-brand {
+    -fx-font-family:   "Times New Roman", serif;
+    -fx-font-size:     17px;
+    -fx-font-weight:   bold;
+    -fx-text-fill:     white;
+    -fx-letter-spacing: 1;
+}
+
+.app-header-sub {
+    -fx-font-family: "Times New Roman", serif;
+    -fx-font-size:   12px;
+    -fx-text-fill:   rgba(255,255,255,0.68);
+}
+
+/* Logout / back button inside the red header */
+.app-logout-btn {
+    -fx-background-color: rgba(255,255,255,0.13);
+    -fx-text-fill:        white;
+    -fx-font-family:      "Times New Roman", serif;
+    -fx-font-size:        13px;
+    -fx-font-weight:      bold;
+    -fx-border-color:     rgba(255,255,255,0.35);
+    -fx-border-width:     1;
+    -fx-border-radius:    6;
+    -fx-background-radius:6;
+    -fx-padding:          7 18;
+    -fx-cursor:           hand;
+}
+
+.app-logout-btn:hover {
+    -fx-background-color: rgba(255,255,255,0.24);
+    -fx-border-color:     rgba(255,255,255,0.55);
+    -fx-translate-y: -1;
+}
+
+.app-logout-btn:pressed {
+    -fx-translate-y: 1;
+    -fx-background-color: rgba(255,255,255,0.10);
+}
+
+/* ─── Section Typography ─────────────────────────────────────────── */
+.section-title {
+    -fx-font-family:  "Times New Roman", serif;
+    -fx-font-size:    24px;
+    -fx-font-weight:  bold;
+    -fx-text-fill:    #cc0000;
+}
+
+.section-subtitle {
+    -fx-font-family: "Times New Roman", serif;
+    -fx-font-size:   13px;
+    -fx-text-fill:   #888888;
+}
+
+.section-heading {
+    -fx-font-family: "Times New Roman", serif;
+    -fx-font-size:   15px;
+    -fx-font-weight: bold;
+    -fx-text-fill:   #cc0000;
+}
+
+/* ─── Red Accent Divider ─────────────────────────────────────────── */
+.red-divider {
+    -fx-background-color: linear-gradient(to right, #cc0000, rgba(204,0,0,0));
+    -fx-pref-height: 1.5;
+    -fx-max-height:  1.5;
+    -fx-opacity:     0.28;
+}
+
+/* ─── White Cards ────────────────────────────────────────────────── */
+/* Standard light card on white bg */
+.white-card {
+    -fx-background-color: #f9f9f9;
+    -fx-border-color:     #eeeeee;
+    -fx-border-width:     1;
+    -fx-border-radius:    8;
+    -fx-background-radius:8;
+    -fx-padding:          16 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 6, 0, 0, 2);
+}
+
+/* Card with red left-accent stripe */
+.white-card-accent {
+    -fx-background-color:  rgba(255,255,255,0.10);
+    -fx-border-color:      rgba(255,255,255,0.25);
+    -fx-border-width:      1;
+    -fx-border-radius:     8;
+    -fx-background-radius: 8;
+    -fx-padding:           14 18;
+}
+
+/* ─── White ListView ─────────────────────────────────────────────── */
+.white-list {
+    -fx-background-color: white;
+    -fx-border-color:     #e8e8e8;
+    -fx-border-width:     1;
+    -fx-border-radius:    8;
+    -fx-background-radius:8;
+    -fx-padding:          0;
+}
+
+.white-list .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill:        #333333;
+    -fx-padding:          13 16;
+    -fx-font-family:      "Times New Roman", serif;
+    -fx-font-size:        13px;
+    -fx-border-color:     transparent transparent #f2f2f2 transparent;
+    -fx-border-width:     0 0 1 0;
+}
+
+.white-list .list-cell:odd {
+    -fx-background-color: #fafafa;
+}
+
+.white-list .list-cell:hover {
+    -fx-background-color: #fff5f5;
+    -fx-text-fill:        #cc0000;
+}
+
+.white-list .list-cell:selected {
+    -fx-background-color: #ffecec;
+    -fx-text-fill:        #cc0000;
+    -fx-border-color:     transparent transparent transparent #cc0000;
+    -fx-border-width:     0 0 0 3;
+}
+
+.white-list .placeholder .label {
+    -fx-text-fill:   #cccccc;
+    -fx-font-size:   13px;
+    -fx-font-family: "Times New Roman", serif;
+}
+
+/* ─── Red TabPane ────────────────────────────────────────────────── */
+.red-tab-pane {
+    -fx-border-color: transparent;
+    -fx-background-color: white;
+}
+
+.red-tab-pane > .tab-header-area {
+    -fx-background-color: #f7f7f7;
+    -fx-border-color:     transparent transparent #e0e0e0 transparent;
+    -fx-border-width:     0 0 2 0;
+    -fx-padding:          0 0 0 12;
+}
+
+.red-tab-pane > .tab-header-area > .headers-region > .tab {
+    -fx-background-color: transparent;
+    -fx-border-color:     transparent;
+    -fx-background-radius:6 6 0 0;
+    -fx-padding:          10 26;
+    -fx-cursor:           hand;
+}
+
+.red-tab-pane > .tab-header-area > .headers-region > .tab:hover {
+    -fx-background-color: #fff0f0;
+}
+
+.red-tab-pane > .tab-header-area > .headers-region > .tab:selected {
+    -fx-background-color: white;
+    -fx-border-color:     #cc0000 #e0e0e0 transparent #e0e0e0;
+    -fx-border-width:     2 1 0 1;
+}
+
+.red-tab-pane > .tab-header-area > .headers-region > .tab .tab-label {
+    -fx-text-fill:   #999999;
+    -fx-font-family: "Times New Roman", serif;
+    -fx-font-weight: bold;
+    -fx-font-size:   13px;
+}
+
+.red-tab-pane > .tab-header-area > .headers-region > .tab:selected .tab-label {
+    -fx-text-fill: #cc0000;
+}
+
+.red-tab-pane .tab-content-area {
+    -fx-background-color: white;
+    -fx-padding:          4;
+}
+
+/* ─── White ScrollPane ───────────────────────────────────────────── */
+.white-scroll {
+    -fx-background-color: white;
+    -fx-border-color:     transparent;
+}
+
+.white-scroll > .viewport {
+    -fx-background-color: white;
+}
+
+.white-scroll > .scroll-bar:vertical {
+    -fx-background-color: #f8f8f8;
+    -fx-pref-width: 8;
+}
+
+.white-scroll > .scroll-bar:vertical > .thumb {
+    -fx-background-color:  #cc0000;
+    -fx-opacity:           0.22;
+    -fx-background-radius: 4;
+}
+
+.white-scroll > .scroll-bar:vertical > .thumb:hover {
+    -fx-opacity: 0.40;
+}
+
+.white-scroll > .scroll-bar:vertical > .track {
+    -fx-background-color: transparent;
+}
+
+.white-scroll > .scroll-bar:vertical > .increment-button,
+.white-scroll > .scroll-bar:vertical > .decrement-button {
+    -fx-background-color: transparent;
+    -fx-pref-height: 0;
+}
+
+/* ─── Visual Panels for split-panel interior pages ───────────────── */
+/*
+   HOW TO ADD YOUR IMAGES:
+   Find the rule for the page you want and replace the fallback gradient
+   with:  -fx-background-image: url("file:///C:/path/to/your/image.jpg");
+          -fx-background-size: cover;
+          -fx-background-position: center center;
+*/
+
+/* Guest Dashboard — hero image (e.g. hotel exterior / lobby) */
+.dashboard-visual-panel {
+    -fx-background-color: linear-gradient(to bottom, #4b2020, #1a0808);
+    /* ★ PASTE YOUR DASHBOARD IMAGE HERE:
+       -fx-background-image: url("file:///C:/your/path/dashboard-hero.jpg");
+       -fx-background-size: cover;  -fx-background-position: center; */
+}
+
+/* Room Browsing — room interior image */
+.rooms-visual-panel {
+    -fx-background-color: linear-gradient(to bottom, #3d2b1a, #1a0d08);
+    /* ★ PASTE YOUR ROOM IMAGE HERE:
+       -fx-background-image: url("file:///C:/your/path/rooms-hero.jpg");
+       -fx-background-size: cover;  -fx-background-position: center; */
+}
+
+/* Reservation — close-up room / bed image */
+.reservation-visual-panel {
+    -fx-background-color: linear-gradient(to bottom, #2b1a1a, #400808);
+    /* ★ PASTE YOUR RESERVATION IMAGE HERE:
+       -fx-background-image: url("file:///C:/your/path/reservation-hero.jpg");
+       -fx-background-size: cover;  -fx-background-position: center; */
+}
+
+/* Checkout — lobby / front-desk image */
+.checkout-visual-panel {
+    -fx-background-color: linear-gradient(to bottom, #1a1a2b, #0d0d1a);
+    /* ★ PASTE YOUR CHECKOUT IMAGE HERE:
+       -fx-background-image: url("file:///C:/your/path/checkout-hero.jpg");
+       -fx-background-size: cover;  -fx-background-position: center; */
+}
+
+/* Staff Dashboard — panoramic banner (hotel aerial or corridor) */
+.staff-banner-panel {
+    -fx-background-color: linear-gradient(to right, #6b0000, #cc0000);
+       -fx-background-image: url("file:///C:/Users/Mariam/OneDrive/Desktop/download.jpg");
+       -fx-background-size: cover;  -fx-background-position: center top;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   REDESIGN ADDITIONS — Dashboard Stat Cards & Layout Enhancements
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ─── Dashboard Stat Cards ──────────────────────────────────────── */
+.dash-stat-card {
+    -fx-background-color: white;
+    -fx-border-color: #eeeeee;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 18 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 8, 0, 0, 2);
+}
+
+/* Accent card with red top border */
+.dash-stat-card-accent {
+    -fx-background-color: white;
+    -fx-border-color: #cc0000 #eeeeee #eeeeee #eeeeee;
+    -fx-border-width: 3 1 1 1;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 18 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 8, 0, 0, 2);
+}
+
+.dash-stat-label {
+    -fx-font-family: "Times New Roman", serif;
+    -fx-font-size: 12px;
+    -fx-text-fill: #999999;
+    -fx-font-weight: bold;
+}
+
+.dash-stat-value {
+    -fx-font-family: "Times New Roman", serif;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1a1a1a;
+}
+
+.dash-stat-value-red {
+    -fx-font-family: "Times New Roman", serif;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #cc0000;
+}
+
+.dash-stat-value-sm {
+    -fx-font-family: "Times New Roman", serif;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+/* ─── White List Enhanced (clean rows, no odd stripe weirdness) ─── */
+.white-list .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #333333;
+    -fx-padding: 14 18;
+    -fx-font-family: "Times New Roman", serif;
+    -fx-font-size: 13px;
+    -fx-border-color: transparent transparent #f5f5f5 transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.white-list .list-cell:selected {
+    -fx-background-color: #fff0f0;
+    -fx-text-fill: #cc0000;
+    -fx-border-color: transparent transparent transparent #cc0000;
+    -fx-border-width: 0 0 0 3;
+}
+
+.white-list .list-cell:hover {
+    -fx-background-color: #fff8f8;
+    -fx-text-fill: #cc0000;
+}
+
+/* ─── Bottom bar on RoomBrowsing (no duplicate scroll) ─────────── */
+.bottom-action-bar {
+    -fx-background-color: white;
+    -fx-border-color: #e0e0e0 transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+    -fx-padding: 14 32;
+}
+
+/* ─── Staff tab header icons readable ───────────────────────────── */
+.red-tab-pane > .tab-header-area > .headers-region > .tab .tab-label {
+    -fx-font-size: 13px;
+}
