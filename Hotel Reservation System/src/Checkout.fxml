@@ -1,45 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.text.Text?>
 <?import javafx.geometry.Insets?>
 
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="controllers.CheckoutController"
-      alignment="CENTER"
-      spacing="15"
-      prefWidth="400"
-      prefHeight="500"
-      styleClass="root-container">
+      prefWidth="780" prefHeight="560"
+      style="-fx-background-color: #f5f5f5;">
 
-    <padding>
-        <Insets top="30" bottom="30" left="40" right="40"/>
-    </padding>
+    <!-- Red Header -->
+    <HBox styleClass="app-header" alignment="CENTER_LEFT" spacing="16" minHeight="54">
+        <Label text="TRANSYLVANIA HOTEL &amp; RESORT" styleClass="app-header-brand"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label text="Checkout" styleClass="app-header-sub"/>
+        <Button text="Dashboard" onAction="#goBack" styleClass="app-logout-btn"/>
+    </HBox>
 
-    <Text text="Checkout &amp; Payment" styleClass="title-text"/>
+    <!-- 2-col layout -->
+    <HBox spacing="0" VBox.vgrow="ALWAYS">
 
-    <VBox spacing="5" alignment="CENTER">
-        <Label text="Reservation Amount Due" style="-fx-font-weight: bold;"/>
-        <Label fx:id="balanceLabel" text="\$0.00" style="-fx-font-size: 24px; -fx-text-fill: #2c3e50;"/>
-    </VBox>
+        <!-- Left: Amount Due panel (red) -->
+        <VBox alignment="CENTER" spacing="8" prefWidth="280"
+              style="-fx-background-color: linear-gradient(to bottom, #cc0000, #8b0000);">
+            <padding><Insets top="40" bottom="40" left="32" right="32"/></padding>
 
-    <VBox spacing="5">
-        <Label text="Amount to Pay"/>
-        <TextField fx:id="amountField" promptText="Enter amount" styleClass="input-field"/>
-    </VBox>
+            <Label text="AMOUNT DUE"
+                   style="-fx-font-family: 'Times New Roman'; -fx-font-size: 12px;
+                          -fx-font-weight: bold; -fx-text-fill: rgba(255,255,255,0.75);"/>
+            <Label fx:id="balanceLabel" text="0.00"
+                   style="-fx-font-family: 'Times New Roman'; -fx-font-size: 52px;
+                          -fx-font-weight: bold; -fx-text-fill: white;"/>
+            <Region prefHeight="16"/>
+            <Label text="Transylvania Hotel and Resort"
+                   style="-fx-font-family: 'Times New Roman'; -fx-font-size: 13px; -fx-text-fill: rgba(255,255,255,0.70);"/>
+            <Label text="Secure payment processing"
+                   style="-fx-font-family: 'Times New Roman'; -fx-font-size: 11px; -fx-text-fill: rgba(255,255,255,0.50);"/>
+        </VBox>
 
-    <VBox spacing="5">
-        <Label text="Payment Method"/>
-        <ComboBox fx:id="paymentMethodCombo" promptText="Select method" maxWidth="Infinity" styleClass="input-field"/>
-    </VBox>
+        <!-- Right: Payment form -->
+        <VBox spacing="20" HBox.hgrow="ALWAYS"
+              style="-fx-background-color: white;">
+            <padding><Insets top="36" bottom="36" left="40" right="40"/></padding>
 
-    <Label fx:id="messageLabel" text="" wrapText="true" alignment="CENTER"/>
+            <Label text="Payment Details"
+                   style="-fx-font-family: 'Times New Roman'; -fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1a1a1a;"/>
+            <Label text="Complete your checkout below"
+                   style="-fx-font-family: 'Times New Roman'; -fx-font-size: 13px; -fx-text-fill: #888888;"/>
 
-    <ProgressIndicator fx:id="paymentIndicator" visible="false" prefWidth="40" prefHeight="40"/>
+            <Region style="-fx-background-color: #f0f0f0; -fx-min-height: 1; -fx-max-height: 1;"/>
 
-    <Button fx:id="payButton" text="Pay Now" onAction="#handlePayment" styleClass="primary-button" maxWidth="Infinity"/>
-    <Button text="Return to Dashboard" onAction="#goBack" styleClass="secondary-button" maxWidth="Infinity"/>
+            <VBox spacing="8">
+                <Label text="Amount to Pay" styleClass="form-label"/>
+                <TextField fx:id="amountField" promptText="Enter amount"
+                           styleClass="login-input" maxWidth="Infinity"/>
+            </VBox>
 
+            <VBox spacing="8">
+                <Label text="Payment Method" styleClass="form-label"/>
+                <ComboBox fx:id="paymentMethodCombo" promptText="Select payment method"
+                          maxWidth="Infinity" styleClass="register-combo"/>
+            </VBox>
+
+            <Label fx:id="messageLabel" text="" wrapText="true"
+                   style="-fx-font-family: 'Times New Roman'; -fx-font-size: 13px; -fx-text-fill: #cc0000;"/>
+
+            <ProgressIndicator fx:id="paymentIndicator" visible="false" prefWidth="36" prefHeight="36"/>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <HBox spacing="16" alignment="CENTER">
+                <Label text="Credit Card" style="-fx-font-size: 11px; -fx-text-fill: #aaaaaa;"/>
+                <Label text="|" style="-fx-text-fill: #dddddd;"/>
+                <Label text="Cash" style="-fx-font-size: 11px; -fx-text-fill: #aaaaaa;"/>
+                <Label text="|" style="-fx-text-fill: #dddddd;"/>
+                <Label text="Online Transfer" style="-fx-font-size: 11px; -fx-text-fill: #aaaaaa;"/>
+            </HBox>
+
+            <Button fx:id="payButton" text="Pay Now" onAction="#handlePayment"
+                    styleClass="btn-red-filled" maxWidth="Infinity"/>
+        </VBox>
+    </HBox>
 </VBox>

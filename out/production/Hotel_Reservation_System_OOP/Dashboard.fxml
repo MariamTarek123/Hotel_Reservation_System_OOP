@@ -1,50 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.text.Text?>
 <?import javafx.geometry.Insets?>
 
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="controllers.DashboardController"
-      spacing="15"
-      prefWidth="500"
-      prefHeight="600"
-      styleClass="root-container">
+      prefWidth="900" prefHeight="680"
+      style="-fx-background-color: #f5f5f5;">
 
-    <padding>
-        <Insets top="30" bottom="30" left="40" right="40"/>
-    </padding>
+    <!-- Red Top Header Bar -->
+    <HBox styleClass="app-header" alignment="CENTER_LEFT" spacing="16" minHeight="54">
+        <Label text="TRANSYLVANIA HOTEL &amp; RESORT" styleClass="app-header-brand"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label text="Guest Portal" styleClass="app-header-sub"/>
+        <Button text="Chat" onAction="#handleOpenChat" styleClass="app-logout-btn"/>
+        <Button text="Logout" onAction="#handleLogout" styleClass="app-logout-btn"/>
+    </HBox>
 
-    <Text text="Guest Dashboard" styleClass="title-text"/>
+    <!-- Welcome Hero Section -->
+    <HBox style="-fx-background-color: white; -fx-border-color: transparent transparent #e8e8e8 transparent; -fx-border-width: 0 0 1 0;"
+          alignment="CENTER_LEFT" minHeight="80">
+        <VBox spacing="4" HBox.hgrow="ALWAYS">
+            <padding><Insets top="20" bottom="20" left="36" right="36"/></padding>
+            <Label fx:id="welcomeLabel" text="Welcome back, Guest"
+                   style="-fx-font-family: 'Times New Roman'; -fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #1a1a1a;"/>
+            <Label text="Manage your reservations and explore our rooms"
+                   style="-fx-font-family: 'Times New Roman'; -fx-font-size: 13px; -fx-text-fill: #888888;"/>
+        </VBox>
+        <Region prefWidth="6" minHeight="80" maxHeight="80"
+                style="-fx-background-color: linear-gradient(to bottom, #e60000, #8b0000);"/>
+    </HBox>
 
-    <!-- Guest Info -->
-    <VBox styleClass="info-box" spacing="6">
-        <Label fx:id="welcomeLabel"  text="Welcome, -"/>
-        <Label fx:id="balanceLabel"  text="Balance: -"/>
-        <Label fx:id="prefLabel"     text="Room Preference: -"/>
-    </VBox>
+    <!-- Stat Cards Row -->
+    <HBox spacing="16" style="-fx-background-color: #f5f5f5;">
+        <padding><Insets top="20" bottom="12" left="32" right="32"/></padding>
 
-    <!-- Reservations -->
-    <VBox spacing="8">
-        <Label text="Your Reservations" styleClass="subtitle-text"/>
-        <ProgressIndicator fx:id="loadingIndicator" visible="false" prefWidth="40" prefHeight="40"/>
-        <ListView fx:id="reservationsList" prefHeight="200"/>
-    </VBox>
+        <VBox styleClass="dash-stat-card" HBox.hgrow="ALWAYS" spacing="4">
+            <Label text="Account Balance" styleClass="dash-stat-label"/>
+            <Label fx:id="balanceLabel" text="0.00" styleClass="dash-stat-value"/>
+        </VBox>
 
-    <!-- Buttons -->
-    <Button text="Browse Rooms" onAction="#handleBrowseRooms"
-            styleClass="primary-button" maxWidth="Infinity"/>
-    <Button text="Checkout &amp; Pay" onAction="#handleCheckout"
-            styleClass="primary-button" maxWidth="Infinity"/>
-    <Button text="Cancel a Reservation" onAction="#handleCancel"
-            styleClass="secondary-button" maxWidth="Infinity"/>
-    <Button text="Logout" onAction="#handleLogout"
-            styleClass="secondary-button" maxWidth="Infinity"/>
-    <Button text="Chat with Receptionist" onAction="#handleOpenChat"
-            styleClass="secondary-button" maxWidth="Infinity"/>
+        <VBox styleClass="dash-stat-card-accent" HBox.hgrow="ALWAYS" spacing="4">
+            <Label text="Active Reservations" styleClass="dash-stat-label"/>
+            <Label fx:id="activeResLabel" text="0" styleClass="dash-stat-value-red"/>
+        </VBox>
 
-    <Label fx:id="messageLabel" text="" styleClass="error-label" wrapText="true"/>
+        <VBox styleClass="dash-stat-card" HBox.hgrow="ALWAYS" spacing="4">
+            <Label text="Room Preference" styleClass="dash-stat-label"/>
+            <Label fx:id="prefLabel" text="—" styleClass="dash-stat-value-sm"/>
+        </VBox>
+    </HBox>
 
+    <!-- Main Content (2-column) -->
+    <HBox spacing="20" VBox.vgrow="ALWAYS" style="-fx-background-color: #f5f5f5;">
+        <padding><Insets top="4" bottom="20" left="32" right="32"/></padding>
+
+        <!-- Left: Reservations List -->
+        <VBox spacing="12" HBox.hgrow="ALWAYS">
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label text="Your Reservations" styleClass="section-heading"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <ProgressIndicator fx:id="loadingIndicator" visible="false" prefWidth="22" prefHeight="22"/>
+            </HBox>
+            <ListView fx:id="reservationsList" VBox.vgrow="ALWAYS" styleClass="white-list"
+                      style="-fx-min-height: 240;"/>
+            <Label fx:id="messageLabel" text="" styleClass="error-label" wrapText="true"/>
+        </VBox>
+
+        <!-- Right: Quick Actions -->
+        <VBox spacing="12" prefWidth="220">
+            <Label text="Quick Actions" styleClass="section-heading"/>
+            <Button text="Browse Rooms" onAction="#handleBrowseRooms"
+                    styleClass="btn-red-filled" maxWidth="Infinity"/>
+            <Button text="Checkout and Pay" onAction="#handleCheckout"
+                    styleClass="btn-red-filled" maxWidth="Infinity"/>
+            <Button text="Cancel Reservation" onAction="#handleCancel"
+                    styleClass="btn-red-outline" maxWidth="Infinity"/>
+            <Button text="Chat with Receptionist" onAction="#handleOpenChat"
+                    styleClass="btn-red-outline" maxWidth="Infinity"/>
+            <VBox spacing="6" style="-fx-background-color: #fff5f5; -fx-border-color: #ffcccc;
+                                     -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8;
+                                     -fx-padding: 14;">
+                <Label text="Need Help?"
+                       style="-fx-font-family: 'Times New Roman'; -fx-font-size: 13px;
+                              -fx-font-weight: bold; -fx-text-fill: #cc0000;"/>
+                <Label text="Contact our reception desk or use the live chat feature to speak with staff."
+                       wrapText="true"
+                       style="-fx-font-family: 'Times New Roman'; -fx-font-size: 12px; -fx-text-fill: #666666;"/>
+            </VBox>
+        </VBox>
+    </HBox>
 </VBox>

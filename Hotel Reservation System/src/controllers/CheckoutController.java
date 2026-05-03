@@ -13,6 +13,7 @@ import models.Reservation;
 
 public class CheckoutController {
 
+
     @FXML private Label balanceLabel;
     @FXML private TextField amountField;
     @FXML private ComboBox<paymentmethod> paymentMethodCombo;

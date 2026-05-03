@@ -30,6 +30,9 @@ public class StaffDashboardController implements Initializable {
     @FXML private ListView<Room> roomsListView;
     @FXML private ListView<Reservation> reservationsListView;
 
+    @FXML private Label guestCountLabel;
+    @FXML private Label roomCountLabel;
+    @FXML private Label reservationCountLabel;
     @FXML private HBox adminRoomsBox;
     @FXML private HBox receptionistBox;
 
@@ -124,6 +127,12 @@ public class StaffDashboardController implements Initializable {
     }
 
     private void refreshLists() {
+        if (guestCountLabel != null) guestCountLabel.setText(String.valueOf(database.HotelDatabase.guests.size()));
+        if (roomCountLabel != null) roomCountLabel.setText(String.valueOf(database.HotelDatabase.rooms.size()));
+        long activeRes = database.HotelDatabase.reservations.stream()
+            .filter(r -> r.getStatus() == enums.reservationstatus.CONFIRMED || r.getStatus() == enums.reservationstatus.PENDING)
+            .count();
+        if (reservationCountLabel != null) reservationCountLabel.setText(String.valueOf(activeRes));
         guestsListView.setItems(FXCollections.observableArrayList(HotelDatabase.guests));
         roomsListView.setItems(FXCollections.observableArrayList(HotelDatabase.rooms));
         reservationsListView.setItems(FXCollections.observableArrayList(HotelDatabase.reservations));

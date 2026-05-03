@@ -102,6 +102,7 @@ public class SceneManager {
     public static double getPendingAmount() { return pendingAmount; }
     public static void setPendingAmount(double amount) { pendingAmount = amount; }
 
+
     public static void openChat() {
         try {
             FXMLLoader loader = new FXMLLoader(

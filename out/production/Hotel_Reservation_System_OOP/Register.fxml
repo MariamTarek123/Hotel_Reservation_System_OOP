@@ -1,62 +1,125 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.text.Text?>
 <?import javafx.geometry.Insets?>
 
-<VBox xmlns="http://javafx.com/javafx"
+<HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="controllers.RegisterController"
-      alignment="CENTER"
-      spacing="12"
-      prefWidth="400"
-      prefHeight="600"
-      styleClass="root-container">
+      prefWidth="980"
+      prefHeight="650"
+      styleClass="login-root-bg">
 
-    <padding>
-        <Insets top="30" bottom="30" left="40" right="40"/>
-    </padding>
+    <!-- ═══════════════════════════════════════════════════
+         LEFT SIDE — identical structure to login.fxml
+         Image + overlay + brand text
+         ═══════════════════════════════════════════════════ -->
+    <StackPane HBox.hgrow="ALWAYS" styleClass="login-left-panel">
+        <!-- Dark overlay -->
+        <Region style="-fx-background-color: rgba(0, 0, 0, 0.45);"/>
+        <!-- Brand content — same layout as login -->
+        <VBox alignment="CENTER">
+            <padding>
+                <Insets top="40" bottom="40" left="40" right="40"/>
+            </padding>
+            <Region VBox.vgrow="ALWAYS"/>
+            <Text text="TRANSYLVANIA"           styleClass="transylvania-brand"/>
+            <Text text="HOTEL &amp; RESORT"     styleClass="transylvania-subbrand"/>
+            <Region prefHeight="50"/>
+            <Text text="Experience luxury in the heart of the Carpathian" styleClass="transylvania-desc"/>
+            <Text text="Mountains. Where legend meets comfort."           styleClass="transylvania-desc"/>
+            <Region VBox.vgrow="ALWAYS"/>
+        </VBox>
+    </StackPane>
 
-    <Text text="Create Account" styleClass="title-text"/>
+    <!-- ═══════════════════════════════════════════════════
+         RIGHT SIDE — registration form
+         ═══════════════════════════════════════════════════ -->
+    <VBox alignment="CENTER" spacing="11" prefWidth="500"
+          style="-fx-background-color: white;">
+        <padding>
+            <Insets top="28" bottom="28" left="52" right="52"/>
+        </padding>
 
-    <VBox spacing="5">
-        <Label text="Username"/>
-        <TextField fx:id="usernameField" promptText="Min 3 characters" styleClass="input-field"/>
+        <!-- Heading -->
+        <VBox alignment="CENTER" spacing="4">
+            <Text text="Create Account"            styleClass="welcome-text"/>
+            <Text text="Join us for a luxurious stay" styleClass="sign-in-text"/>
+        </VBox>
+
+        <Region prefHeight="4"/>
+
+        <!-- Username -->
+        <VBox spacing="5" alignment="CENTER_LEFT">
+            <Label text="Username" styleClass="form-label"/>
+            <TextField fx:id="usernameField"
+                       promptText="Min 3 characters"
+                       styleClass="login-input"/>
+        </VBox>
+
+        <!-- Password -->
+        <VBox spacing="5" alignment="CENTER_LEFT">
+            <Label text="Password" styleClass="form-label"/>
+            <PasswordField fx:id="passwordField"
+                           promptText="Min 7 characters — letters &amp; digits"
+                           styleClass="login-input"/>
+        </VBox>
+
+        <!-- Address -->
+        <VBox spacing="5" alignment="CENTER_LEFT">
+            <Label text="Address" styleClass="form-label"/>
+            <TextField fx:id="addressField"
+                       promptText="Your address"
+                       styleClass="login-input"/>
+        </VBox>
+
+        <!-- DOB + Gender side by side -->
+        <HBox spacing="12">
+            <VBox spacing="5" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                <Label text="Date of Birth" styleClass="form-label"/>
+                <!-- styleClass "register-picker" targets the white-form DatePicker CSS -->
+                <DatePicker fx:id="dobPicker"
+                            styleClass="register-picker"
+                            maxWidth="Infinity"/>
+            </VBox>
+            <VBox spacing="5" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                <Label text="Gender" styleClass="form-label"/>
+                <!-- styleClass "register-combo" targets the white-form ComboBox CSS -->
+                <ComboBox fx:id="genderCombo"
+                          promptText="Select gender"
+                          styleClass="register-combo"
+                          maxWidth="Infinity"/>
+            </VBox>
+        </HBox>
+
+        <!-- Room preference -->
+        <VBox spacing="5" alignment="CENTER_LEFT">
+            <Label text="Room Preference" styleClass="form-label"/>
+            <ComboBox fx:id="preferenceCombo"
+                      promptText="Select room type"
+                      styleClass="register-combo"
+                      maxWidth="Infinity"/>
+        </VBox>
+
+        <Label fx:id="errorLabel" styleClass="error-label" text="" wrapText="true"/>
+
+        <!-- Register button -->
+        <Button text="Create Account"
+                onAction="#handleRegister"
+                styleClass="btn-red-filled"
+                maxWidth="Infinity"/>
+
+        <Region prefHeight="2"/>
+
+        <!-- Back to login -->
+        <HBox alignment="CENTER" spacing="5">
+            <Label text="Already have an account?" styleClass="form-label-muted"/>
+            <Hyperlink text="Login here" onAction="#goToLogin" styleClass="link-red"/>
+        </HBox>
+
     </VBox>
-
-    <VBox spacing="5">
-        <Label text="Password"/>
-        <PasswordField fx:id="passwordField" promptText="Min 7 chars, letters + digits" styleClass="input-field"/>
-    </VBox>
-
-    <VBox spacing="5">
-        <Label text="Address"/>
-        <TextField fx:id="addressField" promptText="Your address" styleClass="input-field"/>
-    </VBox>
-
-    <VBox spacing="5">
-        <Label text="Date of Birth"/>
-        <DatePicker fx:id="dobPicker" styleClass="input-field" maxWidth="Infinity"/>
-    </VBox>
-
-    <VBox spacing="5">
-        <Label text="Gender"/>
-        <ComboBox fx:id="genderCombo" promptText="Select gender" maxWidth="Infinity"/>
-    </VBox>
-
-    <VBox spacing="5">
-        <Label text="Room Preference"/>
-        <ComboBox fx:id="preferenceCombo" promptText="Select room type" maxWidth="Infinity"/>
-    </VBox>
-
-    <Label fx:id="errorLabel" styleClass="error-label" text="" wrapText="true"/>
-
-    <Button text="Register" onAction="#handleRegister" styleClass="primary-button" maxWidth="Infinity"/>
-
-    <HBox alignment="CENTER" spacing="5">
-        <Label text="Already have an account?"/>
-        <Hyperlink text="Login here" onAction="#goToLogin"/>
-    </HBox>
-
-</VBox>
+</HBox>

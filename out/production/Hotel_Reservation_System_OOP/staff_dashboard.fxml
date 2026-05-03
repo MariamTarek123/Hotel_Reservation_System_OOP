@@ -1,68 +1,205 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.text.Text?>
+<?import javafx.geometry.Insets?>
 
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="controllers.StaffDashboardController"
-      spacing="10"
-      prefWidth="800"
-      prefHeight="600"
-      styleClass="root-container">
+      prefWidth="1000" prefHeight="740"
+      style="-fx-background-color: white;">
 
-    <padding>
-        <Insets top="20" bottom="20" left="20" right="20"/>
-    </padding>
-
-    <HBox alignment="CENTER_LEFT" spacing="20">
-        <Text fx:id="welcomeText" text="Staff Dashboard" style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+    <!-- Red Header Bar -->
+    <HBox styleClass="app-header" alignment="CENTER_LEFT" spacing="16" minHeight="54">
+        <Label text="TRANSYLVANIA HOTEL &amp; RESORT" styleClass="app-header-brand"/>
         <Region HBox.hgrow="ALWAYS"/>
-        <Button text="Logout" onAction="#handleLogout" styleClass="secondary-button" />
-        <Button text="Open Chat" onAction="#handleOpenChat" styleClass="secondary-button"/>
+        <Label fx:id="roleLabel" text="Role: —" styleClass="app-header-sub"/>
+        <Button text="Chat" onAction="#handleOpenChat" styleClass="app-logout-btn"/>
+        <Button text="Logout" onAction="#handleLogout" styleClass="app-logout-btn"/>
     </HBox>
 
-    <Label fx:id="roleLabel" text="Role: " style="-fx-font-size: 14;" />
+    <!-- Banner -->
+    <StackPane prefHeight="100" styleClass="staff-banner-panel">
+        <Region style="-fx-background-color: rgba(0,0,0,0.32);"/>
+        <VBox alignment="CENTER_LEFT" maxWidth="Infinity" maxHeight="Infinity">
+            <padding><Insets left="40"/></padding>
+            <Text fx:id="welcomeText" text="Staff Dashboard"
+                  style="-fx-font-family: 'Times New Roman'; -fx-font-size: 28px;
+                         -fx-fill: white; -fx-font-weight: bold;"/>
+            <Label text="Manage guests, rooms, and reservations"
+                   style="-fx-font-family: 'Times New Roman'; -fx-font-size: 13px;
+                          -fx-text-fill: rgba(255,255,255,0.70);"/>
+        </VBox>
+    </StackPane>
 
-    <Label fx:id="messageLabel" text="" styleClass="error-label" wrapText="true" />
+    <!-- Summary stats row -->
+    <HBox spacing="0" style="-fx-background-color: white;
+          -fx-border-color: transparent transparent #e8e8e8 transparent; -fx-border-width: 0 0 1 0;">
+        <padding><Insets top="16" bottom="16" left="32" right="32"/></padding>
 
-    <TabPane fx:id="tabPane" VBox.vgrow="ALWAYS" tabClosingPolicy="UNAVAILABLE">
-        <!-- Guests Tab -->
-        <Tab text="Guests">
-            <VBox spacing="10">
-                <padding><Insets top="10"/></padding>
-                <ListView fx:id="guestsListView" VBox.vgrow="ALWAYS" />
-            </VBox>
-        </Tab>
+        <VBox HBox.hgrow="ALWAYS" alignment="CENTER" spacing="2"
+              style="-fx-border-color: transparent #e8e8e8 transparent transparent;
+                     -fx-border-width: 0 1 0 0; -fx-padding: 0 24 0 0;">
+            <Label text="GUESTS"
+                   style="-fx-font-family: 'Times New Roman'; -fx-font-size: 11px;
+                          -fx-text-fill: #999999; -fx-font-weight: bold;"/>
+            <Label fx:id="guestCountLabel" text="—"
+                   style="-fx-font-family: 'Times New Roman'; -fx-font-size: 22px;
+                          -fx-font-weight: bold; -fx-text-fill: #1a1a1a;"/>
+        </VBox>
 
-        <!-- Rooms Tab -->
-        <Tab text="Rooms">
-            <VBox spacing="10">
-                <padding><Insets top="10"/></padding>
-                <ListView fx:id="roomsListView" VBox.vgrow="ALWAYS" />
-                <HBox fx:id="adminRoomsBox" spacing="10" visible="false" managed="false">
-                    <Button text="Create Room" onAction="#handleCreateRoom" />
-                    <Button text="Update Selected Room" onAction="#handleUpdateRoom" />
-                    <Button text="Delete Selected Room" onAction="#handleDeleteRoom" />
-                    <Button text="Create Receptionist" onAction="#handleCreateReceptionist"/>
-                </HBox>
-            </VBox>
-        </Tab>
+        <VBox HBox.hgrow="ALWAYS" alignment="CENTER" spacing="2"
+              style="-fx-border-color: transparent #e8e8e8 transparent transparent;
+                     -fx-border-width: 0 1 0 0; -fx-padding: 0 24 0 24;">
+            <Label text="TOTAL ROOMS"
+                   style="-fx-font-family: 'Times New Roman'; -fx-font-size: 11px;
+                          -fx-text-fill: #999999; -fx-font-weight: bold;"/>
+            <Label fx:id="roomCountLabel" text="—"
+                   style="-fx-font-family: 'Times New Roman'; -fx-font-size: 22px;
+                          -fx-font-weight: bold; -fx-text-fill: #1a1a1a;"/>
+        </VBox>
 
-        <!-- Reservations Tab -->
-        <Tab text="Reservations">
-            <VBox spacing="10">
-                <padding><Insets top="10"/></padding>
-                <ListView fx:id="reservationsListView" VBox.vgrow="ALWAYS" />
-                <HBox fx:id="receptionistBox" spacing="10" visible="false" managed="false">
-                    <Button text="Check-In Selected" onAction="#handleCheckIn" />
-                    <Button text="Check-Out Selected" onAction="#handleCheckOut" />
-                </HBox>
-            </VBox>
-        </Tab>
-    </TabPane>
+        <VBox HBox.hgrow="ALWAYS" alignment="CENTER" spacing="2"
+              style="-fx-padding: 0 0 0 24;">
+            <Label text="ACTIVE RESERVATIONS"
+                   style="-fx-font-family: 'Times New Roman'; -fx-font-size: 11px;
+                          -fx-text-fill: #999999; -fx-font-weight: bold;"/>
+            <Label fx:id="reservationCountLabel" text="—"
+                   style="-fx-font-family: 'Times New Roman'; -fx-font-size: 22px;
+                          -fx-font-weight: bold; -fx-text-fill: #cc0000;"/>
+        </VBox>
+    </HBox>
 
+    <!-- White Content Area with Red TabPane -->
+    <VBox VBox.vgrow="ALWAYS" style="-fx-background-color: white;">
+        <padding><Insets top="20" bottom="24" left="32" right="32"/></padding>
+        <Label fx:id="messageLabel" text="" styleClass="error-label" wrapText="true"/>
+        <Region prefHeight="8"/>
+
+        <TabPane fx:id="tabPane" VBox.vgrow="ALWAYS"
+                 tabClosingPolicy="UNAVAILABLE"
+                 styleClass="red-tab-pane">
+
+            <!-- Guests Tab -->
+            <Tab text="Guests">
+                <VBox spacing="14">
+                    <padding><Insets top="18" left="6" right="6" bottom="6"/></padding>
+                    <Label text="Registered Guests" styleClass="section-heading"/>
+                    <HBox style="-fx-background-color: #f7f7f7; -fx-border-radius: 6;
+                                 -fx-background-radius: 6; -fx-padding: 8 16;">
+                        <Label text="USERNAME"
+                               style="-fx-font-family: 'Times New Roman'; -fx-font-size: 10px;
+                                      -fx-font-weight: bold; -fx-text-fill: #999999;"
+                               prefWidth="160"/>
+                        <Label text="GENDER"
+                               style="-fx-font-family: 'Times New Roman'; -fx-font-size: 10px;
+                                      -fx-font-weight: bold; -fx-text-fill: #999999;"
+                               prefWidth="100"/>
+                        <Label text="BALANCE"
+                               style="-fx-font-family: 'Times New Roman'; -fx-font-size: 10px;
+                                      -fx-font-weight: bold; -fx-text-fill: #999999;"
+                               prefWidth="120"/>
+                        <Label text="PREFERENCE"
+                               style="-fx-font-family: 'Times New Roman'; -fx-font-size: 10px;
+                                      -fx-font-weight: bold; -fx-text-fill: #999999;"
+                               HBox.hgrow="ALWAYS"/>
+                    </HBox>
+                    <ListView fx:id="guestsListView" VBox.vgrow="ALWAYS"
+                              prefHeight="340" styleClass="white-list"/>
+                </VBox>
+            </Tab>
+
+            <!-- Rooms Tab -->
+            <Tab text="Rooms">
+                <VBox spacing="14">
+                    <padding><Insets top="18" left="6" right="6" bottom="6"/></padding>
+                    <HBox alignment="CENTER_LEFT" spacing="12">
+                        <Label text="Room Inventory" styleClass="section-heading"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <HBox fx:id="adminRoomsBox" spacing="10" visible="false" managed="false">
+                            <Button text="+ Create Room" onAction="#handleCreateRoom"
+                                    styleClass="btn-red-filled"/>
+                            <Button text="Update Selected" onAction="#handleUpdateRoom"
+                                    styleClass="btn-red-outline"/>
+                            <Button text="Delete Selected" onAction="#handleDeleteRoom"
+                                    style="-fx-background-color: transparent; -fx-text-fill: #cc0000;
+                                           -fx-border-color: #ffcccc; -fx-border-width: 1;
+                                           -fx-border-radius: 6; -fx-background-radius: 6;
+                                           -fx-padding: 7 14; -fx-cursor: hand;
+                                           -fx-font-family: 'Times New Roman'; -fx-font-weight: bold;"/>
+                        </HBox>
+                    </HBox>
+                    <HBox style="-fx-background-color: #f7f7f7; -fx-border-radius: 6;
+                                 -fx-background-radius: 6; -fx-padding: 8 16;">
+                        <Label text="ROOM"
+                               style="-fx-font-family: 'Times New Roman'; -fx-font-size: 10px;
+                                      -fx-font-weight: bold; -fx-text-fill: #999999;"
+                               prefWidth="80"/>
+                        <Label text="TYPE"
+                               style="-fx-font-family: 'Times New Roman'; -fx-font-size: 10px;
+                                      -fx-font-weight: bold; -fx-text-fill: #999999;"
+                               prefWidth="110"/>
+                        <Label text="FLOOR"
+                               style="-fx-font-family: 'Times New Roman'; -fx-font-size: 10px;
+                                      -fx-font-weight: bold; -fx-text-fill: #999999;"
+                               prefWidth="100"/>
+                        <Label text="PRICE"
+                               style="-fx-font-family: 'Times New Roman'; -fx-font-size: 10px;
+                                      -fx-font-weight: bold; -fx-text-fill: #999999;"
+                               prefWidth="100"/>
+                        <Label text="STATUS"
+                               style="-fx-font-family: 'Times New Roman'; -fx-font-size: 10px;
+                                      -fx-font-weight: bold; -fx-text-fill: #999999;"
+                               HBox.hgrow="ALWAYS"/>
+                    </HBox>
+                    <ListView fx:id="roomsListView" VBox.vgrow="ALWAYS"
+                              prefHeight="300" styleClass="white-list"/>
+                </VBox>
+            </Tab>
+
+            <!-- Reservations Tab -->
+            <Tab text="Reservations">
+                <VBox spacing="14">
+                    <padding><Insets top="18" left="6" right="6" bottom="6"/></padding>
+                    <HBox alignment="CENTER_LEFT" spacing="12">
+                        <Label text="Active Reservations" styleClass="section-heading"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <HBox fx:id="receptionistBox" spacing="10" visible="false" managed="false">
+                            <Button text="Check-In Selected" onAction="#handleCheckIn"
+                                    styleClass="btn-red-filled"/>
+                            <Button text="Check-Out Selected" onAction="#handleCheckOut"
+                                    styleClass="btn-red-outline"/>
+                        </HBox>
+                    </HBox>
+                    <HBox style="-fx-background-color: #f7f7f7; -fx-border-radius: 6;
+                                 -fx-background-radius: 6; -fx-padding: 8 16;">
+                        <Label text="GUEST"
+                               style="-fx-font-family: 'Times New Roman'; -fx-font-size: 10px;
+                                      -fx-font-weight: bold; -fx-text-fill: #999999;"
+                               prefWidth="140"/>
+                        <Label text="ROOM"
+                               style="-fx-font-family: 'Times New Roman'; -fx-font-size: 10px;
+                                      -fx-font-weight: bold; -fx-text-fill: #999999;"
+                               prefWidth="80"/>
+                        <Label text="CHECK-IN"
+                               style="-fx-font-family: 'Times New Roman'; -fx-font-size: 10px;
+                                      -fx-font-weight: bold; -fx-text-fill: #999999;"
+                               prefWidth="120"/>
+                        <Label text="CHECK-OUT"
+                               style="-fx-font-family: 'Times New Roman'; -fx-font-size: 10px;
+                                      -fx-font-weight: bold; -fx-text-fill: #999999;"
+                               prefWidth="120"/>
+                        <Label text="STATUS"
+                               style="-fx-font-family: 'Times New Roman'; -fx-font-size: 10px;
+                                      -fx-font-weight: bold; -fx-text-fill: #999999;"
+                               HBox.hgrow="ALWAYS"/>
+                    </HBox>
+                    <ListView fx:id="reservationsListView" VBox.vgrow="ALWAYS"
+                              prefHeight="300" styleClass="white-list"/>
+                </VBox>
+            </Tab>
+
+        </TabPane>
+    </VBox>
 </VBox>
-

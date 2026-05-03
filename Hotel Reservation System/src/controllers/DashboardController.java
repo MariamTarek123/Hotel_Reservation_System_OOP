@@ -26,6 +26,7 @@ public class DashboardController implements Initializable {
     @FXML private Label welcomeLabel;
     @FXML private Label balanceLabel;
     @FXML private Label prefLabel;
+    @FXML private Label activeResLabel;
     @FXML private ListView<String> reservationsList;
     @FXML private Label messageLabel;
     @FXML private ProgressIndicator loadingIndicator;
@@ -41,6 +42,13 @@ public class DashboardController implements Initializable {
             welcomeLabel.setText("Welcome, " + guest.getUsername() + "!");
             balanceLabel.setText("Balance: $" + guest.getBalance());
             prefLabel.setText("Room Preference: " + guest.getRoomPreferences());
+            // Count active reservations for stat card
+            long activeCount = database.HotelDatabase.reservations.stream()
+                .filter(r -> r.getGuest().getUsername().equals(guest.getUsername())
+                    && (r.getStatus() == enums.reservationstatus.CONFIRMED
+                    || r.getStatus() == enums.reservationstatus.PENDING))
+                .count();
+            if (activeResLabel != null) activeResLabel.setText(String.valueOf(activeCount));
 
             // load reservations on background thread
             loadReservationsAsync();
