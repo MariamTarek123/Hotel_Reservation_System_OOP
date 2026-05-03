@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.Text?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controllers.ReservationController"
+      alignment="CENTER"
+      spacing="15"
+      prefWidth="450"
+      prefHeight="600"
+      styleClass="root-container">
+
+    <padding>
+        <Insets top="30" bottom="30" left="40" right="40"/>
+    </padding>
+
+    <Text text="Make a Reservation" styleClass="title-text"/>
+
+    <!-- Selected Room Details -->
+    <VBox styleClass="info-box" spacing="5">
+        <Label text="Selected Room" styleClass="subtitle-text"/>
+        <Label fx:id="roomNumberLabel" text="Room: -"/>
+        <Label fx:id="roomTypeLabel"   text="Type: -"/>
+        <Label fx:id="roomPriceLabel"  text="Price: -"/>
+        <Label fx:id="roomFloorLabel"  text="Floor: -"/>
+        <Label fx:id="roomAmenitiesLabel" text="Amenities: -" wrapText="true"/>
+    </VBox>
+
+    <!-- Date Pickers -->
+    <VBox spacing="5">
+        <Label text="Check-in Date"/>
+        <DatePicker fx:id="checkInPicker" maxWidth="Infinity"/>
+    </VBox>
+
+    <VBox spacing="5">
+        <Label text="Check-out Date"/>
+        <DatePicker fx:id="checkOutPicker" maxWidth="Infinity"/>
+    </VBox>
+
+    <!-- Summary -->
+    <Label fx:id="summaryLabel" text="" wrapText="true" styleClass="summary-label"/>
+
+    <Label fx:id="errorLabel" text="" styleClass="error-label" wrapText="true"/>
+
+    <Button text="Calculate Total" onAction="#handleCalculate" styleClass="secondary-button" maxWidth="Infinity"/>
+    <Button text="Confirm Reservation" onAction="#handleConfirm" styleClass="primary-button" maxWidth="Infinity"/>
+    <Button text="Back" onAction="#handleBack" styleClass="secondary-button" maxWidth="Infinity"/>
+
+</VBox>
