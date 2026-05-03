@@ -16,6 +16,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.Dialog;
+import javafx.scene.layout.GridPane;
 
 public class StaffDashboardController implements Initializable {
 
@@ -50,7 +53,74 @@ public class StaffDashboardController implements Initializable {
             receptionistBox.setManaged(true);
         }
 
+
         refreshLists();
+    }
+
+    @FXML
+    private void handleCreateReceptionist() {
+        if (!(currentStaff instanceof Admin)) return;
+
+        Dialog<Receptionist> dialog = new Dialog<>();
+        dialog.setTitle("Create New Receptionist");
+        dialog.setHeaderText("Enter receptionist details:");
+
+        ButtonType createButton = new ButtonType("Create", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(createButton, ButtonType.CANCEL);
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new javafx.geometry.Insets(20, 150, 10, 10));
+
+        TextField usernameField  = new TextField();
+        PasswordField passField  = new PasswordField();
+        TextField addressField   = new TextField();
+        TextField dobField       = new TextField();
+        dobField.setPromptText("YYYY-MM-DD");
+        ComboBox<String> genderBox = new ComboBox<>();
+        genderBox.getItems().addAll("MALE", "FEMALE");
+        TextField hoursField     = new TextField();
+
+        grid.add(new Label("Username:"),     0, 0); grid.add(usernameField, 1, 0);
+        grid.add(new Label("Password:"),     0, 1); grid.add(passField,     1, 1);
+        grid.add(new Label("Address:"),      0, 2); grid.add(addressField,  1, 2);
+        grid.add(new Label("Date of Birth:"),0, 3); grid.add(dobField,      1, 3);
+        grid.add(new Label("Gender:"),       0, 4); grid.add(genderBox,     1, 4);
+        grid.add(new Label("Working Hours:"),0, 5); grid.add(hoursField,    1, 5);
+
+        dialog.getDialogPane().setContent(grid);
+
+        dialog.setResultConverter(btn -> {
+            if (btn == createButton) {
+                try {
+                    Receptionist rec = new Receptionist(
+                            usernameField.getText().trim(),
+                            passField.getText(),
+                            java.time.LocalDate.parse(dobField.getText().trim()),
+                            addressField.getText().trim(),
+                            enums.genders.valueOf(genderBox.getValue()),
+                            Integer.parseInt(hoursField.getText().trim())
+                    );
+                    return rec;
+                } catch (Exception e) {
+                    messageLabel.setText("Error: " + e.getMessage());
+                    return null;
+                }
+            }
+            return null;
+        });
+
+        dialog.showAndWait().ifPresent(rec -> {
+            HotelDatabase.staff.add(rec);
+            HotelDatabase.saveStaff(rec);
+            messageLabel.setText("Receptionist " + rec.getUsername() + " created successfully.");
+        });
+    }
+
+    @FXML
+    private void handleOpenChat() {
+        SceneManager.openChat();
     }
 
     private void refreshLists() {
@@ -155,6 +225,8 @@ public class StaffDashboardController implements Initializable {
         }
     }
 
+
+
     @FXML
     private void handleDeleteRoom() {
         if (!(currentStaff instanceof Admin admin)) return;
@@ -208,5 +280,7 @@ public class StaffDashboardController implements Initializable {
         } catch (IllegalStateException e) {
             messageLabel.setText(e.getMessage());
         }
+
+
     }
 }

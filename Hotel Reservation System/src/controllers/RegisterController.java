@@ -58,6 +58,7 @@ public class RegisterController implements Initializable {
             genders gender = genders.valueOf(genderStr);
             Guest newGuest = new Guest(username, password, dob, address, gender, 2000.0, pref);
             HotelDatabase.guests.add(newGuest);
+            HotelDatabase.saveGuest(newGuest);
             SceneManager.setCurrentGuest(newGuest);
             SceneManager.switchTo("dashboard.fxml");
         } catch (IllegalArgumentException e) {

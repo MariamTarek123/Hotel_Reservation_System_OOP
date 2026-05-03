@@ -182,6 +182,8 @@ public class Main {
         if (confirm.equalsIgnoreCase("yes")) {
             try {
                 guest.makeReservation(selectedRoom, checkIn, checkOut);
+                HotelDatabase.saveReservation(HotelDatabase.reservations.get(HotelDatabase.reservations.size()-1));
+                HotelDatabase.updateRoomAvailability(selectedRoom);
             } catch (RoomNotAvailableException | InvalidDateRangeException e) {
                 System.out.println("Error: " + e.getMessage());
             }

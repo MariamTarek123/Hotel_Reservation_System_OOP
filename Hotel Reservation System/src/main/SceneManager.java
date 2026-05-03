@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import models.Guest;
 import models.Staff;
 
+
 public class SceneManager {
     private static Stage stage;
     private static Guest currentGuest;
@@ -100,4 +101,22 @@ public class SceneManager {
 
     public static double getPendingAmount() { return pendingAmount; }
     public static void setPendingAmount(double amount) { pendingAmount = amount; }
+
+    public static void openChat() {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    SceneManager.class.getClassLoader().getResource("chat.fxml")
+            );
+            Parent root = loader.load();
+            Stage chatStage = new Stage();
+            chatStage.setTitle("Live Chat");
+            Scene scene = new Scene(root);
+            chatStage.setScene(scene);
+            chatStage.setResizable(false);
+            chatStage.show();
+        } catch (Exception e) {
+            System.out.println("Error opening chat: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 }

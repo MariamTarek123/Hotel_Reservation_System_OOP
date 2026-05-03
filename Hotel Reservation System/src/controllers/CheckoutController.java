@@ -1,109 +1,130 @@
 package controllers;
 
+import database.HotelDatabase;
 import enums.paymentmethod;
-import exceptions.InvalidPaymentException;
 import javafx.collections.FXCollections;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import main.SceneManager;
 import models.Guest;
 import models.Invoice;
-import database.HotelDatabase;
-import javafx.scene.control.Alert;
+import models.Reservation;
 
 public class CheckoutController {
 
-    @FXML
-    private Label balanceLabel;
-    @FXML
-    private TextField amountField;
-    @FXML
-    private ComboBox<paymentmethod> paymentMethodCombo;
-    @FXML
-    private Label messageLabel;
+    @FXML private Label balanceLabel;
+    @FXML private TextField amountField;
+    @FXML private ComboBox<paymentmethod> paymentMethodCombo;
+    @FXML private Label messageLabel;
+    @FXML private Button payButton;
+    @FXML private ProgressIndicator paymentIndicator;
 
     private Guest currentGuest;
     private double requiredAmount = 0.0;
-    private models.Reservation checkoutReservation;
+    private Reservation checkoutReservation;
 
     @FXML
     public void initialize() {
         currentGuest = SceneManager.getCurrentGuest();
         checkoutReservation = SceneManager.getPendingReservation();
         requiredAmount = SceneManager.getPendingAmount();
-        
-        if (checkoutReservation != null) {
+
+        if (checkoutReservation != null)
             balanceLabel.setText(String.format("Exact amount due: $%.2f", requiredAmount));
-        } else {
+        else
             balanceLabel.setText("No pending checkout.");
-        }
-        
-        // Populate the combo box with enum values
+
         paymentMethodCombo.setItems(FXCollections.observableArrayList(paymentmethod.values()));
+        if (paymentIndicator != null) paymentIndicator.setVisible(false);
     }
 
     @FXML
     public void handlePayment() {
         if (currentGuest == null || checkoutReservation == null) return;
-        
+
         messageLabel.setText("");
         messageLabel.setStyle("-fx-text-fill: red;");
-        
+
         String amountText = amountField.getText();
         paymentmethod selectedMethod = paymentMethodCombo.getValue();
-        
+
         if (amountText == null || amountText.trim().isEmpty()) {
             messageLabel.setText("Please enter an amount.");
             return;
         }
-        
         if (selectedMethod == null) {
             messageLabel.setText("Please select a payment method.");
             return;
         }
-        
-        try {
-            double amountToPay = Double.parseDouble(amountText);
-            
-            // Require exact amount
-            if (amountToPay != requiredAmount) {
-                messageLabel.setText(String.format("Please enter the exact amount required ($%.2f)", requiredAmount));
-                return;
-            }
-            
-            // Deduct from guest balance (affects the current balance in the program)
-            currentGuest.pay(requiredAmount, selectedMethod);
 
-            // Generate invoice and mark it paid as required by the user
-            Invoice invoice = Invoice.generate(checkoutReservation, requiredAmount);
-            invoice.markPaid(selectedMethod);
-            HotelDatabase.invoices.add(invoice);
-            
-            // The room is already marked as unavailable during Guest.makeReservation().
-            // If they need to "pay via guest balance", we can do it, but here it's an immediate invoice pay.
-            
-            // Success
+        double amountToPay;
+        try {
+            amountToPay = Double.parseDouble(amountText);
+        } catch (NumberFormatException e) {
+            messageLabel.setText("Invalid amount. Please enter numbers only.");
+            return;
+        }
+
+        if (amountToPay != requiredAmount) {
+            messageLabel.setText(String.format(
+                    "Please enter the exact amount required ($%.2f)", requiredAmount));
+            return;
+        }
+
+        // disable button and show spinner while processing
+        if (payButton != null) payButton.setDisable(true);
+        if (paymentIndicator != null) paymentIndicator.setVisible(true);
+        messageLabel.setText("Processing payment...");
+        messageLabel.setStyle("-fx-text-fill: gray;");
+
+        final paymentmethod method = selectedMethod;
+
+        Task<Void> paymentTask = new Task<>() {
+            @Override
+            protected Void call() throws Exception {
+                // simulate processing delay
+                Thread.sleep(1500);
+
+                currentGuest.pay(requiredAmount, method);
+                HotelDatabase.updateGuestBalance(currentGuest);
+                HotelDatabase.updateReservationStatus(checkoutReservation);
+                HotelDatabase.updateRoomAvailability(checkoutReservation.getRoom());
+
+                Invoice invoice = Invoice.generate(checkoutReservation, requiredAmount);
+                invoice.markPaid(method);
+                HotelDatabase.invoices.add(invoice);
+
+                return null;
+            }
+        };
+
+        paymentTask.setOnSucceeded(event -> {
+            if (paymentIndicator != null) paymentIndicator.setVisible(false);
+            if (payButton != null) payButton.setDisable(false);
+
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Payment Successful");
             alert.setHeaderText(null);
             alert.setContentText("Payment successful! The room is now reserved and fully paid.");
             alert.showAndWait();
-            
-            // Clear checkout pending details
+
             SceneManager.setPendingReservation(null);
             SceneManager.setPendingAmount(0);
-            
             SceneManager.switchTo("Dashboard.fxml");
-            
-        } catch (NumberFormatException e) {
-            messageLabel.setText("Invalid amount entered. Please enter numbers only.");
-        } catch (exceptions.InvalidPaymentException e) {
-            messageLabel.setText("Payment failed: " + e.getMessage() + " (Please ensure you have enough balance)");
-        } catch (Exception e) {
-            messageLabel.setText("An unexpected error occurred: " + e.getMessage());
-        }
+        });
+
+        paymentTask.setOnFailed(event -> {
+            if (paymentIndicator != null) paymentIndicator.setVisible(false);
+            if (payButton != null) payButton.setDisable(false);
+            Throwable ex = paymentTask.getException();
+            messageLabel.setText("Payment failed: " + ex.getMessage());
+            messageLabel.setStyle("-fx-text-fill: red;");
+        });
+
+        Thread thread = new Thread(paymentTask);
+        thread.setDaemon(true);
+        thread.start();
     }
 
     @FXML
