@@ -25,9 +25,9 @@
         <VBox spacing="3" HBox.hgrow="ALWAYS">
             <padding><Insets top="16" bottom="16" left="36" right="36"/></padding>
             <Label text="Reservation Details"
-                   style="-fx-font-family: 'Times New Roman'; -fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #1a1a1a;"/>
+                   style="-fx-font-family: 'Merriweather'; -fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #1a1a1a;"/>
             <Label text="Review your room and choose your dates"
-                   style="-fx-font-family: 'Times New Roman'; -fx-font-size: 13px; -fx-text-fill: #888888;"/>
+                   style="-fx-font-family: 'Merriweather'; -fx-font-size: 13px; -fx-text-fill: #888888;"/>
         </VBox>
         <Region prefWidth="6" minHeight="70" maxHeight="70"
                 style="-fx-background-color: linear-gradient(to bottom, #e60000, #8b0000);"/>
@@ -49,41 +49,41 @@
             <HBox spacing="10" alignment="CENTER_LEFT"
                   style="-fx-padding: 10 0; -fx-border-color: transparent transparent #f0f0f0 transparent; -fx-border-width: 0 0 1 0;">
                 <Label text="Room No."
-                       style="-fx-font-family: 'Times New Roman'; -fx-font-size: 12px; -fx-text-fill: #999999;"
+                       style="-fx-font-family: 'Merriweather'; -fx-font-size: 12px; -fx-text-fill: #999999;"
                        prefWidth="90"/>
                 <Label fx:id="roomNumberLabel" text="—"
-                       style="-fx-font-family: 'Times New Roman'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #1a1a1a;"/>
+                       style="-fx-font-family: 'Merriweather'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #1a1a1a;"/>
             </HBox>
             <HBox spacing="10" alignment="CENTER_LEFT"
                   style="-fx-padding: 10 0; -fx-border-color: transparent transparent #f0f0f0 transparent; -fx-border-width: 0 0 1 0;">
                 <Label text="Type"
-                       style="-fx-font-family: 'Times New Roman'; -fx-font-size: 12px; -fx-text-fill: #999999;"
+                       style="-fx-font-family: 'Merriweather'; -fx-font-size: 12px; -fx-text-fill: #999999;"
                        prefWidth="90"/>
                 <Label fx:id="roomTypeLabel" text="—"
-                       style="-fx-font-family: 'Times New Roman'; -fx-font-size: 14px; -fx-text-fill: #1a1a1a;"/>
+                       style="-fx-font-family: 'Merriweather'; -fx-font-size: 14px; -fx-text-fill: #1a1a1a;"/>
             </HBox>
             <HBox spacing="10" alignment="CENTER_LEFT"
                   style="-fx-padding: 10 0; -fx-border-color: transparent transparent #f0f0f0 transparent; -fx-border-width: 0 0 1 0;">
                 <Label text="Price / Night"
-                       style="-fx-font-family: 'Times New Roman'; -fx-font-size: 12px; -fx-text-fill: #999999;"
+                       style="-fx-font-family: 'Merriweather'; -fx-font-size: 12px; -fx-text-fill: #999999;"
                        prefWidth="90"/>
                 <Label fx:id="roomPriceLabel" text="—"
-                       style="-fx-font-family: 'Times New Roman'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #cc0000;"/>
+                       style="-fx-font-family: 'Merriweather'; -fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #cc0000;"/>
             </HBox>
             <HBox spacing="10" alignment="CENTER_LEFT"
                   style="-fx-padding: 10 0; -fx-border-color: transparent transparent #f0f0f0 transparent; -fx-border-width: 0 0 1 0;">
                 <Label text="Floor"
-                       style="-fx-font-family: 'Times New Roman'; -fx-font-size: 12px; -fx-text-fill: #999999;"
+                       style="-fx-font-family: 'Merriweather'; -fx-font-size: 12px; -fx-text-fill: #999999;"
                        prefWidth="90"/>
                 <Label fx:id="roomFloorLabel" text="—"
-                       style="-fx-font-family: 'Times New Roman'; -fx-font-size: 14px; -fx-text-fill: #1a1a1a;"/>
+                       style="-fx-font-family: 'Merriweather'; -fx-font-size: 14px; -fx-text-fill: #1a1a1a;"/>
             </HBox>
             <HBox spacing="10" alignment="TOP_LEFT" style="-fx-padding: 10 0;">
                 <Label text="Amenities"
-                       style="-fx-font-family: 'Times New Roman'; -fx-font-size: 12px; -fx-text-fill: #999999;"
+                       style="-fx-font-family: 'Merriweather'; -fx-font-size: 12px; -fx-text-fill: #999999;"
                        prefWidth="90"/>
                 <Label fx:id="roomAmenitiesLabel" text="—" wrapText="true"
-                       style="-fx-font-family: 'Times New Roman'; -fx-font-size: 13px; -fx-text-fill: #444444;"
+                       style="-fx-font-family: 'Merriweather'; -fx-font-size: 13px; -fx-text-fill: #444444;"
                        HBox.hgrow="ALWAYS"/>
             </HBox>
 
@@ -92,7 +92,7 @@
             <Label fx:id="summaryLabel" text="" wrapText="true"
                    style="-fx-background-color: #fff5f5; -fx-border-color: #ffcccc;
                           -fx-border-width: 1; -fx-border-radius: 6; -fx-background-radius: 6;
-                          -fx-padding: 12; -fx-font-family: 'Times New Roman';
+                          -fx-padding: 12; -fx-font-family: 'Merriweather';
                           -fx-font-size: 13px; -fx-text-fill: #cc0000;"
                    maxWidth="Infinity"/>
         </VBox>

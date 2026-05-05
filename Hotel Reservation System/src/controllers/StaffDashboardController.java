@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 import main.SceneManager;
 import models.*;
@@ -35,6 +36,8 @@ public class StaffDashboardController implements Initializable {
     @FXML private Label reservationCountLabel;
     @FXML private HBox adminRoomsBox;
     @FXML private HBox receptionistBox;
+
+    @FXML private TabPane tabPane;
 
     private Staff currentStaff;
 
@@ -133,9 +136,157 @@ public class StaffDashboardController implements Initializable {
             .filter(r -> r.getStatus() == enums.reservationstatus.CONFIRMED || r.getStatus() == enums.reservationstatus.PENDING)
             .count();
         if (reservationCountLabel != null) reservationCountLabel.setText(String.valueOf(activeRes));
+
         guestsListView.setItems(FXCollections.observableArrayList(HotelDatabase.guests));
+        guestsListView.setCellFactory(lv -> new ListCell<Guest>() {
+            @Override
+            protected void updateItem(Guest guest, boolean empty) {
+                super.updateItem(guest, empty);
+                if (empty || guest == null) {
+                    setText(null);
+                    setGraphic(null);
+                    setStyle("-fx-background-color: transparent; -fx-padding: 0;");
+                } else {
+                    HBox root = new HBox();
+                    root.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+                    root.setStyle("-fx-padding: 15 20; -fx-border-color: #f0f0f0; -fx-border-width: 0 0 1 0; -fx-background-color: white;");
+
+                    Label icon = new Label("👥");
+                    icon.setStyle("-fx-background-color: #ffe6e6; -fx-text-fill: #cc0000; -fx-padding: 8; -fx-background-radius: 4; -fx-font-size: 14px;");
+
+                    Label name = new Label(guest.getUsername());
+                    name.setStyle("-fx-text-fill: #1a1a1a; -fx-font-weight: bold; -fx-font-family: 'Merriweather'; -fx-font-size: 13px; -fx-padding: 0 0 0 15;");
+                    name.setPrefWidth(185);
+
+                    Label email = new Label(guest.getUsername().toLowerCase() + "@transylvania.com");
+                    email.setStyle("-fx-text-fill: #1a1a1a; -fx-font-family: 'Merriweather'; -fx-font-size: 12px;");
+                    email.setPrefWidth(180);
+
+                    Label phone = new Label("+1 234 567 " + (1000 + (guest.getUsername().hashCode() % 8999))); // Mock phone
+                    phone.setStyle("-fx-text-fill: #1a1a1a; -fx-font-family: 'Merriweather'; -fx-font-size: 12px;");
+                    phone.setPrefWidth(120);
+
+                    Label balance = new Label(String.format("$%.2f", guest.getBalance()));
+                    balance.setStyle("-fx-text-fill: #2ecc71; -fx-font-family: 'Merriweather'; -fx-font-size: 13px; -fx-font-weight: bold;");
+                    balance.setPrefWidth(120);
+
+                    String prefText = guest.getRoomPreferences() != null && !guest.getRoomPreferences().isEmpty() ? guest.getRoomPreferences() : "No Preference";
+                    Label preference = new Label(prefText);
+                    preference.setStyle("-fx-text-fill: #1a1a1a; -fx-font-family: 'Merriweather'; -fx-font-size: 12px;");
+
+                    Button editBtn = new Button("📝");
+                    editBtn.setStyle("-fx-background-color: transparent; -fx-text-fill: #cc0000; -fx-font-size: 14px; -fx-cursor: hand;");
+
+                    Region spacer = new Region();
+                    HBox.setHgrow(spacer, javafx.scene.layout.Priority.ALWAYS);
+
+                    root.getChildren().addAll(icon, name, email, phone, balance, preference, spacer, editBtn);
+                    setGraphic(root);
+                    setStyle("-fx-padding: 0;");
+                }
+            }
+        });
+
         roomsListView.setItems(FXCollections.observableArrayList(HotelDatabase.rooms));
+        roomsListView.setCellFactory(lv -> new ListCell<Room>() {
+            @Override
+            protected void updateItem(Room room, boolean empty) {
+                super.updateItem(room, empty);
+                if (empty || room == null) {
+                    setText(null);
+                    setGraphic(null);
+                    setStyle("-fx-background-color: transparent; -fx-padding: 0;");
+                } else {
+                    HBox root = new HBox();
+                    root.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+                    root.setStyle("-fx-padding: 15 20; -fx-border-color: #f0f0f0; -fx-border-width: 0 0 1 0; -fx-background-color: white;");
+
+                    Label roomNum = new Label("Room " + room.getRoomNumber());
+                    roomNum.setStyle("-fx-text-fill: #1a1a1a; -fx-font-weight: bold; -fx-font-family: 'Merriweather'; -fx-font-size: 12px;");
+                    roomNum.setPrefWidth(120);
+
+                    Label type = new Label(room.getRoomType().getTypeName());
+                    type.setStyle("-fx-text-fill: #1a1a1a; -fx-font-family: 'Merriweather'; -fx-font-size: 12px;");
+                    type.setPrefWidth(150);
+
+                    Label floor = new Label("Floor " + room.getFloor());
+                    floor.setStyle("-fx-text-fill: #1a1a1a; -fx-font-family: 'Merriweather'; -fx-font-size: 12px;");
+                    floor.setPrefWidth(120);
+
+                    Label price = new Label(String.format("$%.2f", room.getPricePerNight()));
+                    price.setStyle("-fx-text-fill: #2ecc71; -fx-font-family: 'Merriweather'; -fx-font-size: 12px; -fx-font-weight: bold;");
+                    price.setPrefWidth(150);
+
+                    Label status = new Label(room.isAvailable() ? "Available" : "Occupied");
+                    status.setStyle("-fx-background-color: " + (room.isAvailable() ? "#e8f8ef" : "#fff0f0") + "; -fx-text-fill: " + (room.isAvailable() ? "#1a7a42" : "#cc0000") + "; -fx-padding: 3 8; -fx-background-radius: 4; -fx-font-size: 11px;");
+
+                    Region spacer = new Region();
+                    HBox.setHgrow(spacer, javafx.scene.layout.Priority.ALWAYS);
+
+                    root.getChildren().addAll(roomNum, type, floor, price, spacer, status);
+                    setGraphic(root);
+                    setStyle("-fx-padding: 0;");
+                }
+            }
+        });
+
         reservationsListView.setItems(FXCollections.observableArrayList(HotelDatabase.reservations));
+        reservationsListView.setCellFactory(lv -> new ListCell<Reservation>() {
+            @Override
+            protected void updateItem(Reservation res, boolean empty) {
+                super.updateItem(res, empty);
+                if (empty || res == null) {
+                    setText(null);
+                    setGraphic(null);
+                    setStyle("-fx-background-color: transparent; -fx-padding: 0;");
+                } else {
+                    HBox root = new HBox();
+                    root.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+                    root.setStyle("-fx-padding: 15 20; -fx-border-color: #f0f0f0; -fx-border-width: 0 0 1 0; -fx-background-color: white;");
+
+                    Label guestName = new Label(res.getGuest().getUsername());
+                    guestName.setStyle("-fx-text-fill: #1a1a1a; -fx-font-weight: bold; -fx-font-family: 'Merriweather'; -fx-font-size: 12px;");
+                    guestName.setPrefWidth(180);
+
+                    Label roomNum = new Label("Room " + res.getRoom().getRoomNumber());
+                    roomNum.setStyle("-fx-text-fill: #1a1a1a; -fx-font-family: 'Merriweather'; -fx-font-size: 12px;");
+                    roomNum.setPrefWidth(100);
+
+                    Label checkIn = new Label(res.getCheckInDate().toString());
+                    checkIn.setStyle("-fx-text-fill: #1a1a1a; -fx-font-family: 'Merriweather'; -fx-font-size: 12px;");
+                    checkIn.setPrefWidth(140);
+
+                    Label checkOut = new Label(res.getCheckOutDate().toString());
+                    checkOut.setStyle("-fx-text-fill: #1a1a1a; -fx-font-family: 'Merriweather'; -fx-font-size: 12px;");
+                    checkOut.setPrefWidth(140);
+
+                    Label status = new Label(res.getStatus().toString());
+                    status.setStyle("-fx-background-color: #f5f5f5; -fx-text-fill: #1a1a1a; -fx-padding: 3 8; -fx-background-radius: 4; -fx-font-size: 11px;");
+
+                    Region spacer = new Region();
+                    HBox.setHgrow(spacer, javafx.scene.layout.Priority.ALWAYS);
+
+                    root.getChildren().addAll(guestName, roomNum, checkIn, checkOut, spacer, status);
+                    setGraphic(root);
+                    setStyle("-fx-padding: 0;");
+                }
+            }
+        });
+    }
+
+    @FXML
+    private void showGuestsTab() {
+        if (tabPane != null) tabPane.getSelectionModel().select(0);
+    }
+
+    @FXML
+    private void showRoomsTab() {
+        if (tabPane != null) tabPane.getSelectionModel().select(1);
+    }
+
+    @FXML
+    private void showReservationsTab() {
+        if (tabPane != null) tabPane.getSelectionModel().select(2);
     }
 
     @FXML
@@ -190,7 +341,7 @@ public class StaffDashboardController implements Initializable {
                 typeDialog.setTitle("Update Room Type");
                 typeDialog.setHeaderText("Current Type: " + selected.getRoomType().getTypeName());
                 typeDialog.setContentText("Choose new type:");
-                
+
                 Optional<RoomType> newType = typeDialog.showAndWait();
                 newType.ifPresent(roomType -> {
                     selected.setRoomType(roomType);

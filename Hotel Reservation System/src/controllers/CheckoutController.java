@@ -32,9 +32,9 @@ public class CheckoutController {
         requiredAmount = SceneManager.getPendingAmount();
 
         if (checkoutReservation != null)
-            balanceLabel.setText(String.format("Exact amount due: $%.2f", requiredAmount));
+            balanceLabel.setText(String.format("$%.2f", requiredAmount));
         else
-            balanceLabel.setText("No pending checkout.");
+            balanceLabel.setText("0.00");
 
         paymentMethodCombo.setItems(FXCollections.observableArrayList(paymentmethod.values()));
         if (paymentIndicator != null) paymentIndicator.setVisible(false);

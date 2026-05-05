@@ -112,6 +112,15 @@ public class DashboardController implements Initializable {
             scheduler.shutdown();
     }
 
+    private void updateActiveCount() {
+        long activeCount = database.HotelDatabase.reservations.stream()
+            .filter(r -> r.getGuest().getUsername().equals(guest.getUsername())
+                && (r.getStatus() == enums.reservationstatus.CONFIRMED
+                || r.getStatus() == enums.reservationstatus.PENDING))
+            .count();
+        if (activeResLabel != null) activeResLabel.setText(String.valueOf(activeCount));
+    }
+
     @FXML
     private void handleBrowseRooms() {
         stopScheduler();
@@ -195,6 +204,8 @@ public class DashboardController implements Initializable {
             toCancel.getRoom().setAvailable(true);
             HotelDatabase.updateReservationStatus(toCancel);
             HotelDatabase.updateRoomAvailability(toCancel.getRoom());
+
+            updateActiveCount();
             loadReservationsAsync();
         }
     }

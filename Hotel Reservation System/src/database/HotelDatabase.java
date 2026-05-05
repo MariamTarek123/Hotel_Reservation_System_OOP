@@ -269,7 +269,10 @@ public class HotelDatabase {
             ps = conn.prepareStatement(
                     "INSERT INTO rooms(roomId,roomNumber,floor,isAvailable,pricePerNight,roomTypeId) VALUES (?,?,?,?,?,?)");
             Object[][] rm = {{1,"101",1,1,50.0,1},{2,"102",1,1,90.0,2},
-                    {3,"505",2,1,200.0,3},{4,"202",2,1,90.0,2}};
+                    {3,"505",2,1,200.0,3},{4,"202",2,1,90.0,2},
+                    {5,"103",1,1,50.0,1},{6,"104",1,1,50.0,1},
+                    {7,"203",2,1,90.0,2},{8,"301",3,1,150.0,3},
+                    {9,"302",3,1,200.0,3}};
             for (Object[] r : rm) {
                 ps.setInt(1,(int)r[0]); ps.setString(2,(String)r[1]); ps.setInt(3,(int)r[2]);
                 ps.setInt(4,(int)r[3]); ps.setDouble(5,(double)r[4]); ps.setInt(6,(int)r[5]);
@@ -278,7 +281,8 @@ public class HotelDatabase {
 
             // Room Amenities
             ps = conn.prepareStatement("INSERT INTO room_amenities VALUES (?,?)");
-            int[][] ra = {{1,1},{1,2},{2,1},{2,2},{2,4},{3,1},{3,2},{3,3},{3,4},{4,1},{4,4}};
+            int[][] ra = {{1,1},{1,2},{2,1},{2,2},{2,4},{3,1},{3,2},{3,3},{3,4},{4,1},{4,4},
+                          {5,1},{5,2},{6,1},{6,2},{7,1},{7,2},{7,4},{8,1},{8,2},{8,3},{9,1},{9,3},{9,4}};
             for (int[] r : ra) {
                 ps.setInt(1,r[0]); ps.setInt(2,r[1]); ps.executeUpdate();
             }

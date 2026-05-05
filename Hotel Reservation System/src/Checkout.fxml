@@ -28,16 +28,16 @@
             <padding><Insets top="40" bottom="40" left="32" right="32"/></padding>
 
             <Label text="AMOUNT DUE"
-                   style="-fx-font-family: 'Times New Roman'; -fx-font-size: 12px;
+                   style="-fx-font-family: 'Merriweather'; -fx-font-size: 12px;
                           -fx-font-weight: bold; -fx-text-fill: rgba(255,255,255,0.75);"/>
             <Label fx:id="balanceLabel" text="0.00"
-                   style="-fx-font-family: 'Times New Roman'; -fx-font-size: 52px;
+                   style="-fx-font-family: 'Merriweather'; -fx-font-size: 52px;
                           -fx-font-weight: bold; -fx-text-fill: white;"/>
             <Region prefHeight="16"/>
             <Label text="Transylvania Hotel and Resort"
-                   style="-fx-font-family: 'Times New Roman'; -fx-font-size: 13px; -fx-text-fill: rgba(255,255,255,0.70);"/>
+                   style="-fx-font-family: 'Merriweather'; -fx-font-size: 13px; -fx-text-fill: rgba(255,255,255,0.70);"/>
             <Label text="Secure payment processing"
-                   style="-fx-font-family: 'Times New Roman'; -fx-font-size: 11px; -fx-text-fill: rgba(255,255,255,0.50);"/>
+                   style="-fx-font-family: 'Merriweather'; -fx-font-size: 11px; -fx-text-fill: rgba(255,255,255,0.50);"/>
         </VBox>
 
         <!-- Right: Payment form -->
@@ -46,9 +46,9 @@
             <padding><Insets top="36" bottom="36" left="40" right="40"/></padding>
 
             <Label text="Payment Details"
-                   style="-fx-font-family: 'Times New Roman'; -fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1a1a1a;"/>
+                   style="-fx-font-family: 'Merriweather'; -fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1a1a1a;"/>
             <Label text="Complete your checkout below"
-                   style="-fx-font-family: 'Times New Roman'; -fx-font-size: 13px; -fx-text-fill: #888888;"/>
+                   style="-fx-font-family: 'Merriweather'; -fx-font-size: 13px; -fx-text-fill: #888888;"/>
 
             <Region style="-fx-background-color: #f0f0f0; -fx-min-height: 1; -fx-max-height: 1;"/>
 
@@ -65,7 +65,7 @@
             </VBox>
 
             <Label fx:id="messageLabel" text="" wrapText="true"
-                   style="-fx-font-family: 'Times New Roman'; -fx-font-size: 13px; -fx-text-fill: #cc0000;"/>
+                   style="-fx-font-family: 'Merriweather'; -fx-font-size: 13px; -fx-text-fill: #cc0000;"/>
 
             <ProgressIndicator fx:id="paymentIndicator" visible="false" prefWidth="36" prefHeight="36"/>
 

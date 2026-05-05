@@ -26,9 +26,9 @@
         <VBox spacing="4" HBox.hgrow="ALWAYS">
             <padding><Insets top="20" bottom="20" left="36" right="36"/></padding>
             <Label fx:id="welcomeLabel" text="Welcome back, Guest"
-                   style="-fx-font-family: 'Times New Roman'; -fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #1a1a1a;"/>
+                   style="-fx-font-family: 'Merriweather'; -fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #1a1a1a;"/>
             <Label text="Manage your reservations and explore our rooms"
-                   style="-fx-font-family: 'Times New Roman'; -fx-font-size: 13px; -fx-text-fill: #888888;"/>
+                   style="-fx-font-family: 'Merriweather'; -fx-font-size: 13px; -fx-text-fill: #888888;"/>
         </VBox>
         <Region prefWidth="6" minHeight="80" maxHeight="80"
                 style="-fx-background-color: linear-gradient(to bottom, #e60000, #8b0000);"/>
@@ -85,11 +85,11 @@
                                      -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8;
                                      -fx-padding: 14;">
                 <Label text="Need Help?"
-                       style="-fx-font-family: 'Times New Roman'; -fx-font-size: 13px;
+                       style="-fx-font-family: 'Merriweather'; -fx-font-size: 13px;
                               -fx-font-weight: bold; -fx-text-fill: #cc0000;"/>
                 <Label text="Contact our reception desk or use the live chat feature to speak with staff."
                        wrapText="true"
-                       style="-fx-font-family: 'Times New Roman'; -fx-font-size: 12px; -fx-text-fill: #666666;"/>
+                       style="-fx-font-family: 'Merriweather'; -fx-font-size: 12px; -fx-text-fill: #666666;"/>
             </VBox>
         </VBox>
     </HBox>

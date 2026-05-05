@@ -8,58 +8,58 @@
 /* ─── DARK THEME (default) ───────────────────────────────────────── */
 .root {
     /* Backgrounds */
-   -col-bg:           #0b0c14;
-    -col-surface:      #13141f;
-    -col-surface-alt:  #1a1b2a;
-    -col-surface-2:    #22233a;
-    -col-overlay:      rgba(0, 0, 0, 0.55);
+   -col-bg:           #0a0a0a;
+    -col-surface:      #121212;
+    -col-surface-alt:  #1a1a1a;
+    -col-surface-2:    #222222;
+    -col-overlay:      rgba(0, 0, 0, 0.75);
 
     /* Brand */
-    -col-primary:      #1c3a5e;
-    -col-primary-dk:   #122840;
-    -col-gold:         #c9a84c;
-    -col-gold-lt:      #f0c860;
-    -col-gold-dk:      #9a7a2a;
+    -col-primary:      #8b0000;
+    -col-primary-dk:   #4a0000;
+    -col-gold:         #cc0000;
+    -col-gold-lt:      #ff3333;
+    -col-gold-dk:      #8b0000;
 
     /* Semantic */
     -col-success:      #2ecc71;
-    -col-danger:       #e74c3c;
-    -col-warning:      #f39c12;
+    -col-danger:       #ff3333;
+    -col-warning:      #e60000;
     -col-info:         #3498db;
 
     /* Text */
-    -col-text:         #e8e2d4;
-    -col-text-sub:     #a89880;
-    -col-text-faint:   #5c5044;
-    -col-text-inv:     #0b0c14;
+    -col-text:         #f5f5f5;
+    -col-text-sub:     #cccccc;
+    -col-text-faint:   #999999;
+    -col-text-inv:     #0a0a0a;
 
     /* Border / Divider */
-    -col-border:       #2a2b3d;
-    -col-border-lt:    #3a3b55;
+    -col-border:       #333333;
+    -col-border-lt:    #cc0000;
 
     /* Base */
-    -fx-font-family:   "Times New Roman";
+    -fx-font-family:   "Merriweather";
     -fx-font-size:     13px;
     -fx-background-color: -col-bg;
 }
 
 /* ─── LIGHT THEME OVERRIDE ───────────────────────────────────────── */
 .root.light-mode {
-    -col-bg:           #f5f0e8;
-    -col-surface:      #ffffff;
-    -col-surface-alt:  #f9f6f0;
-    -col-surface-2:    #ede8de;
+    -col-bg:           #ffffff;
+    -col-surface:      #f5f5f5;
+    -col-surface-alt:  #eeeeee;
+    -col-surface-2:    #e0e0e0;
     -col-overlay:      rgba(255,255,255,0.70);
 
-    -col-primary:      #1a3c5e;
-    -col-primary-dk:   #0e2640;
-    -col-gold:         #b8922a;
-    -col-gold-lt:      #d4a940;
-    -col-gold-dk:      #8a6a10;
+    -col-primary:      #cc0000;
+    -col-primary-dk:   #8b0000;
+    -col-gold:         #e60000;
+    -col-gold-lt:      #ff3333;
+    -col-gold-dk:      #990000;
 
     -col-success:      #219150;
     -col-danger:       #c0392b;
-    -col-warning:      #d68910;
+    -col-warning:      #cc0000;
     -col-info:         #2471a3;
 
     -col-text:         #1a1410;
@@ -67,8 +67,8 @@
     -col-text-faint:   #a0948a;
     -col-text-inv:     #ffffff;
 
-    -col-border:       #ddd6c8;
-    -col-border-lt:    #ece5d8;
+    -col-border:       #cccccc;
+    -col-border-lt:    #cc0000;
 
     -fx-background-color: -col-bg;
 }
@@ -99,7 +99,7 @@
    TYPOGRAPHY
    ═══════════════════════════════════════════════════════════════════ */
 .title-text {
-    -fx-font-family:    "Times New Roman", serif;
+    -fx-font-family:    "Merriweather", serif;
     -fx-font-size:      28px;
     -fx-font-weight:    bold;
     -fx-fill:           -col-gold;
@@ -107,7 +107,7 @@
 }
 
 .subtitle-text {
-    -fx-font-family:    "Times New Roman", serif;
+    -fx-font-family:    "Merriweather", serif;
     -fx-font-size:      15px;
     -fx-font-weight:    bold;
     -fx-fill:           -col-text;
@@ -136,7 +136,7 @@
     -fx-font-size: 13px;
     -fx-text-fill: -col-text;
     -fx-prompt-text-fill: -col-text-faint;
-    -fx-font-family: "Times New Roman", serif;
+    -fx-font-family: "Merriweather", serif;
     -fx-effect: innershadow(gaussian, rgba(0,0,0,0.30), 4, 0, 0, 2);
 }
 
@@ -212,7 +212,7 @@
     -fx-background-color: transparent;
     -fx-border-width: 0;
     -fx-text-fill: -col-text;
-    -fx-font-family: "Times New Roman", serif;
+    -fx-font-family: "Merriweather", serif;
 }
 
 .date-picker:focused {
@@ -241,14 +241,14 @@
     -fx-border-width: 1.5;
     -fx-border-radius: 4;
     -fx-background-radius: 4;
-    -fx-font-family: "Times New Roman", serif;
+    -fx-font-family: "Merriweather", serif;
 }
 
 .register-picker .text-field {
     -fx-background-color: transparent;
     -fx-border-width: 0;
     -fx-text-fill: #333333;
-    -fx-font-family: "Times New Roman", serif;
+    -fx-font-family: "Merriweather", serif;
     -fx-prompt-text-fill: #aaaaaa;
 }
 
@@ -278,14 +278,14 @@
     -fx-border-width: 1.5;
     -fx-border-radius: 4;
     -fx-background-radius: 4;
-    -fx-font-family: "Times New Roman", serif;
+    -fx-font-family: "Merriweather", serif;
     -fx-font-size: 13px;
 }
 
 .register-combo .list-cell {
     -fx-background-color: transparent;
     -fx-text-fill: #333333;
-    -fx-font-family: "Times New Roman", serif;
+    -fx-font-family: "Merriweather", serif;
     -fx-padding: 6 10;
 }
 
@@ -367,7 +367,7 @@
     -fx-background-color:
             linear-gradient(to bottom, derive(-col-gold, 5%), -col-gold);
     -fx-text-fill: #0e0c08;
-    -fx-font-family: "Times New Roman", serif;
+    -fx-font-family: "Merriweather", serif;
     -fx-font-weight: bold;
     -fx-font-size: 13px;
     -fx-letter-spacing: 1;
@@ -396,7 +396,7 @@
 .secondary-button {
     -fx-background-color: transparent;
     -fx-text-fill: -col-text-sub;
-    -fx-font-family: "Times New Roman", serif;
+    -fx-font-family: "Merriweather", serif;
     -fx-font-size: 13px;
     -fx-background-radius: 6;
     -fx-border-radius: 6;
@@ -446,7 +446,7 @@
     -fx-border-color: -col-border;
     -fx-border-width: 1;
     -fx-padding: 18 22;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.45), 14, 0, 0, 4);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.8), 20, 0, 0, 5);
 }
 
 /* Gold accent line on left of info box */
@@ -467,7 +467,7 @@
 
 .summary-label {
     -fx-text-fill: -col-gold;
-    -fx-font-family: "Times New Roman", serif;
+    -fx-font-family: "Merriweather", serif;
     -fx-font-size: 13px;
     -fx-font-weight: bold;
     -fx-background-color: derive(-col-gold, -70%);
@@ -595,7 +595,7 @@
 
 .tab-pane > .tab-header-area > .headers-region > .tab .tab-label {
     -fx-text-fill: -col-text-sub;
-    -fx-font-family: "Times New Roman", serif;
+    -fx-font-family: "Merriweather", serif;
     -fx-font-weight: bold;
     -fx-font-size: 13px;
 }
@@ -618,7 +618,7 @@
     -fx-underline: false;
     -fx-cursor: hand;
     -fx-font-size: 13px;
-    -fx-font-family: "Times New Roman", serif;
+    -fx-font-family: "Merriweather", serif;
 }
 
 .hyperlink:hover {
@@ -650,7 +650,7 @@
 
 .dialog-pane .header-panel .label {
     -fx-text-fill: -col-gold;
-    -fx-font-family: "Times New Roman", serif;
+    -fx-font-family: "Merriweather", serif;
     -fx-font-weight: bold;
     -fx-font-size: 15px;
 }
@@ -860,7 +860,7 @@
 
 .root.light-mode .list-view .list-cell:hover {
     -fx-background-color: #fdf4e3;
-    -fx-text-fill: #8a6a10;
+    -fx-text-fill: #826513;
 }
 
 .root.light-mode .list-view .list-cell:selected {
@@ -922,53 +922,53 @@
 .login-left-panel {
     /* We use a fallback dark grey/brown gradient resembling the image */
     -fx-background-color: linear-gradient(to bottom right, #4b5358, #182025);
-    -fx-background-image: url("file:///D:/back1.jpg");
+    -fx-background-image: url("file:///C:/Users/Mariam/OneDrive/Desktop/back1.jpg");
     -fx-background-size: cover;
 }
 
 /* Brand text on the left */
 .transylvania-brand {
-    -fx-font-family:    "Times New Roman", serif;
+    -fx-font-family:    "Merriweather", serif;
     -fx-font-size:      42px;
     -fx-fill:           white;
     -fx-font-weight:    bold;
 }
 
 .transylvania-subbrand {
-    -fx-font-family:    "Times New Roman", serif;
+    -fx-font-family:    "Merriweather", serif;
     -fx-font-size:      14px;
     -fx-fill:           white;
     -fx-letter-spacing: 2px;
 }
 
 .transylvania-desc {
-    -fx-font-family:    "Times New Roman", serif;
+    -fx-font-family:    "Merriweather", serif;
     -fx-font-size:      16px;
     -fx-fill:           white;
 }
 
 /* Welcome texts on the right */
 .welcome-text {
-    -fx-font-family:    "Times New Roman", serif;
+    -fx-font-family:    "Merriweather", serif;
     -fx-font-size:      32px;
     -fx-fill:           #cc0000;
 }
 
 .sign-in-text {
-    -fx-font-family:    "Times New Roman", serif;
+    -fx-font-family:    "Merriweather", serif;
     -fx-font-size:      14px;
     -fx-fill:           #666666;
 }
 
 .form-label {
-    -fx-font-family:    "Times New Roman", serif;
+    -fx-font-family:    "Merriweather", serif;
     -fx-font-size:      13px;
     -fx-font-weight:    bold;
     -fx-text-fill:      #333333;
 }
 
 .form-label-muted {
-    -fx-font-family:    "Times New Roman", serif;
+    -fx-font-family:    "Merriweather", serif;
     -fx-font-size:      13px;
     -fx-text-fill:      #666666;
 }
@@ -979,7 +979,7 @@
     -fx-border-radius: 4;
     -fx-background-radius: 4;
     -fx-padding: 10 15;
-    -fx-font-family: "Times New Roman", serif;
+    -fx-font-family: "Merriweather", serif;
     -fx-text-fill: #333333;
 }
 
@@ -1003,7 +1003,7 @@
 .btn-red-filled {
     -fx-background-color: #e60000;
     -fx-text-fill: white;
-    -fx-font-family: "Times New Roman", serif;
+    -fx-font-family: "Merriweather", serif;
     -fx-font-weight: bold;
     -fx-font-size: 14px;
     -fx-background-radius: 8;
@@ -1020,7 +1020,7 @@
 .btn-red-outline {
     -fx-background-color: white;
     -fx-text-fill: #cc0000;
-    -fx-font-family: "Times New Roman", serif;
+    -fx-font-family: "Merriweather", serif;
     -fx-font-weight: bold;
     -fx-font-size: 14px;
     -fx-background-radius: 8;
@@ -1037,7 +1037,7 @@
 
 .link-red {
     -fx-text-fill: #cc0000;
-    -fx-font-family: "Times New Roman", serif;
+    -fx-font-family: "Merriweather", serif;
     -fx-font-size: 13px;
     -fx-font-weight: bold;
     -fx-border-color: transparent;
@@ -1117,14 +1117,14 @@
 }
 
 .page-header-brand {
-    -fx-font-family: "Times New Roman", serif;
+    -fx-font-family: "Merriweather", serif;
     -fx-font-size: 11px;
     -fx-text-fill: -col-gold;
     -fx-opacity: 0.85;
 }
 
 .page-header-sub {
-    -fx-font-family: "Times New Roman", serif;
+    -fx-font-family: "Merriweather", serif;
     -fx-font-size: 12px;
     -fx-text-fill: -col-text-sub;
 }
@@ -1158,7 +1158,7 @@
    TYPOGRAPHY — interior pages
    ═══════════════════════════════════════════════════════════════════ */
 .page-title {
-    -fx-font-family: "Times New Roman", serif;
+    -fx-font-family: "Merriweather", serif;
     -fx-font-size: 26px;
     -fx-text-fill: -col-gold;
     -fx-font-weight: bold;
@@ -1166,14 +1166,14 @@
 }
 
 .page-subtitle {
-    -fx-font-family: "Times New Roman", serif;
+    -fx-font-family: "Merriweather", serif;
     -fx-font-size: 15px;
     -fx-text-fill: -col-gold;
     -fx-font-weight: bold;
 }
 
 .page-body-label {
-    -fx-font-family: "Times New Roman", serif;
+    -fx-font-family: "Merriweather", serif;
     -fx-font-size: 13px;
     -fx-text-fill: -col-text-sub;
 }
@@ -1182,7 +1182,7 @@
    AMOUNT DISPLAY  (Checkout page)
    ═══════════════════════════════════════════════════════════════════ */
 .amount-display {
-    -fx-font-family: "Times New Roman", serif;
+    -fx-font-family: "Merriweather", serif;
     -fx-font-size: 46px;
     -fx-text-fill: -col-gold;
     -fx-font-weight: bold;
@@ -1190,7 +1190,7 @@
 }
 
 .amount-hint-label {
-    -fx-font-family: "Times New Roman", serif;
+    -fx-font-family: "Merriweather", serif;
     -fx-font-size: 11px;
     -fx-text-fill: -col-text-faint;
     -fx-font-weight: bold;
@@ -1232,7 +1232,7 @@
 }
 
 .app-header-brand {
-    -fx-font-family:   "Times New Roman", serif;
+    -fx-font-family:   "Merriweather", serif;
     -fx-font-size:     17px;
     -fx-font-weight:   bold;
     -fx-text-fill:     white;
@@ -1240,7 +1240,7 @@
 }
 
 .app-header-sub {
-    -fx-font-family: "Times New Roman", serif;
+    -fx-font-family: "Merriweather", serif;
     -fx-font-size:   12px;
     -fx-text-fill:   rgba(255,255,255,0.68);
 }
@@ -1249,7 +1249,7 @@
 .app-logout-btn {
     -fx-background-color: rgba(255,255,255,0.13);
     -fx-text-fill:        white;
-    -fx-font-family:      "Times New Roman", serif;
+    -fx-font-family:      "Merriweather", serif;
     -fx-font-size:        13px;
     -fx-font-weight:      bold;
     -fx-border-color:     rgba(255,255,255,0.35);
@@ -1273,20 +1273,20 @@
 
 /* ─── Section Typography ─────────────────────────────────────────── */
 .section-title {
-    -fx-font-family:  "Times New Roman", serif;
+    -fx-font-family:  "Merriweather", serif;
     -fx-font-size:    24px;
     -fx-font-weight:  bold;
     -fx-text-fill:    #cc0000;
 }
 
 .section-subtitle {
-    -fx-font-family: "Times New Roman", serif;
+    -fx-font-family: "Merriweather", serif;
     -fx-font-size:   13px;
     -fx-text-fill:   #888888;
 }
 
 .section-heading {
-    -fx-font-family: "Times New Roman", serif;
+    -fx-font-family: "Merriweather", serif;
     -fx-font-size:   15px;
     -fx-font-weight: bold;
     -fx-text-fill:   #cc0000;
@@ -1336,7 +1336,7 @@
     -fx-background-color: transparent;
     -fx-text-fill:        #333333;
     -fx-padding:          13 16;
-    -fx-font-family:      "Times New Roman", serif;
+    -fx-font-family:      "Merriweather", serif;
     -fx-font-size:        13px;
     -fx-border-color:     transparent transparent #f2f2f2 transparent;
     -fx-border-width:     0 0 1 0;
@@ -1361,7 +1361,7 @@
 .white-list .placeholder .label {
     -fx-text-fill:   #cccccc;
     -fx-font-size:   13px;
-    -fx-font-family: "Times New Roman", serif;
+    -fx-font-family: "Merriweather", serif;
 }
 
 /* ─── Red TabPane ────────────────────────────────────────────────── */
@@ -1397,7 +1397,7 @@
 
 .red-tab-pane > .tab-header-area > .headers-region > .tab .tab-label {
     -fx-text-fill:   #999999;
-    -fx-font-family: "Times New Roman", serif;
+    -fx-font-family: "Merriweather", serif;
     -fx-font-weight: bold;
     -fx-font-size:   13px;
 }
@@ -1522,28 +1522,28 @@
 }
 
 .dash-stat-label {
-    -fx-font-family: "Times New Roman", serif;
+    -fx-font-family: "Merriweather", serif;
     -fx-font-size: 12px;
     -fx-text-fill: #999999;
     -fx-font-weight: bold;
 }
 
 .dash-stat-value {
-    -fx-font-family: "Times New Roman", serif;
+    -fx-font-family: "Merriweather", serif;
     -fx-font-size: 26px;
     -fx-font-weight: bold;
     -fx-text-fill: #1a1a1a;
 }
 
 .dash-stat-value-red {
-    -fx-font-family: "Times New Roman", serif;
+    -fx-font-family: "Merriweather", serif;
     -fx-font-size: 26px;
     -fx-font-weight: bold;
     -fx-text-fill: #cc0000;
 }
 
 .dash-stat-value-sm {
-    -fx-font-family: "Times New Roman", serif;
+    -fx-font-family: "Merriweather", serif;
     -fx-font-size: 15px;
     -fx-font-weight: bold;
     -fx-text-fill: #333333;
@@ -1554,7 +1554,7 @@
     -fx-background-color: transparent;
     -fx-text-fill: #333333;
     -fx-padding: 14 18;
-    -fx-font-family: "Times New Roman", serif;
+    -fx-font-family: "Merriweather", serif;
     -fx-font-size: 13px;
     -fx-border-color: transparent transparent #f5f5f5 transparent;
     -fx-border-width: 0 0 1 0;
@@ -1583,4 +1583,130 @@
 /* ─── Staff tab header icons readable ───────────────────────────── */
 .red-tab-pane > .tab-header-area > .headers-region > .tab .tab-label {
     -fx-font-size: 13px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   ROOM BROWSING — TableView  (matches red/white hotel theme)
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── Outer container ─────────────────────────────────────────────── */
+.room-table {
+    -fx-background-color: white;
+    -fx-border-color: #e8e8e8;
+    -fx-border-width: 0;
+    -fx-table-cell-border-color: transparent;
+}
+
+/* Remove the default focus ring */
+.room-table:focused {
+    -fx-border-color: transparent;
+}
+
+/* ── Column header bar ───────────────────────────────────────────── */
+.room-table .column-header-background {
+    -fx-background-color: #1a1a1a;
+    -fx-border-color: transparent;
+    -fx-min-height: 42px;
+}
+
+.room-table .column-header,
+.room-table .filler {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent #2e2e2e transparent transparent;
+    -fx-border-width: 0 1 0 0;
+    -fx-size: 42px;
+}
+
+.room-table .column-header:last-child {
+    -fx-border-color: transparent;
+}
+
+.room-table .column-header .label {
+    -fx-text-fill: #c9a84c;           /* gold — matches theme accent */
+    -fx-font-family: "Merriweather", serif;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 0 0 0 12;
+}
+
+/* Sort arrow colour */
+.room-table .column-header .arrow {
+    -fx-background-color: #c9a84c;
+}
+
+/* ── Data rows ───────────────────────────────────────────────────── */
+.room-table .table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: transparent transparent #f0f0f0 transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-cell-size: 46px;
+}
+
+.room-table .table-row-cell:odd {
+    -fx-background-color: #fafafa;
+}
+
+.room-table .table-row-cell:hover {
+    -fx-background-color: #fff5f5;
+    -fx-border-color: transparent transparent #f0d0d0 transparent;
+}
+
+.room-table .table-row-cell:selected {
+    -fx-background-color: #ffecec;
+    -fx-border-color: transparent transparent #e0b0b0 transparent;
+}
+
+/* ── Individual cells ────────────────────────────────────────────── */
+.room-table .table-cell {
+    -fx-text-fill: #333333;
+    -fx-font-family: "Merriweather", serif;
+    -fx-font-size: 13px;
+    -fx-padding: 0 0 0 12;
+    -fx-alignment: CENTER_LEFT;
+    -fx-border-color: transparent #eeeeee transparent transparent;
+    -fx-border-width: 0 1 0 0;
+}
+
+.room-table .table-cell:last-child {
+    -fx-border-color: transparent;
+}
+
+.room-table .table-row-cell:selected .table-cell {
+    -fx-text-fill: #cc0000;
+    -fx-background-color: transparent;
+}
+
+/* Left accent bar on selected row */
+.room-table .table-row-cell:selected:first-child .table-cell {
+    -fx-border-color: transparent #eeeeee transparent #cc0000;
+    -fx-border-width: 0 1 0 3;
+}
+
+/* ── Scroll bars — minimal ───────────────────────────────────────── */
+.room-table .scroll-bar:vertical .thumb,
+.room-table .scroll-bar:horizontal .thumb {
+    -fx-background-color: #dddddd;
+    -fx-background-radius: 4;
+}
+
+.room-table .scroll-bar:vertical .thumb:hover,
+.room-table .scroll-bar:horizontal .thumb:hover {
+    -fx-background-color: #cc0000;
+}
+
+.room-table .scroll-bar .track,
+.room-table .scroll-bar .track-background {
+    -fx-background-color: transparent;
+}
+
+.room-table .corner {
+    -fx-background-color: #1a1a1a;
+}
+
+/* ── Placeholder label ───────────────────────────────────────────── */
+.room-table .placeholder > .label {
+    -fx-text-fill: #aaaaaa;
+    -fx-font-size: 14px;
+    -fx-font-family: "Merriweather", serif;
 }
