@@ -222,23 +222,20 @@ public class RoomBrowsingController {
                 typeName = room.getRoomType().getTypeName().replaceAll("\\s+", "").toLowerCase();
             }
 
-            // Path to your images folder
-            String basePath = "C:\\Users\\Mariam\\IdeaProjects\\Hotel_Reservation_System_OOP\\images\\";
-            
-            // Try specific type image, e.g. "double.jpg" or "suite.jpg"
-            java.io.File imgFile = new java.io.File(basePath + typeName + ".jpg");
-            if (imgFile.exists()) {
-                return new Image(imgFile.toURI().toString(), true);
+            // Load from classpath — images/ folder must be inside src/
+            java.io.InputStream stream = getClass().getResourceAsStream("/images/" + typeName + ".jpg");
+            if (stream != null) {
+                return new Image(stream);
             }
 
             // Fallback to back1.jpg
-            java.io.File fallback = new java.io.File(basePath + "back1.jpg");
-            if (fallback.exists()) {
-                return new Image(fallback.toURI().toString(), true);
+            java.io.InputStream fallback = getClass().getResourceAsStream("/images/back1.jpg");
+            if (fallback != null) {
+                return new Image(fallback);
             }
         } catch (Exception ignored) {
         }
-        
+
         // Final fallback
         return new Image("https://via.placeholder.com/350x150.png?text=Room+Photo", true);
     }
@@ -263,4 +260,3 @@ public class RoomBrowsingController {
         SceneManager.switchTo("Dashboard.fxml");
     }
 }
-

@@ -37,7 +37,13 @@ public class StaffDashboardController implements Initializable {
     @FXML private HBox adminRoomsBox;
     @FXML private HBox receptionistBox;
     @FXML private TabPane tabPane;
+    @FXML private Button guestsNavBtn;
+    @FXML private Button roomsNavBtn;
+    @FXML private Button reservationsNavBtn;
     private Staff currentStaff;
+
+    private static final String ACTIVE_STYLE   = "-fx-background-color: #fff0f0; -fx-text-fill: #cc0000; -fx-font-weight: bold; -fx-padding: 12 20; -fx-background-radius: 6;";
+    private static final String INACTIVE_STYLE = "-fx-background-color: transparent; -fx-text-fill: black; -fx-font-weight: normal; -fx-padding: 12 20; -fx-background-radius: 6;";
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -59,6 +65,13 @@ public class StaffDashboardController implements Initializable {
 
 
         refreshLists();
+        updateNavButtons(0); // default to Guests active
+    }
+
+    private void updateNavButtons(int activeIndex) {
+        guestsNavBtn.setStyle(activeIndex == 0 ? ACTIVE_STYLE : INACTIVE_STYLE);
+        roomsNavBtn.setStyle(activeIndex == 1 ? ACTIVE_STYLE : INACTIVE_STYLE);
+        reservationsNavBtn.setStyle(activeIndex == 2 ? ACTIVE_STYLE : INACTIVE_STYLE);
     }
 
     @FXML
@@ -131,8 +144,8 @@ public class StaffDashboardController implements Initializable {
         if (guestCountLabel != null) guestCountLabel.setText(String.valueOf(database.HotelDatabase.guests.size()));
         if (roomCountLabel != null) roomCountLabel.setText(String.valueOf(database.HotelDatabase.rooms.size()));
         long activeRes = database.HotelDatabase.reservations.stream()
-            .filter(r -> r.getStatus() == enums.reservationstatus.CONFIRMED || r.getStatus() == enums.reservationstatus.PENDING)
-            .count();
+                .filter(r -> r.getStatus() == enums.reservationstatus.CONFIRMED || r.getStatus() == enums.reservationstatus.PENDING)
+                .count();
         if (reservationCountLabel != null) reservationCountLabel.setText(String.valueOf(activeRes));
 
         guestsListView.setItems(FXCollections.observableArrayList(HotelDatabase.guests));
@@ -149,18 +162,15 @@ public class StaffDashboardController implements Initializable {
                     root.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
                     root.setStyle("-fx-padding: 15 20; -fx-border-color: #f0f0f0; -fx-border-width: 0 0 1 0; -fx-background-color: white;");
 
-                    Label icon = new Label("👥");
-                    icon.setStyle("-fx-background-color: #ffe6e6; -fx-text-fill: #cc0000; -fx-padding: 8; -fx-background-radius: 4; -fx-font-size: 14px;");
-
                     Label name = new Label(guest.getUsername());
-                    name.setStyle("-fx-text-fill: #1a1a1a; -fx-font-weight: bold; -fx-font-family: 'Merriweather'; -fx-font-size: 13px; -fx-padding: 0 0 0 15;");
-                    name.setPrefWidth(185);
+                    name.setStyle("-fx-text-fill: #1a1a1a; -fx-font-weight: bold; -fx-font-family: 'Merriweather'; -fx-font-size: 13px;");
+                    name.setPrefWidth(250);
 
                     Label email = new Label(guest.getUsername().toLowerCase() + "@email.com");
                     email.setStyle("-fx-text-fill: #1a1a1a; -fx-font-family: 'Merriweather'; -fx-font-size: 12px;");
                     email.setPrefWidth(180);
 
-                    Label phone = new Label("+1 234 567 " + (1000 + (guest.getUsername().hashCode() % 8999))); // Mock phone
+                    Label phone = new Label("+1 234 567 " + (1000 + (guest.getUsername().hashCode() % 8999)));
                     phone.setStyle("-fx-text-fill: #1a1a1a; -fx-font-family: 'Merriweather'; -fx-font-size: 12px;");
                     phone.setPrefWidth(120);
 
@@ -171,15 +181,12 @@ public class StaffDashboardController implements Initializable {
                     String prefText = guest.getRoomPreferences() != null && !guest.getRoomPreferences().isEmpty() ? guest.getRoomPreferences() : "No Preference";
                     Label preference = new Label(prefText);
                     preference.setStyle("-fx-text-fill: #1a1a1a; -fx-font-family: 'Merriweather'; -fx-font-size: 12px;");
+                    preference.setPrefWidth(150);
 
-                    Button editBtn = new Button("📝");
-                    editBtn.setStyle("-fx-background-color: transparent; -fx-text-fill: #cc0000; -fx-font-size: 14px; -fx-cursor: hand;");
-
-                    Region spacer = new Region();
-                    HBox.setHgrow(spacer, javafx.scene.layout.Priority.ALWAYS);
-
-                    root.getChildren().addAll(icon, name, email, phone, balance, preference, spacer, editBtn);
-                    setGraphic(root);
+                    Label icon = new Label("👥");
+                    icon.setPrefWidth(34);
+                    icon.setStyle("-fx-background-color: #ffe6e6; -fx-text-fill: #cc0000; -fx-padding: 4; -fx-background-radius: 2; -fx-font-size: 14px;");
+                    root.getChildren().addAll(icon, name, email, phone, balance, preference);                    setGraphic(root);
                     setStyle("-fx-padding: 0;");
                 }
             }
@@ -217,11 +224,9 @@ public class StaffDashboardController implements Initializable {
 
                     Label status = new Label(room.isAvailable() ? "Available" : "Occupied");
                     status.setStyle("-fx-background-color: " + (room.isAvailable() ? "#e8f8ef" : "#fff0f0") + "; -fx-text-fill: " + (room.isAvailable() ? "#1a7a42" : "#cc0000") + "; -fx-padding: 3 8; -fx-background-radius: 6; -fx-font-size: 11px;");
+                    status.setPrefWidth(120);
 
-                    Region spacer = new Region();
-                    HBox.setHgrow(spacer, javafx.scene.layout.Priority.ALWAYS);
-
-                    root.getChildren().addAll(roomNum, type, floor, price, spacer, status);
+                    root.getChildren().addAll(roomNum, type, floor, price, status);
                     setGraphic(root);
                     setStyle("-fx-padding: 0;");
                 }
@@ -275,16 +280,19 @@ public class StaffDashboardController implements Initializable {
     @FXML
     private void showGuestsTab() {
         if (tabPane != null) tabPane.getSelectionModel().select(0);
+        updateNavButtons(0);
     }
 
     @FXML
     private void showRoomsTab() {
         if (tabPane != null) tabPane.getSelectionModel().select(1);
+        updateNavButtons(1);
     }
 
     @FXML
     private void showReservationsTab() {
         if (tabPane != null) tabPane.getSelectionModel().select(2);
+        updateNavButtons(2);
     }
 
     @FXML

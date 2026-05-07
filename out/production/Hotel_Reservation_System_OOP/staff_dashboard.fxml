@@ -69,13 +69,13 @@
             <!-- Navigation -->
             <VBox spacing="5" style="-fx-padding: 10;">
                 <!-- We simulate the active state. For a true dynamic active state, Java logic is required. Setting Guests as pseudo-active here -->
-                <Button text="Guests" alignment="BASELINE_LEFT" onAction="#showGuestsTab"
+                <Button fx:id="guestsNavBtn" text="Guests" alignment="BASELINE_LEFT" onAction="#showGuestsTab"
                         style="-fx-background-color: #fff0f0; -fx-text-fill: #cc0000; -fx-font-weight: bold; -fx-padding: 12 20; -fx-background-radius: 6;"
                         maxWidth="Infinity"/>
-                <Button text="Rooms" alignment="BASELINE_LEFT" onAction="#showRoomsTab"
+                <Button fx:id="roomsNavBtn" text="Rooms" alignment="BASELINE_LEFT" onAction="#showRoomsTab"
                         style="-fx-background-color: transparent; -fx-text-fill: black; -fx-padding: 12 20; -fx-background-radius: 6;"
                         maxWidth="Infinity"/>
-                <Button text="Reservations" alignment="BASELINE_LEFT" onAction="#showReservationsTab"
+                <Button fx:id="reservationsNavBtn" text="Reservations" alignment="BASELINE_LEFT" onAction="#showReservationsTab"
                         style="-fx-background-color: transparent; -fx-text-fill: black; -fx-padding: 12 20; -fx-background-radius: 6;"
                         maxWidth="Infinity"/>
             </VBox>
@@ -113,11 +113,13 @@
                             <Label text="Manage and view registered guests" style="-fx-font-family: 'Merriweather'; -fx-font-size: 14px; -fx-text-fill: black;"/>
                         </VBox>
                         <HBox style="-fx-padding: 15 20; -fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-width: 0 0 1 0;">
+                            <!-- 34px spacer to match the icon column in each row -->
+                            <Label prefWidth="34" text=""/>
                             <Label text="GUEST" style="-fx-font-family: 'Merriweather'; -fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #1a1a1a;" prefWidth="250"/>
                             <Label text="EMAIL" style="-fx-font-family: 'Merriweather'; -fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #1a1a1a;" prefWidth="180"/>
                             <Label text="PHONE" style="-fx-font-family: 'Merriweather'; -fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #1a1a1a;" prefWidth="120"/>
                             <Label text="BALANCE" style="-fx-font-family: 'Merriweather'; -fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #1a1a1a;" prefWidth="120"/>
-                            <Label text="PREFERENCE" style="-fx-font-family: 'Merriweather'; -fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #1a1a1a;" HBox.hgrow="ALWAYS"/>
+                            <Label text="PREFERENCE" style="-fx-font-family: 'Merriweather'; -fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #1a1a1a;" prefWidth="150"/>
                         </HBox>
                         <ListView fx:id="guestsListView" VBox.vgrow="ALWAYS" style="-fx-background-color: white; -fx-border-width: 0;"/>
                     </VBox>
@@ -143,7 +145,7 @@
                             <Label text="TYPE" style="-fx-font-family: 'Merriweather'; -fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: black;" prefWidth="150"/>
                             <Label text="FLOOR" style="-fx-font-family: 'Merriweather'; -fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: black;" prefWidth="120"/>
                             <Label text="PRICE" style="-fx-font-family: 'Merriweather'; -fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: black;" prefWidth="150"/>
-                            <Label text="STATUS" style="-fx-font-family: 'Merriweather'; -fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: black;" HBox.hgrow="ALWAYS"/>
+                            <Label text="STATUS" style="-fx-font-family: 'Merriweather'; -fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: black;" prefWidth="120"/>
                         </HBox>
                         <ListView fx:id="roomsListView" VBox.vgrow="ALWAYS" style="-fx-background-color: white; -fx-border-width: 0;"/>
                     </VBox>

@@ -105,12 +105,12 @@
 
             <VBox spacing="8">
                 <Label text="Check-in Date" styleClass="form-label"/>
-                <DatePicker fx:id="checkInPicker" maxWidth="Infinity"/>
+                <DatePicker fx:id="checkInPicker" maxWidth="Infinity" styleClass="register-picker"/>
             </VBox>
 
             <VBox spacing="8">
                 <Label text="Check-out Date" styleClass="form-label"/>
-                <DatePicker fx:id="checkOutPicker" maxWidth="Infinity"/>
+                <DatePicker fx:id="checkOutPicker" maxWidth="Infinity" styleClass="register-picker"/>
             </VBox>
 
             <Label fx:id="errorLabel" text="" styleClass="error-label" wrapText="true"/>

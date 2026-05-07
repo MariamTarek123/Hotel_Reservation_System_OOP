@@ -25,9 +25,9 @@
             <Region VBox.vgrow="ALWAYS" />
             <Text text="TRANSYLVANIA" styleClass="transylvania-brand"/>
             <Text text="HOTEL &amp; RESORT" styleClass="transylvania-subbrand"/>
-            <Region prefHeight="50"/>
-            <Text text="Experience luxury in the heart of the Carpathian" styleClass="transylvania-desc"/>
-            <Text text="Mountains. Where legend meets comfort." styleClass="transylvania-desc"/>
+            <Region prefHeight="40"/>
+            <Text text="Historic walls. Modern comfort." styleClass="transylvania-desc"/>
+            <Text text="A stay worth remembering." styleClass="transylvania-desc"/>
             <Region VBox.vgrow="ALWAYS" />
         </VBox>
     </StackPane>
