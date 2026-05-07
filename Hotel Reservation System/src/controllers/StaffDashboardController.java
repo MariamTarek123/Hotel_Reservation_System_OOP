@@ -36,9 +36,7 @@ public class StaffDashboardController implements Initializable {
     @FXML private Label reservationCountLabel;
     @FXML private HBox adminRoomsBox;
     @FXML private HBox receptionistBox;
-
     @FXML private TabPane tabPane;
-
     private Staff currentStaff;
 
     @Override
@@ -158,7 +156,7 @@ public class StaffDashboardController implements Initializable {
                     name.setStyle("-fx-text-fill: #1a1a1a; -fx-font-weight: bold; -fx-font-family: 'Merriweather'; -fx-font-size: 13px; -fx-padding: 0 0 0 15;");
                     name.setPrefWidth(185);
 
-                    Label email = new Label(guest.getUsername().toLowerCase() + "@transylvania.com");
+                    Label email = new Label(guest.getUsername().toLowerCase() + "@email.com");
                     email.setStyle("-fx-text-fill: #1a1a1a; -fx-font-family: 'Merriweather'; -fx-font-size: 12px;");
                     email.setPrefWidth(180);
 
@@ -218,7 +216,7 @@ public class StaffDashboardController implements Initializable {
                     price.setPrefWidth(150);
 
                     Label status = new Label(room.isAvailable() ? "Available" : "Occupied");
-                    status.setStyle("-fx-background-color: " + (room.isAvailable() ? "#e8f8ef" : "#fff0f0") + "; -fx-text-fill: " + (room.isAvailable() ? "#1a7a42" : "#cc0000") + "; -fx-padding: 3 8; -fx-background-radius: 4; -fx-font-size: 11px;");
+                    status.setStyle("-fx-background-color: " + (room.isAvailable() ? "#e8f8ef" : "#fff0f0") + "; -fx-text-fill: " + (room.isAvailable() ? "#1a7a42" : "#cc0000") + "; -fx-padding: 3 8; -fx-background-radius: 6; -fx-font-size: 11px;");
 
                     Region spacer = new Region();
                     HBox.setHgrow(spacer, javafx.scene.layout.Priority.ALWAYS);

@@ -22,7 +22,7 @@
             <Label text="⚙" style="-fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 0 10;"/>
             <HBox spacing="10" alignment="CENTER"
                   style="-fx-background-color: rgba(255,255,255,0.2); -fx-padding: 5 15; -fx-background-radius: 4;">
-                <Label text="🛡" style="-fx-text-fill: white;"/>
+                <Label style="-fx-text-fill: white;"/>
                 <VBox alignment="CENTER_LEFT">
                     <Label fx:id="roleLabel" text="STAFF" style="-fx-text-fill: white; -fx-font-size: 10px; -fx-font-weight: bold;"/>
                     <Text fx:id="welcomeText" text="Z" style="-fx-fill: white; -fx-font-size: 12px;"/>
@@ -43,7 +43,7 @@
             <!-- Welcome Info (Replaces full banner) -->
             <HBox spacing="15" alignment="CENTER_LEFT" style="-fx-padding: 20;">
                 <VBox spacing="2">
-                    <Label text="Staff User" style="-fx-font-family: 'Merriweather'; -fx-font-size: 16px; -fx-font-weight: bold;"/>
+                    <Label text="Staff User" style="-fx-font-family: 'Merriweather'; -fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: black;"/>
                     <Label text="System Operator" style="-fx-font-family: 'Merriweather'; -fx-font-size: 12px; -fx-text-fill: #1a1a1a;"/>
                 </VBox>
             </HBox>
@@ -51,16 +51,16 @@
             <!-- Stats -->
             <HBox spacing="10" style="-fx-padding: 0 20;">
                 <VBox alignment="CENTER" style="-fx-background-color: #fafafa; -fx-padding: 10; -fx-background-radius: 4; -fx-pref-width: 70;">
-                    <Label fx:id="guestCountLabel" text="-" style="-fx-font-family: 'Merriweather'; -fx-font-size: 18px; -fx-font-weight: bold;"/>
-                    <Label text="Guests" style="-fx-font-family: 'Merriweather'; -fx-font-size: 10px; -fx-text-fill: #777;" wrapText="true" textAlignment="CENTER"/>
+                    <Label fx:id="guestCountLabel" text="-" style="-fx-font-family: 'Merriweather'; -fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: black;"/>
+                    <Label text="Guests" style="-fx-font-family: 'Merriweather'; -fx-font-size: 10px; -fx-text-fill: black;" wrapText="true" textAlignment="CENTER"/>
                 </VBox>
                 <VBox alignment="CENTER" style="-fx-background-color: #fafafa; -fx-padding: 10; -fx-background-radius: 4; -fx-pref-width: 70;">
-                    <Label fx:id="roomCountLabel" text="-" style="-fx-font-family: 'Merriweather'; -fx-font-size: 18px; -fx-font-weight: bold;"/>
-                    <Label text="Rooms" style="-fx-font-family: 'Merriweather'; -fx-font-size: 10px; -fx-text-fill: #777;" wrapText="true" textAlignment="CENTER"/>
+                    <Label fx:id="roomCountLabel" text="-" style="-fx-font-family: 'Merriweather'; -fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: black;"/>
+                    <Label text="Rooms" style="-fx-font-family: 'Merriweather'; -fx-font-size: 10px; -fx-text-fill: black;" wrapText="true" textAlignment="CENTER"/>
                 </VBox>
                 <VBox alignment="CENTER" style="-fx-background-color: #fafafa; -fx-padding: 10; -fx-background-radius: 4; -fx-pref-width: 70;">
-                    <Label fx:id="reservationCountLabel" text="-" style="-fx-font-family: 'Merriweather'; -fx-font-size: 18px; -fx-font-weight: bold;"/>
-                    <Label text="Occupied" style="-fx-font-family: 'Merriweather'; -fx-font-size: 10px; -fx-text-fill: #777;" wrapText="true" textAlignment="CENTER"/>
+                    <Label fx:id="reservationCountLabel" text="-" style="-fx-font-family: 'Merriweather'; -fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: black;"/>
+                    <Label text="Occupied" style="-fx-font-family: 'Merriweather'; -fx-font-size: 10px; -fx-text-fill: black;" wrapText="true" textAlignment="CENTER"/>
                 </VBox>
             </HBox>
 
@@ -73,23 +73,23 @@
                         style="-fx-background-color: #fff0f0; -fx-text-fill: #cc0000; -fx-font-weight: bold; -fx-padding: 12 20; -fx-background-radius: 6;"
                         maxWidth="Infinity"/>
                 <Button text="Rooms" alignment="BASELINE_LEFT" onAction="#showRoomsTab"
-                        style="-fx-background-color: transparent; -fx-text-fill: #555555; -fx-padding: 12 20; -fx-background-radius: 6;"
+                        style="-fx-background-color: transparent; -fx-text-fill: black; -fx-padding: 12 20; -fx-background-radius: 6;"
                         maxWidth="Infinity"/>
                 <Button text="Reservations" alignment="BASELINE_LEFT" onAction="#showReservationsTab"
-                        style="-fx-background-color: transparent; -fx-text-fill: #555555; -fx-padding: 12 20; -fx-background-radius: 6;"
+                        style="-fx-background-color: transparent; -fx-text-fill: black; -fx-padding: 12 20; -fx-background-radius: 6;"
                         maxWidth="Infinity"/>
             </VBox>
 
             <Region VBox.vgrow="ALWAYS"/>
 
-            <!-- System Status -->
-            <VBox spacing="5" style="-fx-padding: 20; -fx-background-color: #fff5f5; -fx-margin: 10;">
-                <Label text="SYSTEM STATUS" style="-fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: #cc0000;"/>
-                <HBox spacing="5" alignment="CENTER_LEFT">
-                    <Label text="•" style="-fx-text-fill: #2ecc71; -fx-font-size: 18px;"/>
-                    <Label text="All Systems Online" style="-fx-font-size: 12px; -fx-text-fill: #555555;"/>
-                </HBox>
-            </VBox>
+            <!--            &lt;!&ndash; System Status &ndash;&gt;-->
+            <!--            <VBox spacing="5" style="-fx-padding: 20; -fx-background-color: #fff5f5; -fx-margin: 10;">-->
+            <!--                <Label text="SYSTEM STATUS" style="-fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: #cc0000;"/>-->
+            <!--                <HBox spacing="5" alignment="CENTER_LEFT">-->
+            <!--                    <Label text="•" style="-fx-text-fill: #2ecc71; -fx-font-size: 18px;"/>-->
+            <!--                    <Label text="All Systems Online" style="-fx-font-size: 12px; -fx-text-fill: black;"/>-->
+            <!--                </HBox>-->
+            <!--            </VBox>-->
         </VBox>
     </left>
 
@@ -110,7 +110,7 @@
                     <VBox spacing="0" style="-fx-background-color: transparent;">
                         <VBox style="-fx-background-color: white; -fx-padding: 15 30 20 30; -fx-border-color: #e0e0e0; -fx-border-width: 0 0 1 0;">
                             <Label text="Guests Management" style="-fx-font-family: 'Merriweather'; -fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #1a1a1a;"/>
-                            <Label text="Manage and view registered guests" style="-fx-font-family: 'Merriweather'; -fx-font-size: 14px; -fx-text-fill: #888888;"/>
+                            <Label text="Manage and view registered guests" style="-fx-font-family: 'Merriweather'; -fx-font-size: 14px; -fx-text-fill: black;"/>
                         </VBox>
                         <HBox style="-fx-padding: 15 20; -fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-width: 0 0 1 0;">
                             <Label text="GUEST" style="-fx-font-family: 'Merriweather'; -fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #1a1a1a;" prefWidth="250"/>
@@ -129,7 +129,7 @@
                         <HBox alignment="CENTER_LEFT" spacing="12" style="-fx-padding: 15 30 20 30; -fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-width: 0 0 1 0;">
                             <VBox>
                                 <Label text="Rooms Management" style="-fx-font-family: 'Merriweather'; -fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #1a1a1a;"/>
-                                <Label text="Manage room inventory and prices" style="-fx-font-family: 'Merriweather'; -fx-font-size: 14px; -fx-text-fill: #888888;"/>
+                                <Label text="Manage room inventory and prices" style="-fx-font-family: 'Merriweather'; -fx-font-size: 14px; -fx-text-fill: black;"/>
                             </VBox>
                             <Region HBox.hgrow="ALWAYS"/>
                             <HBox fx:id="adminRoomsBox" spacing="10" visible="false" managed="false">
@@ -139,11 +139,11 @@
                             </HBox>
                         </HBox>
                         <HBox style="-fx-padding: 15 20; -fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-width: 0 0 1 0;">
-                            <Label text="ROOM" style="-fx-font-family: 'Merriweather'; -fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #888;" prefWidth="120"/>
-                            <Label text="TYPE" style="-fx-font-family: 'Merriweather'; -fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #888;" prefWidth="150"/>
-                            <Label text="FLOOR" style="-fx-font-family: 'Merriweather'; -fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #888;" prefWidth="120"/>
-                            <Label text="PRICE" style="-fx-font-family: 'Merriweather'; -fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #888;" prefWidth="150"/>
-                            <Label text="STATUS" style="-fx-font-family: 'Merriweather'; -fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #888;" HBox.hgrow="ALWAYS"/>
+                            <Label text="ROOM" style="-fx-font-family: 'Merriweather'; -fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: black;" prefWidth="120"/>
+                            <Label text="TYPE" style="-fx-font-family: 'Merriweather'; -fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: black;" prefWidth="150"/>
+                            <Label text="FLOOR" style="-fx-font-family: 'Merriweather'; -fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: black;" prefWidth="120"/>
+                            <Label text="PRICE" style="-fx-font-family: 'Merriweather'; -fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: black;" prefWidth="150"/>
+                            <Label text="STATUS" style="-fx-font-family: 'Merriweather'; -fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: black;" HBox.hgrow="ALWAYS"/>
                         </HBox>
                         <ListView fx:id="roomsListView" VBox.vgrow="ALWAYS" style="-fx-background-color: white; -fx-border-width: 0;"/>
                     </VBox>
@@ -155,7 +155,7 @@
                         <HBox alignment="CENTER_LEFT" spacing="12" style="-fx-padding: 15 30 20 30; -fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-width: 0 0 1 0;">
                             <VBox>
                                 <Label text="Reservations Management" style="-fx-font-family: 'Merriweather'; -fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #1a1a1a;"/>
-                                <Label text="Handle check-ins and check-outs" style="-fx-font-family: 'Merriweather'; -fx-font-size: 14px; -fx-text-fill: #888888;"/>
+                                <Label text="Handle check-ins and check-outs" style="-fx-font-family: 'Merriweather'; -fx-font-size: 14px; -fx-text-fill: black;"/>
                             </VBox>
                             <Region HBox.hgrow="ALWAYS"/>
                             <HBox fx:id="receptionistBox" spacing="10" visible="false" managed="false">
@@ -164,11 +164,11 @@
                             </HBox>
                         </HBox>
                         <HBox style="-fx-padding: 15 20; -fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-width: 0 0 1 0;">
-                            <Label text="GUEST" style="-fx-font-family: 'Merriweather'; -fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #888;" prefWidth="180"/>
-                            <Label text="ROOM" style="-fx-font-family: 'Merriweather'; -fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #888;" prefWidth="100"/>
-                            <Label text="CHECK-IN" style="-fx-font-family: 'Merriweather'; -fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #888;" prefWidth="140"/>
-                            <Label text="CHECK-OUT" style="-fx-font-family: 'Merriweather'; -fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #888;" prefWidth="140"/>
-                            <Label text="STATUS" style="-fx-font-family: 'Merriweather'; -fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #888;" HBox.hgrow="ALWAYS"/>
+                            <Label text="GUEST" style="-fx-font-family: 'Merriweather'; -fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: black;" prefWidth="180"/>
+                            <Label text="ROOM" style="-fx-font-family: 'Merriweather'; -fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: black;" prefWidth="100"/>
+                            <Label text="CHECK-IN" style="-fx-font-family: 'Merriweather'; -fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: black;" prefWidth="140"/>
+                            <Label text="CHECK-OUT" style="-fx-font-family: 'Merriweather'; -fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: black;" prefWidth="140"/>
+                            <Label text="STATUS" style="-fx-font-family: 'Merriweather'; -fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: black;" HBox.hgrow="ALWAYS"/>
                         </HBox>
                         <ListView fx:id="reservationsListView" VBox.vgrow="ALWAYS" style="-fx-background-color: white; -fx-border-width: 0;"/>
                     </VBox>
@@ -180,9 +180,9 @@
 
     <bottom>
         <HBox alignment="CENTER_LEFT" style="-fx-padding: 5 20; -fx-background-color: #f9f9f9; -fx-border-color: #e0e0e0; -fx-border-width: 1 0 0 0;">
-            <Label text="System Ready" style="-fx-font-family: 'Merriweather'; -fx-font-size: 11px; -fx-text-fill: #777777;"/>
+            <Label text="System Ready" style="-fx-font-family: 'Merriweather'; -fx-font-size: 11px; -fx-text-fill: black;"/>
             <Region HBox.hgrow="ALWAYS"/>
-            <Label text="Transylvania Hotel Management System v1.0 | Staff Mode" style="-fx-font-family: 'Merriweather'; -fx-font-size: 11px; -fx-text-fill: #777777;"/>
+            <Label text="Transylvania Hotel Management System v1.0 | Staff Mode" style="-fx-font-family: 'Merriweather'; -fx-font-size: 11px; -fx-text-fill: black;"/>
         </HBox>
     </bottom>
 </BorderPane>

@@ -1,4 +1,3 @@
-
 /* ═══════════════════════════════════════════════════════════════════
    MAJESTIC HOTEL — JavaFX Stylesheet
    Luxury dark theme with full light-mode override
@@ -8,7 +7,7 @@
 /* ─── DARK THEME (default) ───────────────────────────────────────── */
 .root {
     /* Backgrounds */
-   -col-bg:           #0a0a0a;
+    -col-bg:           #0a0a0a;
     -col-surface:      #121212;
     -col-surface-alt:  #1a1a1a;
     -col-surface-2:    #222222;
@@ -573,6 +572,10 @@
     -fx-border-color: transparent transparent -col-border transparent;
     -fx-border-width: 0 0 2 0;
     -fx-padding: 0 0 0 8;
+    visibility: hidden;
+    -fx-pref-height: 0;
+    -fx-min-height: 0;
+    -fx-max-height: 0;
 }
 
 .tab-pane > .tab-header-area > .headers-region > .tab {
@@ -588,7 +591,7 @@
 }
 
 .tab-pane > .tab-header-area > .headers-region > .tab:selected {
-    -fx-background-color: -col-surface;
+    -fx-background-color: #d0d0d0;
     -fx-border-color: -col-gold -col-border transparent -col-border;
     -fx-border-width: 2 1 0 1;
 }
@@ -601,7 +604,7 @@
 }
 
 .tab-pane > .tab-header-area > .headers-region > .tab:selected .tab-label {
-    -fx-text-fill: -col-gold;
+    -fx-text-fill: black;
 }
 
 .tab-pane .tab-content-area {
@@ -952,6 +955,8 @@
     -fx-font-family:    "Merriweather", serif;
     -fx-font-size:      32px;
     -fx-fill:           #cc0000;
+    -fx-font-weight:    bold;
+
 }
 
 .sign-in-text {
@@ -1043,68 +1048,6 @@
     -fx-border-color: transparent;
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   PAGE BACKGROUND SYSTEM  (Dashboard, Rooms, Reservation, etc.)
-   ═══════════════════════════════════════════════════════════════════
-
-   HOW TO ADD YOUR IMAGES
-   ─────────────────────
-   Find the 5 rules below (.dashboard-bg, .reservation-bg, .rooms-bg,
-   .checkout-bg, .staff-bg) and paste your local file URL inside the
-   url("") for each one.
-   Format:  url("file:///C:/Users/YourName/images/filename.jpg")
-
-   ═══════════════════════════════════════════════════════════════════ */
-
-.dashboard-bg {
-    /* ★ PASTE YOUR GUEST DASHBOARD BACKGROUND IMAGE URL BELOW ★ */
-    -fx-background-image: url("file:///C:/Users/Mariam/OneDrive/Desktop/back1.jpg"); /* <── ADD YOUR IMAGE PATH HERE */
-    -fx-background-size: cover;
-    -fx-background-position: center center;
-    -fx-background-color: #0b0d1a;      /* fallback colour if no image */
-}
-
-.reservation-bg {
-    /* ★ PASTE YOUR RESERVATION PAGE BACKGROUND IMAGE URL BELOW ★ */
-    -fx-background-image: url("file:///C:/Users/Mariam/OneDrive/Desktop/back1.jpg"); /* <── ADD YOUR IMAGE PATH HERE */
-    -fx-background-size: cover;
-    -fx-background-position: center center;
-    -fx-background-color: #0b0d1a;
-}
-
-.rooms-bg {
-    /* ★ PASTE YOUR ROOM BROWSING PAGE BACKGROUND IMAGE URL BELOW ★ */
-    -fx-background-image: url("file:///C:/Users/Mariam/OneDrive/Desktop/back1.jpg"); /* <── ADD YOUR IMAGE PATH HERE */
-    -fx-background-size: cover;
-    -fx-background-position: center center;
-    -fx-background-color: #0b0d1a;
-}
-
-.checkout-bg {
-    /* ★ PASTE YOUR CHECKOUT PAGE BACKGROUND IMAGE URL BELOW ★ */
-    -fx-background-image: url("file:///C:/Users/Mariam/OneDrive/Desktop/back1.jpg"); /* <── ADD YOUR IMAGE PATH HERE */
-    -fx-background-size: cover;
-    -fx-background-position: center center;
-    -fx-background-color: #0b0d1a;
-}
-
-.staff-bg {
-    /* ★ PASTE YOUR STAFF DASHBOARD BACKGROUND IMAGE URL BELOW ★ */
-    -fx-background-image: url("file:///C:/Users/Mariam/OneDrive/Desktop/back1.jpg"); /* <── ADD YOUR IMAGE PATH HERE */
-    -fx-background-size: cover;
-    -fx-background-position: center center;
-    -fx-background-color: #0b0d1a;
-}
-
-/* Dark overlay that sits above the background image for readability */
-.page-overlay {
-    -fx-background-color: rgba(8, 10, 22, 0.82);
-}
-
-/* Slightly lighter overlay for wide/data-heavy pages (staff dashboard) */
-.page-overlay-medium {
-    -fx-background-color: rgba(8, 10, 22, 0.70);
-}
 
 /* ═══════════════════════════════════════════════════════════════════
    HEADER BAR  (top bar on every interior page)
@@ -1446,57 +1389,8 @@
     -fx-pref-height: 0;
 }
 
-/* ─── Visual Panels for split-panel interior pages ───────────────── */
-/*
-   HOW TO ADD YOUR IMAGES:
-   Find the rule for the page you want and replace the fallback gradient
-   with:  -fx-background-image: url("file:///C:/path/to/your/image.jpg");
-          -fx-background-size: cover;
-          -fx-background-position: center center;
-*/
-
-/* Guest Dashboard — hero image (e.g. hotel exterior / lobby) */
-.dashboard-visual-panel {
-    -fx-background-color: linear-gradient(to bottom, #4b2020, #1a0808);
-    /* ★ PASTE YOUR DASHBOARD IMAGE HERE:
-       -fx-background-image: url("file:///C:/your/path/dashboard-hero.jpg");
-       -fx-background-size: cover;  -fx-background-position: center; */
-}
-
-/* Room Browsing — room interior image */
-.rooms-visual-panel {
-    -fx-background-color: linear-gradient(to bottom, #3d2b1a, #1a0d08);
-    /* ★ PASTE YOUR ROOM IMAGE HERE:
-       -fx-background-image: url("file:///C:/your/path/rooms-hero.jpg");
-       -fx-background-size: cover;  -fx-background-position: center; */
-}
-
-/* Reservation — close-up room / bed image */
-.reservation-visual-panel {
-    -fx-background-color: linear-gradient(to bottom, #2b1a1a, #400808);
-    /* ★ PASTE YOUR RESERVATION IMAGE HERE:
-       -fx-background-image: url("file:///C:/your/path/reservation-hero.jpg");
-       -fx-background-size: cover;  -fx-background-position: center; */
-}
-
-/* Checkout — lobby / front-desk image */
-.checkout-visual-panel {
-    -fx-background-color: linear-gradient(to bottom, #1a1a2b, #0d0d1a);
-    /* ★ PASTE YOUR CHECKOUT IMAGE HERE:
-       -fx-background-image: url("file:///C:/your/path/checkout-hero.jpg");
-       -fx-background-size: cover;  -fx-background-position: center; */
-}
-
-/* Staff Dashboard — panoramic banner (hotel aerial or corridor) */
-.staff-banner-panel {
-    -fx-background-color: linear-gradient(to right, #6b0000, #cc0000);
-       -fx-background-image: url("file:///C:/Users/Mariam/OneDrive/Desktop/download.jpg");
-       -fx-background-size: cover;  -fx-background-position: center top;
-}
-
-
 /* ═══════════════════════════════════════════════════════════════════
-   REDESIGN ADDITIONS — Dashboard Stat Cards & Layout Enhancements
+    Dashboard Stat Cards & Layout Enhancements
    ═══════════════════════════════════════════════════════════════════ */
 
 /* ─── Dashboard Stat Cards ──────────────────────────────────────── */

@@ -6,6 +6,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.geometry.Pos;
 import javafx.geometry.Insets;
@@ -111,6 +113,12 @@ public class RoomBrowsingController {
         imagePlaceholder.setPrefHeight(150);
         imagePlaceholder.setStyle("-fx-background-color: #4a4a4a; -fx-background-radius: 8 8 0 0;");
 
+        ImageView roomImageView = new ImageView(loadRoomImage(room));
+        roomImageView.setFitWidth(350);
+        roomImageView.setFitHeight(150);
+        roomImageView.setPreserveRatio(false);
+        roomImageView.setSmooth(true);
+
         Label roomNumberLabel = new Label("Room " + room.getRoomNumber());
         roomNumberLabel.setStyle("-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold; -fx-font-family: 'Merriweather';");
         StackPane.setAlignment(roomNumberLabel, Pos.BOTTOM_LEFT);
@@ -121,7 +129,7 @@ public class RoomBrowsingController {
         StackPane.setAlignment(ratingLabel, Pos.BOTTOM_RIGHT);
         StackPane.setMargin(ratingLabel, new Insets(10));
 
-        imagePlaceholder.getChildren().addAll(roomNumberLabel, ratingLabel);
+        imagePlaceholder.getChildren().addAll(roomImageView, roomNumberLabel, ratingLabel);
 
         // Middle Info
         HBox infoBox = new HBox();
@@ -150,9 +158,9 @@ public class RoomBrowsingController {
         statsBox.setPadding(new Insets(0, 15, 15, 15));
 
         statsBox.getChildren().addAll(
-            createStatItem("Floor " + room.getFloor()),
-            createStatItem("2 guests"), // Hardcoded for layout match
-            createStatItem("32 m²")    // Hardcoded for layout match
+                createStatItem("Floor " + room.getFloor()),
+                createStatItem("2 guests"), // Hardcoded for layout match
+                createStatItem("32 m²")    // Hardcoded for layout match
         );
 
         // Amenities
@@ -206,6 +214,35 @@ public class RoomBrowsingController {
         return box;
     }
 
+    private Image loadRoomImage(Room room) {
+        try {
+            String typeName = "room";
+            if (room != null && room.getRoomType() != null && room.getRoomType().getTypeName() != null) {
+                // E.g. "Double", "Single", "Suite"
+                typeName = room.getRoomType().getTypeName().replaceAll("\\s+", "").toLowerCase();
+            }
+
+            // Path to your images folder
+            String basePath = "C:\\Users\\Mariam\\IdeaProjects\\Hotel_Reservation_System_OOP\\images\\";
+            
+            // Try specific type image, e.g. "double.jpg" or "suite.jpg"
+            java.io.File imgFile = new java.io.File(basePath + typeName + ".jpg");
+            if (imgFile.exists()) {
+                return new Image(imgFile.toURI().toString(), true);
+            }
+
+            // Fallback to back1.jpg
+            java.io.File fallback = new java.io.File(basePath + "back1.jpg");
+            if (fallback.exists()) {
+                return new Image(fallback.toURI().toString(), true);
+            }
+        } catch (Exception ignored) {
+        }
+        
+        // Final fallback
+        return new Image("https://via.placeholder.com/350x150.png?text=Room+Photo", true);
+    }
+
     private void updateBottomStatus() {
         String selection = selectedRoom != null ? "Selected Room " + selectedRoom.getRoomNumber() : "No selection";
         bottomStatusLabel.setText(allAvailableRooms.size() + " rooms available | " + selection);
@@ -226,3 +263,4 @@ public class RoomBrowsingController {
         SceneManager.switchTo("Dashboard.fxml");
     }
 }
+
