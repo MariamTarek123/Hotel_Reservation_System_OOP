@@ -77,9 +77,9 @@
                        styleClass="login-input"/>
         </VBox>
 
-        <TextField fx:id="phoneField"
-                   promptText="Phone Number"
-                   styleClass="input-field"/>
+<!--        <TextField fx:id="phoneField"-->
+<!--                   promptText="Phone Number"-->
+<!--                   styleClass="input-field"/>-->
 
         <!-- DOB + Gender side by side -->
         <HBox spacing="12">
