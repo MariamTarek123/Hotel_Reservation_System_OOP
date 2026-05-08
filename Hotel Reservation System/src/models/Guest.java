@@ -14,6 +14,7 @@ public class Guest extends Person implements Payable {
     private double balance;
     private String roomPreferences;
 
+
     public Guest(String username, String password, LocalDate dateOfBirth, String address, genders gender, double balance, String roomPreferences) {
         super(username, password, dateOfBirth, address, gender);
         if (balance < 0)

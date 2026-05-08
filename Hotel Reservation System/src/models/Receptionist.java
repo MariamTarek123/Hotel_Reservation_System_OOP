@@ -43,15 +43,16 @@ public class Receptionist extends Staff {
 
         // Prevent Check-out after the designated Check-out Date
         LocalDate today = LocalDate.now();
-        if (today.isAfter(reservation.getCheckOutDate())) {
-            throw new IllegalStateException("Cannot check-out. The reservation expired on " + reservation.getCheckOutDate() + ".");
-        }
+//        if (today.isAfter(reservation.getCheckOutDate())) {
+//            throw new IllegalStateException("Cannot check-out. The reservation expired on " + reservation.getCheckOutDate() + ".");
+//        }
 
         if (reservation.getStatus() == reservationstatus.CONFIRMED) {
             reservation.setStatus(reservationstatus.COMPLETED);
 
             // Make the room available for future bookings
             reservation.getRoom().setAvailable(true);
+            HotelDatabase.updateRoomAvailability(reservation.getRoom());
 
             // Remove the guest from the system as requested
             HotelDatabase.guests.remove(reservation.getGuest());

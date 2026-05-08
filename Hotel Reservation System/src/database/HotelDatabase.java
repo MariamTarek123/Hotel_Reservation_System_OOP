@@ -293,7 +293,9 @@ public class HotelDatabase {
             Object[][] gs = {
                     {"Mariam","Mario123","2006-10-08","Cairo","FEMALE",15000.0,"Suite"},
                     {"Ibrahim","Bebo123","1990-07-22","Giza","MALE",700.0,"Single"},
-                    {"carol","kouki666","2000-01-15","Alexandria","FEMALE",1000.0,"Suite"}
+                    {"carol","kouki666","2000-01-15","Alexandria","FEMALE",1000.0,"Suite"},
+                    {"sara","sara123","1998-04-12","Cairo","FEMALE",2000.0,"Double"},
+                    {"ahmed","ahmed123","1995-09-25","Giza","MALE",1500.0,"Single"},
             };
             for (Object[] g : gs) {
                 ps.setString(1,(String)g[0]); ps.setString(2,(String)g[1]);
@@ -302,11 +304,14 @@ public class HotelDatabase {
                 ps.setString(7,(String)g[6]); ps.executeUpdate();
             }
 
-            // Staff
+            // STAFF
             ps = conn.prepareStatement("INSERT INTO staff VALUES (?,?,?,?,?,?,?)");
             Object[][] st = {
                     {"Bohsen","Bohsen123","1985-01-01","Cairo","MALE","ADMIN",40},
-                    {"shehebar","shehebar123","1998-05-15","Giza","MALE","RECEPTIONIST",35}
+                    {"shehebar","shehebar123","1998-05-15","Giza","MALE","RECEPTIONIST",35},
+                    {"omar","omar123","1990-03-10","Cairo","MALE","ADMIN",38},
+                    {"aly","aly1234","1995-06-20","Giza","MALE","RECEPTIONIST",30},
+
             };
             for (Object[] s : st) {
                 ps.setString(1,(String)s[0]); ps.setString(2,(String)s[1]);

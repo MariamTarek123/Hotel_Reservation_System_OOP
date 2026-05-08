@@ -351,6 +351,7 @@ public class StaffDashboardController implements Initializable {
                 Optional<RoomType> newType = typeDialog.showAndWait();
                 newType.ifPresent(roomType -> {
                     selected.setRoomType(roomType);
+                    selected.setPricePerNight(roomType.getBasePrice());
                     admin.update(selected);
                     refreshLists();
                     messageLabel.setText("Room Type updated successfully.");
