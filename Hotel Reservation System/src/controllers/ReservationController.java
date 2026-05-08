@@ -9,6 +9,7 @@ import models.Amenity;
 import models.Guest;
 import models.Reservation;
 import models.Room;
+import database.HotelDatabase;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -88,11 +89,14 @@ public class ReservationController implements Initializable {
         try {
             Reservation newRes = guest.makeReservation(room, checkIn, checkOut);
 
+
+            database.HotelDatabase.saveReservation(newRes);
+            database.HotelDatabase.updateRoomAvailability(room);
+
             // Calculate total price
             long nights = ChronoUnit.DAYS.between(checkIn, checkOut);
             double total = nights * room.getPricePerNight();
 
-            // Pass the details to checkout
             SceneManager.setPendingReservation(newRes);
             SceneManager.setPendingAmount(total);
 

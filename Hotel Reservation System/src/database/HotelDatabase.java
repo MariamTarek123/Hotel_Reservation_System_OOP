@@ -123,6 +123,45 @@ public class HotelDatabase {
         loadGuests();
         loadStaff();
         loadReservations();
+        loadInvoices();
+    }
+    private static void loadInvoices() {
+        try (Connection conn = DatabaseConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT * FROM invoices")) {
+            while (rs.next()) {
+                int resIndex = rs.getInt("reservationId");
+                if (resIndex > 0 && resIndex <= reservations.size()) {
+                    Reservation res = reservations.get(resIndex - 1);
+                    Invoice inv = Invoice.generate(res, rs.getDouble("amount"));
+                    if (rs.getInt("paid") == 1)
+                        inv.markPaid(enums.paymentmethod.valueOf(rs.getString("paymentMethod")));
+                    invoices.add(inv);
+                }
+            }
+        } catch (SQLException e) { System.out.println("loadInvoices: " + e.getMessage()); }
+    }
+
+    public static void saveInvoice(Invoice inv, int reservationDbId) {
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(
+                     "INSERT INTO invoices(reservationId, amount, paymentMethod, paid) VALUES (?,?,?,?)")) {
+            ps.setInt(1, reservationDbId);
+            ps.setDouble(2, inv.getAmount());
+            ps.setString(3, inv.getPaymentMethod() != null ? inv.getPaymentMethod().toString() : "CASH");
+            ps.setInt(4, inv.isPaid() ? 1 : 0);
+            ps.executeUpdate();
+            System.out.println("Invoice saved to DB.");
+        } catch (SQLException e) { System.out.println("saveInvoice FAILED: " + e.getMessage()); }
+    }
+
+    public static int getLastReservationId() {
+        try (Connection conn = DatabaseConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT MAX(id) FROM reservations")) {
+            if (rs.next()) return rs.getInt(1);
+        } catch (SQLException e) { System.out.println("getLastReservationId: " + e.getMessage()); }
+        return -1;
     }
 
     private static void loadRoomTypes() {

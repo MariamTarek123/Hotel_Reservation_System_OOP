@@ -1,6 +1,7 @@
 package controllers;
 
 import database.HotelDatabase;
+import enums.reservationstatus;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -40,26 +41,32 @@ public class DashboardController implements Initializable {
 
         if (guest != null) {
             welcomeLabel.setText("Welcome, " + guest.getUsername() + "!");
-            balanceLabel.setText("Balance: $" + guest.getBalance());
-            prefLabel.setText("Room Preference: " + guest.getRoomPreferences());
-            // Count active reservations for stat card
-            long activeCount = database.HotelDatabase.reservations.stream()
-                .filter(r -> r.getGuest().getUsername().equals(guest.getUsername())
-                    && (r.getStatus() == enums.reservationstatus.CONFIRMED
-                    || r.getStatus() == enums.reservationstatus.PENDING))
-                .count();
-            if (activeResLabel != null) activeResLabel.setText(String.valueOf(activeCount));
-
-            // load reservations on background thread
+            updateUI();
             loadReservationsAsync();
 
-            // auto-refresh every 30 seconds
             scheduler = Executors.newSingleThreadScheduledExecutor();
             scheduler.scheduleAtFixedRate(() -> {
                 HotelDatabase.loadAll();
-                Platform.runLater(() -> loadReservationsAsync());
+                // sync guest balance from reloaded DB data
+                Guest reloaded = HotelDatabase.findGuestByUsername(guest.getUsername());
+                if (reloaded != null) guest.setBalance(reloaded.getBalance());
+                Platform.runLater(() -> {
+                    updateUI();
+                    loadReservationsAsync();
+                });
             }, 30, 30, TimeUnit.SECONDS);
         }
+    }
+
+    private void updateUI() {
+        balanceLabel.setText("Balance: $" + guest.getBalance());
+        prefLabel.setText("Room Preference: " + guest.getRoomPreferences());
+        long activeCount = HotelDatabase.reservations.stream()
+                .filter(r -> r.getGuest().getUsername().equals(guest.getUsername())
+                        && (r.getStatus() == reservationstatus.CONFIRMED
+                        || r.getStatus() == reservationstatus.PENDING))
+                .count();
+        if (activeResLabel != null) activeResLabel.setText(String.valueOf(activeCount));
     }
 
     private void loadReservationsAsync() {
@@ -74,7 +81,9 @@ public class DashboardController implements Initializable {
                     if (r.getGuest().getUsername().equals(guest.getUsername())) {
                         boolean isPaid = false;
                         for (Invoice inv : HotelDatabase.invoices) {
-                            if (inv.getReservation() == r && inv.isPaid()) {
+                            if (inv.isPaid() &&
+                                    inv.getReservation().getGuest().getUsername().equals(r.getGuest().getUsername()) &&
+                                    inv.getReservation().getRoom().getRoomId() == r.getRoom().getRoomId()) {
                                 isPaid = true;
                                 break;
                             }
@@ -95,6 +104,7 @@ public class DashboardController implements Initializable {
         task.setOnSucceeded(event -> {
             reservationsList.setItems(FXCollections.observableArrayList(task.getValue()));
             if (loadingIndicator != null) loadingIndicator.setVisible(false);
+            updateUI();
         });
 
         task.setOnFailed(event -> {
@@ -112,15 +122,6 @@ public class DashboardController implements Initializable {
             scheduler.shutdown();
     }
 
-    private void updateActiveCount() {
-        long activeCount = database.HotelDatabase.reservations.stream()
-            .filter(r -> r.getGuest().getUsername().equals(guest.getUsername())
-                && (r.getStatus() == enums.reservationstatus.CONFIRMED
-                || r.getStatus() == enums.reservationstatus.PENDING))
-            .count();
-        if (activeResLabel != null) activeResLabel.setText(String.valueOf(activeCount));
-    }
-
     @FXML
     private void handleBrowseRooms() {
         stopScheduler();
@@ -134,7 +135,9 @@ public class DashboardController implements Initializable {
             if (r.getGuest().getUsername().equals(guest.getUsername()) && r.isActive()) {
                 boolean isPaid = false;
                 for (Invoice inv : HotelDatabase.invoices) {
-                    if (inv.getReservation() == r && inv.isPaid()) {
+                    if (inv.isPaid() &&
+                            inv.getReservation().getGuest().getUsername().equals(r.getGuest().getUsername()) &&
+                            inv.getReservation().getRoom().getRoomId() == r.getRoom().getRoomId()) {
                         isPaid = true;
                         break;
                     }
@@ -162,7 +165,6 @@ public class DashboardController implements Initializable {
         SceneManager.switchTo("Checkout.fxml");
     }
 
-
     @FXML
     private void handleCancel() {
         Reservation toCancel = null;
@@ -183,19 +185,18 @@ public class DashboardController implements Initializable {
                 + "Any paid amount will be refunded to your balance.");
 
         if (confirm.showAndWait().get() == ButtonType.OK) {
-            // check if there's a paid invoice for this reservation
             Invoice paidInvoice = null;
             for (Invoice inv : HotelDatabase.invoices)
-                if (inv.getReservation() == toCancel && inv.isPaid())
+                if (inv.isPaid() &&
+                        inv.getReservation().getGuest().getUsername().equals(toCancel.getGuest().getUsername()) &&
+                        inv.getReservation().getRoom().getRoomId() == toCancel.getRoom().getRoomId())
                     paidInvoice = inv;
 
-            // process refund if invoice was paid
             if (paidInvoice != null) {
                 double refundAmount = paidInvoice.getAmount();
                 guest.setBalance(guest.getBalance() + refundAmount);
                 HotelDatabase.updateGuestBalance(guest);
-                balanceLabel.setText("Balance: $" + guest.getBalance());
-                messageLabel.setText("Reservation cancelled. $" + refundAmount + " refunded to your balance.");
+                messageLabel.setText("Reservation cancelled. $" + refundAmount + " refunded.");
             } else {
                 messageLabel.setText("Reservation cancelled successfully.");
             }
@@ -204,8 +205,7 @@ public class DashboardController implements Initializable {
             toCancel.getRoom().setAvailable(true);
             HotelDatabase.updateReservationStatus(toCancel);
             HotelDatabase.updateRoomAvailability(toCancel.getRoom());
-
-            updateActiveCount();
+            updateUI();
             loadReservationsAsync();
         }
     }
@@ -217,6 +217,7 @@ public class DashboardController implements Initializable {
         SceneManager.setCurrentStaff(null);
         SceneManager.switchTo("login.fxml");
     }
+
     @FXML
     private void handleOpenChat() {
         SceneManager.openChat();

@@ -13,7 +13,6 @@ import models.Reservation;
 
 public class CheckoutController {
 
-
     @FXML private Label balanceLabel;
     @FXML private TextField amountField;
     @FXML private ComboBox<paymentmethod> paymentMethodCombo;
@@ -67,13 +66,12 @@ public class CheckoutController {
             return;
         }
 
-        if (amountToPay != requiredAmount) {
+        if (Math.abs(amountToPay - requiredAmount) > 0.001) {
             messageLabel.setText(String.format(
                     "Please enter the exact amount required ($%.2f)", requiredAmount));
             return;
         }
 
-        // disable button and show spinner while processing
         if (payButton != null) payButton.setDisable(true);
         if (paymentIndicator != null) paymentIndicator.setVisible(true);
         messageLabel.setText("Processing payment...");
@@ -84,17 +82,26 @@ public class CheckoutController {
         Task<Void> paymentTask = new Task<>() {
             @Override
             protected Void call() throws Exception {
-                // simulate processing delay
                 Thread.sleep(1500);
 
+                // 1. Deduct balance
                 currentGuest.pay(requiredAmount, method);
                 HotelDatabase.updateGuestBalance(currentGuest);
-                HotelDatabase.updateReservationStatus(checkoutReservation);
-                HotelDatabase.updateRoomAvailability(checkoutReservation.getRoom());
+                System.out.println("Balance saved: " + currentGuest.getBalance());
 
+                // 2. Mark reservation as CONFIRMED (keep as is) and ensure room stays unavailable
+                checkoutReservation.getRoom().setAvailable(false);
+                HotelDatabase.updateRoomAvailability(checkoutReservation.getRoom());
+                HotelDatabase.updateReservationStatus(checkoutReservation);
+                System.out.println("Room availability saved: " + checkoutReservation.getRoom().isAvailable());
+
+                // 3. Create and save invoice to DB
                 Invoice invoice = Invoice.generate(checkoutReservation, requiredAmount);
                 invoice.markPaid(method);
                 HotelDatabase.invoices.add(invoice);
+                int reservationDbId = HotelDatabase.getLastReservationId();
+                HotelDatabase.saveInvoice(invoice, reservationDbId);
+                System.out.println("Invoice saved for reservationId: " + reservationDbId);
 
                 return null;
             }
