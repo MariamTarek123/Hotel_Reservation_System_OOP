@@ -18,43 +18,34 @@ public class Receptionist extends Staff {
     }
 
     public void manageCheckIn(Reservation reservation) {
-        if (reservation == null) {
+        if (reservation == null)
             throw new IllegalStateException("Reservation cannot be null.");
-        }
 
-        // Prevent Check-in before the designated Check-in Date
         LocalDate today = LocalDate.now();
-        if (today.isBefore(reservation.getCheckInDate())) {
-            throw new IllegalStateException("Cannot check-in. The reservation date (" + reservation.getCheckInDate() + ") has not started yet.");
-        }
+        if (today.isBefore(reservation.getCheckInDate()))
+            throw new IllegalStateException("Cannot check-in. Check-in date is " + reservation.getCheckInDate() + ".");
 
-        // Accept both PENDING and CONFIRMED — guest may have already paid (CONFIRMED)
-        if (reservation.getStatus() == reservationstatus.PENDING
-                || reservation.getStatus() == reservationstatus.CONFIRMED) {
+        if (reservation.getStatus() == reservationstatus.PENDING) {
             reservation.setStatus(reservationstatus.CONFIRMED);
-            System.out.println("Check-in successful for reservation: " + reservation);
+            HotelDatabase.updateReservationStatus(reservation);
+            System.out.println("Check-in successful: " + reservation);
         } else {
-            throw new IllegalStateException("Cannot check-in. Reservation is already " + reservation.getStatus() + ".");
+            throw new IllegalStateException("Cannot check-in. Status is already " + reservation.getStatus() + ".");
         }
     }
 
     public void manageCheckOut(Reservation reservation) {
-        if (reservation == null) {
+        if (reservation == null)
             throw new IllegalStateException("Reservation cannot be null.");
-        }
 
         if (reservation.getStatus() == reservationstatus.CONFIRMED) {
             reservation.setStatus(reservationstatus.COMPLETED);
-
-            // Make the room available for future bookings
             reservation.getRoom().setAvailable(true);
-
-            // Remove the guest from the system as requested
-            HotelDatabase.guests.remove(reservation.getGuest());
-
-            System.out.println("Check-out successful for reservation. Room freed and Guest removed.");
+            HotelDatabase.updateReservationStatus(reservation);
+            HotelDatabase.updateRoomAvailability(reservation.getRoom());
+            System.out.println("Check-out successful. Room freed.");
         } else {
-            throw new IllegalStateException("Cannot check-out. Invalid reservation status (must be CONFIRMED).");
+            throw new IllegalStateException("Cannot check-out. Status is " + reservation.getStatus() + " (must be CONFIRMED).");
         }
     }
 

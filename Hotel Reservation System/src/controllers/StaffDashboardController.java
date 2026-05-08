@@ -37,13 +37,7 @@ public class StaffDashboardController implements Initializable {
     @FXML private HBox adminRoomsBox;
     @FXML private HBox receptionistBox;
     @FXML private TabPane tabPane;
-    @FXML private Button guestsNavBtn;
-    @FXML private Button roomsNavBtn;
-    @FXML private Button reservationsNavBtn;
     private Staff currentStaff;
-
-    private static final String ACTIVE_STYLE   = "-fx-background-color: #fff0f0; -fx-text-fill: #cc0000; -fx-font-weight: bold; -fx-padding: 12 20; -fx-background-radius: 6;";
-    private static final String INACTIVE_STYLE = "-fx-background-color: transparent; -fx-text-fill: black; -fx-font-weight: normal; -fx-padding: 12 20; -fx-background-radius: 6;";
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -65,13 +59,6 @@ public class StaffDashboardController implements Initializable {
 
 
         refreshLists();
-        updateNavButtons(0); // default to Guests active
-    }
-
-    private void updateNavButtons(int activeIndex) {
-        guestsNavBtn.setStyle(activeIndex == 0 ? ACTIVE_STYLE : INACTIVE_STYLE);
-        roomsNavBtn.setStyle(activeIndex == 1 ? ACTIVE_STYLE : INACTIVE_STYLE);
-        reservationsNavBtn.setStyle(activeIndex == 2 ? ACTIVE_STYLE : INACTIVE_STYLE);
     }
 
     @FXML
@@ -143,10 +130,8 @@ public class StaffDashboardController implements Initializable {
     private void refreshLists() {
         if (guestCountLabel != null) guestCountLabel.setText(String.valueOf(database.HotelDatabase.guests.size()));
         if (roomCountLabel != null) roomCountLabel.setText(String.valueOf(database.HotelDatabase.rooms.size()));
-        long activeRes = database.HotelDatabase.reservations.stream()
-                .filter(r -> r.getStatus() == enums.reservationstatus.CONFIRMED || r.getStatus() == enums.reservationstatus.PENDING)
-                .count();
-        if (reservationCountLabel != null) reservationCountLabel.setText(String.valueOf(activeRes));
+        long occupiedCount = database.HotelDatabase.rooms.stream().filter(r -> !r.isAvailable()).count();
+        if (reservationCountLabel != null) reservationCountLabel.setText(String.valueOf(occupiedCount));
 
         guestsListView.setItems(FXCollections.observableArrayList(HotelDatabase.guests));
         guestsListView.setCellFactory(lv -> new ListCell<Guest>() {
@@ -184,7 +169,6 @@ public class StaffDashboardController implements Initializable {
                     preference.setPrefWidth(150);
 
                     Label icon = new Label("👥");
-                    icon.setPrefWidth(34);
                     icon.setStyle("-fx-background-color: #ffe6e6; -fx-text-fill: #cc0000; -fx-padding: 4; -fx-background-radius: 2; -fx-font-size: 14px;");
                     root.getChildren().addAll(icon, name, email, phone, balance, preference);                    setGraphic(root);
                     setStyle("-fx-padding: 0;");
@@ -280,19 +264,16 @@ public class StaffDashboardController implements Initializable {
     @FXML
     private void showGuestsTab() {
         if (tabPane != null) tabPane.getSelectionModel().select(0);
-        updateNavButtons(0);
     }
 
     @FXML
     private void showRoomsTab() {
         if (tabPane != null) tabPane.getSelectionModel().select(1);
-        updateNavButtons(1);
     }
 
     @FXML
     private void showReservationsTab() {
         if (tabPane != null) tabPane.getSelectionModel().select(2);
-        updateNavButtons(2);
     }
 
     @FXML
@@ -351,7 +332,6 @@ public class StaffDashboardController implements Initializable {
                 Optional<RoomType> newType = typeDialog.showAndWait();
                 newType.ifPresent(roomType -> {
                     selected.setRoomType(roomType);
-                    selected.setPricePerNight(roomType.getBasePrice());
                     admin.update(selected);
                     refreshLists();
                     messageLabel.setText("Room Type updated successfully.");
