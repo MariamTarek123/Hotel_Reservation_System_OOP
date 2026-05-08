@@ -2,10 +2,8 @@
   <library name="sqlite-jdbc-3.53.0.0">
     <CLASSES>
       <root url="jar://$USER_HOME$/Downloads/sqlite-jdbc-3.53.0.0.jar!/" />
-      <root url="file://C:/javafx/javafx-sdk-26.0.1/lib" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
-    <jarDirectory url="file://C:/javafx/javafx-sdk-26.0.1/lib" recursive="false" />
   </library>
 </component>

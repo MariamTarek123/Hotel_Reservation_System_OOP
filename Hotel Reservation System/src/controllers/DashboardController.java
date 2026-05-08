@@ -1,7 +1,6 @@
 package controllers;
 
 import database.HotelDatabase;
-import enums.reservationstatus;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,9 +17,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class DashboardController implements Initializable {
 
@@ -33,7 +29,6 @@ public class DashboardController implements Initializable {
     @FXML private ProgressIndicator loadingIndicator;
 
     private Guest guest;
-    private ScheduledExecutorService scheduler;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -41,32 +36,19 @@ public class DashboardController implements Initializable {
 
         if (guest != null) {
             welcomeLabel.setText("Welcome, " + guest.getUsername() + "!");
-            updateUI();
+            balanceLabel.setText("Balance: $" + guest.getBalance());
+            prefLabel.setText("Room Preference: " + guest.getRoomPreferences());
+            // Count active reservations for stat card
+            long activeCount = database.HotelDatabase.reservations.stream()
+                    .filter(r -> r.getGuest().getUsername().equals(guest.getUsername())
+                            && (r.getStatus() == enums.reservationstatus.CONFIRMED
+                            || r.getStatus() == enums.reservationstatus.PENDING))
+                    .count();
+            if (activeResLabel != null) activeResLabel.setText(String.valueOf(activeCount));
+
+            // load reservations directly — no background scheduler needed
             loadReservationsAsync();
-
-            scheduler = Executors.newSingleThreadScheduledExecutor();
-            scheduler.scheduleAtFixedRate(() -> {
-                HotelDatabase.loadAll();
-                // sync guest balance from reloaded DB data
-                Guest reloaded = HotelDatabase.findGuestByUsername(guest.getUsername());
-                if (reloaded != null) guest.setBalance(reloaded.getBalance());
-                Platform.runLater(() -> {
-                    updateUI();
-                    loadReservationsAsync();
-                });
-            }, 30, 30, TimeUnit.SECONDS);
         }
-    }
-
-    private void updateUI() {
-        balanceLabel.setText("Balance: $" + guest.getBalance());
-        prefLabel.setText("Room Preference: " + guest.getRoomPreferences());
-        long activeCount = HotelDatabase.reservations.stream()
-                .filter(r -> r.getGuest().getUsername().equals(guest.getUsername())
-                        && (r.getStatus() == reservationstatus.CONFIRMED
-                        || r.getStatus() == reservationstatus.PENDING))
-                .count();
-        if (activeResLabel != null) activeResLabel.setText(String.valueOf(activeCount));
     }
 
     private void loadReservationsAsync() {
@@ -75,15 +57,12 @@ public class DashboardController implements Initializable {
         Task<List<String>> task = new Task<>() {
             @Override
             protected List<String> call() throws Exception {
-                Thread.sleep(400);
                 List<String> items = new ArrayList<>();
                 for (Reservation r : HotelDatabase.reservations) {
                     if (r.getGuest().getUsername().equals(guest.getUsername())) {
                         boolean isPaid = false;
                         for (Invoice inv : HotelDatabase.invoices) {
-                            if (inv.isPaid() &&
-                                    inv.getReservation().getGuest().getUsername().equals(r.getGuest().getUsername()) &&
-                                    inv.getReservation().getRoom().getRoomId() == r.getRoom().getRoomId()) {
+                            if (inv.getReservation() == r && inv.isPaid()) {
                                 isPaid = true;
                                 break;
                             }
@@ -104,7 +83,6 @@ public class DashboardController implements Initializable {
         task.setOnSucceeded(event -> {
             reservationsList.setItems(FXCollections.observableArrayList(task.getValue()));
             if (loadingIndicator != null) loadingIndicator.setVisible(false);
-            updateUI();
         });
 
         task.setOnFailed(event -> {
@@ -118,8 +96,16 @@ public class DashboardController implements Initializable {
     }
 
     public void stopScheduler() {
-        if (scheduler != null && !scheduler.isShutdown())
-            scheduler.shutdown();
+        // no-op: scheduler removed to fix reservation disappearing bug
+    }
+
+    private void updateActiveCount() {
+        long activeCount = database.HotelDatabase.reservations.stream()
+                .filter(r -> r.getGuest().getUsername().equals(guest.getUsername())
+                        && (r.getStatus() == enums.reservationstatus.CONFIRMED
+                        || r.getStatus() == enums.reservationstatus.PENDING))
+                .count();
+        if (activeResLabel != null) activeResLabel.setText(String.valueOf(activeCount));
     }
 
     @FXML
@@ -135,9 +121,7 @@ public class DashboardController implements Initializable {
             if (r.getGuest().getUsername().equals(guest.getUsername()) && r.isActive()) {
                 boolean isPaid = false;
                 for (Invoice inv : HotelDatabase.invoices) {
-                    if (inv.isPaid() &&
-                            inv.getReservation().getGuest().getUsername().equals(r.getGuest().getUsername()) &&
-                            inv.getReservation().getRoom().getRoomId() == r.getRoom().getRoomId()) {
+                    if (inv.getReservation() == r && inv.isPaid()) {
                         isPaid = true;
                         break;
                     }
@@ -165,6 +149,7 @@ public class DashboardController implements Initializable {
         SceneManager.switchTo("Checkout.fxml");
     }
 
+
     @FXML
     private void handleCancel() {
         Reservation toCancel = null;
@@ -185,18 +170,19 @@ public class DashboardController implements Initializable {
                 + "Any paid amount will be refunded to your balance.");
 
         if (confirm.showAndWait().get() == ButtonType.OK) {
+            // check if there's a paid invoice for this reservation
             Invoice paidInvoice = null;
             for (Invoice inv : HotelDatabase.invoices)
-                if (inv.isPaid() &&
-                        inv.getReservation().getGuest().getUsername().equals(toCancel.getGuest().getUsername()) &&
-                        inv.getReservation().getRoom().getRoomId() == toCancel.getRoom().getRoomId())
+                if (inv.getReservation() == toCancel && inv.isPaid())
                     paidInvoice = inv;
 
+            // process refund if invoice was paid
             if (paidInvoice != null) {
                 double refundAmount = paidInvoice.getAmount();
                 guest.setBalance(guest.getBalance() + refundAmount);
                 HotelDatabase.updateGuestBalance(guest);
-                messageLabel.setText("Reservation cancelled. $" + refundAmount + " refunded.");
+                balanceLabel.setText("Balance: $" + guest.getBalance());
+                messageLabel.setText("Reservation cancelled. $" + refundAmount + " refunded to your balance.");
             } else {
                 messageLabel.setText("Reservation cancelled successfully.");
             }
@@ -205,7 +191,8 @@ public class DashboardController implements Initializable {
             toCancel.getRoom().setAvailable(true);
             HotelDatabase.updateReservationStatus(toCancel);
             HotelDatabase.updateRoomAvailability(toCancel.getRoom());
-            updateUI();
+
+            updateActiveCount();
             loadReservationsAsync();
         }
     }
@@ -217,7 +204,6 @@ public class DashboardController implements Initializable {
         SceneManager.setCurrentStaff(null);
         SceneManager.switchTo("login.fxml");
     }
-
     @FXML
     private void handleOpenChat() {
         SceneManager.openChat();

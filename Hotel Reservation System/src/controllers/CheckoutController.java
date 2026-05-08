@@ -89,7 +89,10 @@ public class CheckoutController {
                 HotelDatabase.updateGuestBalance(currentGuest);
                 System.out.println("Balance saved: " + currentGuest.getBalance());
 
-                // 2. Mark reservation as CONFIRMED (keep as is) and ensure room stays unavailable
+                // 2. Mark reservation as CONFIRMED and persist it.
+                // setStatus(CONFIRMED) must be called BEFORE updateReservationStatus()
+                // so the DB row is written with status=CONFIRMED, not PENDING.
+                checkoutReservation.setStatus(enums.reservationstatus.CONFIRMED);
                 checkoutReservation.getRoom().setAvailable(false);
                 HotelDatabase.updateRoomAvailability(checkoutReservation.getRoom());
                 HotelDatabase.updateReservationStatus(checkoutReservation);
