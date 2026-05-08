@@ -179,11 +179,6 @@ ArrayList<Reservation> reservations;
 ArrayList<Invoice> invoices;
 ---
 
-## 🚀 Future Improvements
 
-* Add GUI (JavaFX / Swing)
-
-
----
 
 
