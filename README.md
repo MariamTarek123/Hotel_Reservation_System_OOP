@@ -179,11 +179,7 @@ ArrayList<Reservation> reservations;
 ArrayList<Invoice> invoices;
 ---
 
-## 🚀 Future Improvements
-
-* Add GUI (JavaFX / Swing)
-
-
----
+## This final version Enhances the system by building a complete JavaFX-based GUI, adding multi-threading for real-time features, 
+and implementing basic client-server networking using Java Sockets.  
 
 
