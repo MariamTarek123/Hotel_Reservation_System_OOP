@@ -37,7 +37,11 @@ public class StaffDashboardController implements Initializable {
     @FXML private HBox adminRoomsBox;
     @FXML private HBox receptionistBox;
     @FXML private TabPane tabPane;
+    @FXML private Button guestsNavBtn;
+    @FXML private Button roomsNavBtn;
+    @FXML private Button reservationsNavBtn;
     private Staff currentStaff;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -59,6 +63,7 @@ public class StaffDashboardController implements Initializable {
 
 
         refreshLists();
+        updateNavButtons(0);
     }
 
     @FXML
@@ -264,16 +269,26 @@ public class StaffDashboardController implements Initializable {
     @FXML
     private void showGuestsTab() {
         if (tabPane != null) tabPane.getSelectionModel().select(0);
+        updateNavButtons(0);
     }
 
     @FXML
     private void showRoomsTab() {
         if (tabPane != null) tabPane.getSelectionModel().select(1);
+        updateNavButtons(1);
     }
 
     @FXML
     private void showReservationsTab() {
         if (tabPane != null) tabPane.getSelectionModel().select(2);
+        updateNavButtons(2);
+    }
+    private void updateNavButtons(int activeIndex) {
+        String active   = "-fx-background-color: #fff0f0; -fx-text-fill: #cc0000; -fx-font-weight: bold; -fx-padding: 12 20; -fx-background-radius: 6;";
+        String inactive = "-fx-background-color: transparent; -fx-text-fill: black; -fx-font-weight: normal; -fx-padding: 12 20; -fx-background-radius: 6;";
+        if (guestsNavBtn != null) guestsNavBtn.setStyle(activeIndex == 0 ? active : inactive);
+        if (roomsNavBtn != null) roomsNavBtn.setStyle(activeIndex == 1 ? active : inactive);
+        if (reservationsNavBtn != null) reservationsNavBtn.setStyle(activeIndex == 2 ? active : inactive);
     }
 
     @FXML
